@@ -22,7 +22,7 @@ const RecommendationsContainer = () => {
         <div>
             <h1>Recommendations Container...</h1>
             <RecommendationsForm />
-            <GameGrid />
+            <GameGrid games={boardGames}/>
 
         </div>
     )

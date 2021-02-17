@@ -1,10 +1,20 @@
 import GameItem from "./GameItem";
 
-const GameGrid = () => {
+const GameGrid = ({games}) => {
+    const gameNodes = games.map((game) =>{
+        return(
+            <li id = "game-item">
+                <GameItem game={game} key = {game.id}/>
+            </li>
+        )
+    });
+
     return(
         <div>
             <h2>Game Grid</h2>
-            <GameItem />
+            <ul id = "game-grid">
+                {gameNodes}
+            </ul>
         </div>
     )
 }
