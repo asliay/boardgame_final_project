@@ -40,7 +40,7 @@ public class DataLoader implements ApplicationRunner {
 
 
         //Bill
-        BoardGame carcassonne       = new BoardGame("Carcassonne", 2000, 2, 1, 45, "Family");
+        BoardGame carcassonne       = new BoardGame("Carcassonne", 2000, 2, 5, 45, "Family");
         BoardGame dominion          = new BoardGame("Dominion", 2008, 2, 4, 30, "Strategy");
         BoardGame dixit             = new BoardGame("Dixit", 2008, 3 , 6, 30, "Party");
         BoardGame arkhamHorrorThird = new BoardGame("Arkham Horror Third Edition", 2018, 1, 6, 108, "Thematic");

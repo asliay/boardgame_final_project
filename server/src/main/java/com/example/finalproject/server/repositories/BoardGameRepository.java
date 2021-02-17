@@ -13,4 +13,5 @@ public interface BoardGameRepository extends JpaRepository<BoardGame, Long> {
     List<BoardGame> findByPlayTimeLessThanEqual(int minutes);
     List<BoardGame> findByCategoryIgnoreCase(String category);
     List<BoardGame> findByPlayTimeLessThanEqualAndCategoryIgnoreCase(int minutes, String category);
+    List<BoardGame> findByMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(int minPlayer, int maxPlayer );
 }
