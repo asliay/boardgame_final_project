@@ -1,11 +1,14 @@
-
 import './App.css';
+import HeaderContainer from "./containers/HeaderContainer";
+import RecommendationsContainer from "./containers/RecommendationsContainer";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Somelli-Play</h1>
-    </div>
+    <>
+    <h1>Header and any nav here! (need cool logo)</h1>
+      {/* <HeaderContainer /> */}
+      <RecommendationsContainer />
+    </>
   );
 }
 
