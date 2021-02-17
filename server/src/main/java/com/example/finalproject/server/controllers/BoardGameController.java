@@ -24,24 +24,29 @@ public class BoardGameController {
             @RequestParam(name = "category", required = false) String category,
             @RequestParam(name = "numPlayers", required = false) Integer numPlayers
     ) {
+        if (playTime != null && numPlayers != null) {
+            List<BoardGame> returnedGames =
+                    boardGameRepository.findByPlayTimeLessThanEqualAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(playTime, numPlayers, numPlayers);
+            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
+        }
         if (category !=null && playTime !=null) {
-            List<BoardGame> categoryAndPlayTime =
+            List<BoardGame> returnedGames =
                     boardGameRepository.findByPlayTimeLessThanEqualAndCategoryIgnoreCase(playTime, category);
-            return new ResponseEntity<>(categoryAndPlayTime, HttpStatus.OK);
+            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
         if (category !=null) {
-            List<BoardGame> gameCategory = boardGameRepository.findByCategoryIgnoreCase(category);
-            return new ResponseEntity<>(gameCategory, HttpStatus.OK);
+            List<BoardGame> returnedGames = boardGameRepository.findByCategoryIgnoreCase(category);
+            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
         if (playTime != null) {
-            List<BoardGame> time = boardGameRepository.findByPlayTimeLessThanEqual(playTime);
-            return new ResponseEntity<>(time, HttpStatus.OK);
+            List<BoardGame> returnedGames = boardGameRepository.findByPlayTimeLessThanEqual(playTime);
+            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
         if (numPlayers != null) {
-            List<BoardGame> players =
+            List<BoardGame> returnedGames =
                     boardGameRepository.findByMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(numPlayers,
                             numPlayers);
-            return new ResponseEntity<>(players,HttpStatus.OK);
+            return new ResponseEntity<>(returnedGames,HttpStatus.OK);
         }
         List<BoardGame> allGames = boardGameRepository.findAll();
         return new ResponseEntity<>(allGames, HttpStatus.OK);
