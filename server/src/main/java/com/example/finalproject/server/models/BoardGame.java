@@ -18,11 +18,8 @@ public class BoardGame {
     @Column(name = "max_players")
     private int maxPlayers;
 
-    @Column(name = "min_play_time")
-    private int minPlayTime;
-
-    @Column(name = "max")
-    private int maxPlayTime;
+    @Column(name = "play_time")
+    private int playTime;
 
     @Column
     private String category;
@@ -31,13 +28,12 @@ public class BoardGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int minPlayTime, int maxPlayTime, String category) {
+    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int playTime, String category) {
         this.name = name;
         this.releaseYear = releaseYear;
         this.minPlayers = minPlayers;
         this.maxPlayers = maxPlayers;
-        this.minPlayTime = minPlayTime;
-        this.maxPlayTime = maxPlayTime;
+        this.playTime = playTime;
         this.category = category;
     }
 
@@ -76,20 +72,12 @@ public class BoardGame {
         this.maxPlayers = maxPlayers;
     }
 
-    public int getMinPlayTime() {
-        return minPlayTime;
+    public int getPlayTime() {
+        return playTime;
     }
 
-    public void setMinPlayTime(int minPlayTime) {
-        this.minPlayTime = minPlayTime;
-    }
-
-    public int getMaxPlayTime() {
-        return maxPlayTime;
-    }
-
-    public void setMaxPlayTime(int maxPlayTime) {
-        this.maxPlayTime = maxPlayTime;
+    public void setPlayTime(int playTime) {
+        this.playTime = playTime;
     }
 
     public String getCategory() {
