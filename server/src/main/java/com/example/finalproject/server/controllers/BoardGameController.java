@@ -24,6 +24,11 @@ public class BoardGameController {
             @RequestParam(name = "category", required = false) String category,
             @RequestParam(name = "numPlayers", required = false) Integer numPlayers
     ) {
+        if (category !=null && playTime != null && numPlayers != null) {
+            List<BoardGame> returnedGames =
+                    boardGameRepository.findByPlayTimeLessThanEqualAndCategoryIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(playTime, category, numPlayers, numPlayers);
+            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
+        }
         if (category !=null && numPlayers != null) {
             List<BoardGame> returnedGames =
                     boardGameRepository.findByCategoryIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(category, numPlayers, numPlayers);
