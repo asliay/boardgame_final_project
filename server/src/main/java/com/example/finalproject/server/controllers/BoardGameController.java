@@ -20,8 +20,13 @@ public class BoardGameController {
 
     @GetMapping(value = "/board-games")
     public ResponseEntity<List<BoardGame>> getAllBoardGames(
-            @RequestParam(name = "maxPlayTime", required = false) Integer playTime
+            @RequestParam(name = "maxPlayTime", required = false) Integer playTime,
+            @RequestParam(name = "category", required = false) String category
     ) {
+        if (category !=null) {
+            List<BoardGame> gameCategory = boardGameRepository.findByCategory(category);
+            return new ResponseEntity<>(gameCategory, HttpStatus.OK);
+        }
         if (playTime != null) {
             List<BoardGame> time = boardGameRepository.findByPlayTimeLessThanEqual(playTime);
             return new ResponseEntity<>(time, HttpStatus.OK);
