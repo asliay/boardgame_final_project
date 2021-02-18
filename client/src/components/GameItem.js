@@ -1,14 +1,14 @@
 import {A, useRoutes} from "hookrouter";
 import Routes from "../services/routes"
+import SingleGameView from "./SingleGameView";
 
 const GameItem = ({game}) => {
-
-    const routeResult = useRoutes(Routes);
 
     return (
 
         <div>
-            <h3><a href={`board-games/${game.id}`}>{game.name}</a> ({game.releaseYear})</h3>
+            <h3><A href={`board-games/${game.id}`}>{game.name}</A> 
+            ({game.releaseYear})</h3>
             {/* <img src={game.thumbnailURL} alt="board game box"/> */}
             <img src={game.boxImageURL} width="40%" height="40%" alt="board game box" />
             <p>{game.minPlayers} - {game.maxPlayers} Players</p>
