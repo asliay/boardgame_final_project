@@ -24,17 +24,28 @@ public class BoardGame {
     @Column
     private String category;
 
+    @Column
+    private String thumbnailURL;
+
+    @Column
+    private String boxImageURL;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int playTime, String category) {
+    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int playTime, String category,
+                     String thumbnailURL,
+                     String boxImageURL) {
         this.name = name;
         this.releaseYear = releaseYear;
         this.minPlayers = minPlayers;
         this.maxPlayers = maxPlayers;
         this.playTime = playTime;
         this.category = category;
+        this.thumbnailURL = thumbnailURL;
+        this.boxImageURL = boxImageURL;
     }
 
     public BoardGame() {
@@ -86,6 +97,22 @@ public class BoardGame {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getThumbnailURL() {
+        return thumbnailURL;
+    }
+
+    public void setThumbnailURL(String thumbnailURL) {
+        this.thumbnailURL = thumbnailURL;
+    }
+
+    public String getBoxImageURL() {
+        return boxImageURL;
+    }
+
+    public void setBoxImageURL(String boxImageURL) {
+        this.boxImageURL = boxImageURL;
     }
 
     public Long getId() {
