@@ -48,7 +48,7 @@ const RecommendationsContainer = () => {
 
     return(
         <div>
-            <h1>Recommendations Container...</h1>
+            
             <RecommendationsForm handleFormSubmit={handleFormSubmit}/>
             <GameGrid games={boardGames}/>
 
