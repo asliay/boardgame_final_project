@@ -1,27 +1,15 @@
 import {useState, useEffect} from "react"
 
-const SingleGameView = ({id}) => {
+const SingleGameView = (props) => {
 
-    const [game, setGame] = useState({})
-
-    const getGame = (id) => {
-        console.log("getting game")
-        fetch(`http://localhost:8080/board-games/${id}`)
-            .then(res => res.json())
-            .then(data => setGame(data))
-    }
-
-    useEffect(() => {
-        getGame(id)
-    }, [])
 
     return (
         <div className="single-game-view">
-            <h2> {game.name} ({game.releaseYear})</h2>
-            <img src={game.boxImageURL} width="75%" height="75%" alt="Box art"/>
-            <p>For {game.minPlayers}-{game.maxPlayers} Players</p>
-            <p>Average Play Time: {game.playTime} minutes</p>
-            <p>Category: {game.category}</p>
+            <h2> {props.location.game.name} ({props.location.game.releaseYear})</h2>
+            <img src={props.location.game.boxImageURL} width="75%" height="75%" alt="Box art"/>
+            <p>For {props.location.game.minPlayers}-{props.location.game.maxPlayers} Players</p>
+            <p>Average Play Time: {props.location.game.playTime} minutes</p>
+            <p>Category: {props.location.game.category}</p>
         </div>
     )
 }

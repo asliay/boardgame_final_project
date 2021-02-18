@@ -1,19 +1,22 @@
 import './App.css';
 import { useState, useEffect} from "react";
-import { useRoutes } from "hookrouter"
-import Routes from "./services/routes"
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import HeaderContainer from "./containers/HeaderContainer";
+import RecommendationsContainer from './containers/RecommendationsContainer';
+import SingleGameView from './components/SingleGameView';
 
 function App() {
-
-  const routeResult = useRoutes(Routes)
-
 
   return (
     <>
     <h1>Board Game Recommendations... for YOU! </h1>
       {/* <HeaderContainer /> */}
-      {routeResult}
+      <Router>
+        <Switch>
+          <Route exact path="/" component={RecommendationsContainer} />
+          <Route path="/single-game" component={SingleGameView} />
+        </Switch>
+      </Router>
     </>
   );
 }
