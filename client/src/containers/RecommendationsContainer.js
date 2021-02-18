@@ -10,8 +10,29 @@ const RecommendationsContainer = () => {
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        let newQuery = `?numPlayers=${event.target.plr_num.value}`
+        let newQuery = ""
+        let numPlayers = event.target.plr_num.value;
+        let maxPlayTime = event.target.play_time.value;
+        let category = event.target.category.value;
+
+        if (numPlayers && maxPlayTime && category) {
+            newQuery = `?numPlayers=${numPlayers}&maxPlayTime=${maxPlayTime}&category=${category}`
+        } else if (numPlayers && maxPlayTime && !category) {
+            newQuery = `?numPlayers=${numPlayers}&maxPlayTime=${maxPlayTime}`
+        } else if (numPlayers && category && !maxPlayTime) {
+            newQuery = `?numPlayers=${numPlayers}&category=${category}`
+        } else if (maxPlayTime && category && !numPlayers) {
+            newQuery = `?maxPlayTime=${maxPlayTime}&category=${category}`
+        } else if (numPlayers){
+            newQuery = `?numPlayers=${numPlayers}`
+        } else if (maxPlayTime){
+            newQuery = `?maxPlayTime=${maxPlayTime}`
+        } else if (category){
+            newQuery = `?category=${category}`
+        } 
+    
         setQuery(newQuery);
+        event.target.reset();
     }
 
     const getBoardGames = () => {

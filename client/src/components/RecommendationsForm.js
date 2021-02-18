@@ -2,6 +2,10 @@
 
 const RecommendationsForm = ({handleFormSubmit}) => {
 
+    // const resetForm = () => {
+    //     document.getElementById("search_form").resetForm();      
+    // }
+
     return (
         <div>
             <form id="search-form" onSubmit={handleFormSubmit}>
@@ -13,8 +17,25 @@ const RecommendationsForm = ({handleFormSubmit}) => {
                        max="25"
                        autoFocus
                        />
+                <br/>
+                <label forhtml="play_time">Max playing time: </label>
+                <input type="number"
+                       id="play_time"
+                       name="play_time"
+                       min="0"
+                       />
+                <br/>
+                <select name="category" id="category">
+                    <option value="" selected="selected">Any</option>
+                    <option value="family">Family</option>
+                    <option value="party">Party</option>
+                    <option value="strategy">Strategy</option>
+                    <option value="thematic">Thematic</option>
+                </select>
                 <button type="submit" 
-                        className="buttons"> Search </button>
+                        className="buttons"
+                        // onClick={resetForm}
+                        > Search </button>
             </form>
         </div>
     )
