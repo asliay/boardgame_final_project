@@ -1,6 +1,9 @@
 import { useState, useEffect} from "react";
+import {Container} from "semantic-ui-react";
 import GameGrid from "../components/GameGrid";
 import RecommendationsForm from "../components/RecommendationsForm";
+
+
 
 const RecommendationsContainer = () => {
 
@@ -48,10 +51,10 @@ const RecommendationsContainer = () => {
 
     return(
         <div>
-            
-            <RecommendationsForm handleFormSubmit={handleFormSubmit}/>
-            <GameGrid games={boardGames}/>
-
+            <Container textAlign="center">
+                <RecommendationsForm handleFormSubmit={handleFormSubmit}/>
+                <GameGrid games={boardGames}/>
+            </Container>
         </div>
     )
 }
