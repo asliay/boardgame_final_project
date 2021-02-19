@@ -4,11 +4,9 @@ import {Container, Divider} from "semantic-ui-react";
 import GameGrid from "../components/GameGrid";
 import RecommendationsForm from "../components/RecommendationsForm";
 
-const RecommendationsContainer = () => {
+const RecommendationsContainer = ({query, handleQueryChange, handleResetForm}) => {
 
     const [boardGames, setBoardGames] = useState([])
-    const [query, setQuery]           = useState("")
-
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -33,8 +31,8 @@ const RecommendationsContainer = () => {
             newQuery = `?category=${category}`
         } 
     
-        setQuery(newQuery);
-        // event.target.reset();
+        handleQueryChange(newQuery);
+        
     }
 
     const getBoardGames = () => {
@@ -44,14 +42,15 @@ const RecommendationsContainer = () => {
             .then(data => setBoardGames(data))
     }
 
-    useEffect(() =>{
+    useEffect(()=>{
         getBoardGames()
     }, [query]);
+
 
     return(
         <div>
             <Container >
-                <RecommendationsForm handleFormSubmit={handleFormSubmit}/>
+                <RecommendationsForm handleFormSubmit={handleFormSubmit} handleResetForm={handleResetForm}/>
                 </Container>
                 <br/>
                 <Divider horizontal>Your Recommendations</Divider>
