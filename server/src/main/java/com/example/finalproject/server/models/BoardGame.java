@@ -95,11 +95,11 @@ public class BoardGame {
         this.playTime = playTime;
     }
 
-    public List<BoardGameCategory> getBoardGameCategoryList() {
+    public List<BoardGameCategory> getBoardGameCategories() {
         return boardGameCategories;
     }
 
-    public void setBoardGameCategoryList(List<BoardGameCategory> boardGameCategories) {
+    public void setBoardGameCategories(List<BoardGameCategory> boardGameCategories) {
         this.boardGameCategories = boardGameCategories;
     }
 
