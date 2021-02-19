@@ -4,9 +4,11 @@ package com.example.finalproject.server.components;
 import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.BoardGameCategory;
 import com.example.finalproject.server.models.CategoryType;
+import com.example.finalproject.server.models.User;
 import com.example.finalproject.server.repositories.BoardGameCategoryRepository;
 import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.CategoryTypeRepository;
+import com.example.finalproject.server.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -23,6 +25,9 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     BoardGameCategoryRepository boardGameCategoryRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public DataLoader() {
     }
@@ -175,6 +180,11 @@ public class DataLoader implements ApplicationRunner {
                 "https://cf.geekdo-images.com/9nGoBZ0MRbi6rdH47sj2Qg__thumb/img/ezXcyEsHhS9iRxmuGe8SmiLLXlM=/fit-in/200x150/filters:strip_icc()/pic5786795.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/81qy%2BMXuxDL._AC_SL1392_.jpg");
         boardGameRepository.save(monopoly);
+
+        User bobAdams = new User( "Bob", "Adams", 27, "bob.adams@gmail.com");
+        bobAdams.addGameToOwnedList(monopoly);
+        bobAdams.addGameToWishList(catan);
+        userRepository.save(bobAdams);
     }
 
 

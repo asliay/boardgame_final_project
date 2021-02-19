@@ -3,9 +3,11 @@ package com.example.finalproject.server;
 import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.BoardGameCategory;
 import com.example.finalproject.server.models.CategoryType;
+import com.example.finalproject.server.models.User;
 import com.example.finalproject.server.repositories.BoardGameCategoryRepository;
 import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.CategoryTypeRepository;
+import com.example.finalproject.server.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +23,9 @@ class ServerApplicationTests {
 
 	@Autowired
 	BoardGameCategoryRepository boardGameCategoryRepository;
+
+	@Autowired
+	UserRepository userRepository;
 
 	@Test
 	void contextLoads() {
@@ -46,6 +51,12 @@ class ServerApplicationTests {
 
 		BoardGameCategory bgc1 = new BoardGameCategory(catan, family);
 		boardGameCategoryRepository.save(bgc1);
+	}
+
+	@Test
+	void canCreateAndSaveNewUser(){
+		User bobAdams = new User( "Bob", "Adams", 27, "bob.adams@gmail.com");
+		userRepository.save(bobAdams);
 	}
 
 }
