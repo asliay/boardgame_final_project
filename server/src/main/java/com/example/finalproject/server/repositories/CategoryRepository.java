@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-
+    // Find Categories by Board Game Name
     List<Category> findByGameCategoryJoinsBoardGameNameIgnoreCase(String boardGame);
 }
