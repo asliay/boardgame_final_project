@@ -34,7 +34,7 @@ const RecommendationsContainer = () => {
         } 
     
         setQuery(newQuery);
-        event.target.reset();
+        // event.target.reset();
     }
 
     const getBoardGames = () => {

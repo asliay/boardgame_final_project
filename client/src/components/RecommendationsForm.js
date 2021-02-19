@@ -1,4 +1,4 @@
-import {Grid,Container, Button, Form, Icon} from "semantic-ui-react";
+import {Grid, Segment, Container, Button, Form, Icon} from "semantic-ui-react";
 
 const RecommendationsForm = ({handleFormSubmit}) => {
 
@@ -41,12 +41,14 @@ const RecommendationsForm = ({handleFormSubmit}) => {
                         </select>
                     </Form.Field>
                 </Form.Group>
+                <Segment>
                 <Button animated type='submit' onMouseDown={e => e.preventDefault()}>
                     <Button.Content visible>Find Games</Button.Content>
                     <Button.Content hidden>
                         <Icon name='check' />
                     </Button.Content>
                 </Button>
+                </Segment>
         </Form>
         </Grid>
             
