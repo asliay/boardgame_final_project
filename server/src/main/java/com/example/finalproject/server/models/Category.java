@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name="categories")
-public class CategoryType {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,17 +20,17 @@ public class CategoryType {
     @Column
     private String name;
 
-    @OneToMany(mappedBy="categoryType")
-    @JsonIgnoreProperties({"categoryType"})
-    private List<BoardGameCategory> boardGameCategories;
+    @OneToMany(mappedBy="category")
+    @JsonIgnoreProperties({"category"})
+    private List<GameCategoryJoin> gameCategoryJoins;
 
-    public CategoryType(String bgaId, String name) {
+    public Category(String bgaId, String name) {
         this.bgaId = bgaId;
         this.name = name;
-        this.boardGameCategories = new ArrayList<>();
+        this.gameCategoryJoins = new ArrayList<>();
     }
 
-    public CategoryType() {
+    public Category() {
     }
 
     public Long getId() {
@@ -57,11 +57,11 @@ public class CategoryType {
         this.name = name;
     }
 
-    public List<BoardGameCategory> getBoardGameCategories() {
-        return boardGameCategories;
+    public List<GameCategoryJoin> getGameCategoryJoins() {
+        return gameCategoryJoins;
     }
 
-    public void setBoardGameCategories(List<BoardGameCategory> boardGameCategories) {
-        this.boardGameCategories = boardGameCategories;
+    public void setGameCategoryJoins(List<GameCategoryJoin> gameCategoryJoins) {
+        this.gameCategoryJoins = gameCategoryJoins;
     }
 }
