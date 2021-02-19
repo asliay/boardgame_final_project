@@ -11,7 +11,7 @@ const GameGrid = ({games}) => {
 
     return(
         <div>
-            <h2>Game Grid</h2>
+            <h2>Your Recommendations</h2>
             <ul id = "game-grid">
                 {gameNodes}
             </ul>

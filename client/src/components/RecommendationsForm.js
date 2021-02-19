@@ -26,7 +26,7 @@ const RecommendationsForm = ({handleFormSubmit}) => {
                        />
                 <br/>
                 <select name="category" id="category">
-                    <option value="" selected="selected">Any</option>
+                    <option value="" defaultValue="selected">Any</option>
                     <option value="family">Family</option>
                     <option value="party">Party</option>
                     <option value="strategy">Strategy</option>
