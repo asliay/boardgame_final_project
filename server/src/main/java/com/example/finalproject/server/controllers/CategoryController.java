@@ -1,14 +1,14 @@
 package com.example.finalproject.server.controllers;
 
-import com.example.finalproject.server.repositories.CategoryTypeRepository;
+import com.example.finalproject.server.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CategoryTypeController {
+public class CategoryController {
 
     @Autowired
-    CategoryTypeRepository categoryTypeRepository;
+    CategoryRepository categoryRepository;
 
 
 }

@@ -27,7 +27,7 @@ public class BoardGame {
 
     @OneToMany(mappedBy="boardGame")
     @JsonIgnoreProperties({"boardGame"})
-    private List<BoardGameCategory> boardGameCategories;
+    private List<GameCategoryJoin> gameCategoryJoins;
 
     @Column
     private String thumbnailURL;
@@ -49,7 +49,7 @@ public class BoardGame {
         this.playTime = playTime;
         this.thumbnailURL = thumbnailURL;
         this.boxImageURL = boxImageURL;
-        this.boardGameCategories = new ArrayList<>();
+        this.gameCategoryJoins = new ArrayList<>();
     }
 
     public BoardGame() {
@@ -95,12 +95,12 @@ public class BoardGame {
         this.playTime = playTime;
     }
 
-    public List<BoardGameCategory> getBoardGameCategories() {
-        return boardGameCategories;
+    public List<GameCategoryJoin> getGameCategoryJoins() {
+        return gameCategoryJoins;
     }
 
-    public void setBoardGameCategories(List<BoardGameCategory> boardGameCategories) {
-        this.boardGameCategories = boardGameCategories;
+    public void setGameCategoryJoins(List<GameCategoryJoin> gameCategoryJoins) {
+        this.gameCategoryJoins = gameCategoryJoins;
     }
 
     public String getThumbnailURL() {

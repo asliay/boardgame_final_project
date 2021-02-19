@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "board_game_categories")
-public class BoardGameCategory {
+@Table(name = "game_category_joins")
+public class GameCategoryJoin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,20 +14,20 @@ public class BoardGameCategory {
 
     @ManyToOne
     @JoinColumn(name = "board_game_id", nullable = false)
-    @JsonIgnoreProperties({"boardGameCategories"})
+    @JsonIgnoreProperties({"gameCategoryJoins"})
     private BoardGame boardGame;
 
     @ManyToOne
-    @JoinColumn(name = "category_type_id", nullable = false)
-    @JsonIgnoreProperties({"boardGameCategories"})
-    private CategoryType categoryType;
+    @JoinColumn(name = "category_id", nullable = false)
+    @JsonIgnoreProperties({"gameCategoryJoins"})
+    private Category category;
 
-    public BoardGameCategory(BoardGame boardGame, CategoryType categoryType) {
+    public GameCategoryJoin(BoardGame boardGame, Category category) {
         this.boardGame = boardGame;
-        this.categoryType = categoryType;
+        this.category = category;
     }
 
-    public BoardGameCategory() {
+    public GameCategoryJoin() {
     }
 
     public Long getId() {
@@ -46,11 +46,11 @@ public class BoardGameCategory {
         this.boardGame = boardGame;
     }
 
-    public CategoryType getCategoryType() {
-        return categoryType;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryType(CategoryType categoryType) {
-        this.categoryType = categoryType;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
