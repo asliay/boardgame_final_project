@@ -1,6 +1,10 @@
 package com.example.finalproject.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "board_games")
@@ -21,8 +25,9 @@ public class BoardGame {
     @Column(name = "play_time")
     private int playTime;
 
-    @Column
-    private String category;
+    @OneToMany(mappedBy="boardGame")
+    @JsonIgnoreProperties({"boardGame"})
+    private List<BoardGameCategory> boardGameCategories;
 
     @Column
     private String thumbnailURL;
@@ -30,12 +35,11 @@ public class BoardGame {
     @Column
     private String boxImageURL;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int playTime, String category,
+    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int playTime,
                      String thumbnailURL,
                      String boxImageURL) {
         this.name = name;
@@ -43,9 +47,9 @@ public class BoardGame {
         this.minPlayers = minPlayers;
         this.maxPlayers = maxPlayers;
         this.playTime = playTime;
-        this.category = category;
         this.thumbnailURL = thumbnailURL;
         this.boxImageURL = boxImageURL;
+        this.boardGameCategories = new ArrayList<>();
     }
 
     public BoardGame() {
@@ -91,12 +95,12 @@ public class BoardGame {
         this.playTime = playTime;
     }
 
-    public String getCategory() {
-        return category;
+    public List<BoardGameCategory> getBoardGameCategoryList() {
+        return boardGameCategories;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setBoardGameCategoryList(List<BoardGameCategory> boardGameCategories) {
+        this.boardGameCategories = boardGameCategories;
     }
 
     public String getThumbnailURL() {
@@ -122,5 +126,7 @@ public class BoardGame {
     public void setId(Long id) {
         this.id = id;
     }
+
+
 }
 

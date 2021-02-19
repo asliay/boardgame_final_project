@@ -24,30 +24,30 @@ public class BoardGameController {
             @RequestParam(name = "category", required = false) String category,
             @RequestParam(name = "numPlayers", required = false) Integer numPlayers
     ) {
-        if (category !=null && playTime != null && numPlayers != null) {
-            List<BoardGame> returnedGames =
-                    boardGameRepository.findByPlayTimeLessThanEqualAndCategoryIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(playTime, category, numPlayers, numPlayers);
-            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
-        }
-        if (category !=null && numPlayers != null) {
-            List<BoardGame> returnedGames =
-                    boardGameRepository.findByCategoryIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(category, numPlayers, numPlayers);
-            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
-        }
+//        if (category !=null && playTime != null && numPlayers != null) {
+//            List<BoardGame> returnedGames =
+//                    boardGameRepository.findByPlayTimeLessThanEqualAndCategoryIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(playTime, category, numPlayers, numPlayers);
+//            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
+//        }
+//        if (category !=null && numPlayers != null) {
+//            List<BoardGame> returnedGames =
+//                    boardGameRepository.findByCategoryIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(category, numPlayers, numPlayers);
+//            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
+//        }
         if (playTime != null && numPlayers != null) {
             List<BoardGame> returnedGames =
                     boardGameRepository.findByPlayTimeLessThanEqualAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(playTime, numPlayers, numPlayers);
             return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
-        if (playTime !=null && category !=null) {
-            List<BoardGame> returnedGames =
-                    boardGameRepository.findByPlayTimeLessThanEqualAndCategoryIgnoreCase(playTime, category);
-            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
-        }
-        if (category !=null) {
-            List<BoardGame> returnedGames = boardGameRepository.findByCategoryIgnoreCase(category);
-            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
-        }
+//        if (playTime !=null && category !=null) {
+//            List<BoardGame> returnedGames =
+//                    boardGameRepository.findByPlayTimeLessThanEqualAndCategoryIgnoreCase(playTime, category);
+//            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
+//        }
+//        if (category !=null) {
+//            List<BoardGame> returnedGames = boardGameRepository.findByCategoryIgnoreCase(category);
+//            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
+//        }
         if (playTime != null) {
             List<BoardGame> returnedGames = boardGameRepository.findByPlayTimeLessThanEqual(playTime);
             return new ResponseEntity<>(returnedGames, HttpStatus.OK);
