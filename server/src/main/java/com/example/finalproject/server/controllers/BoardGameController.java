@@ -44,10 +44,11 @@ public class BoardGameController {
 //                    boardGameRepository.findByPlayTimeLessThanEqualAndCategoryIgnoreCase(playTime, category);
 //            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
 //        }
-//        if (category !=null) {
-//            List<BoardGame> returnedGames = boardGameRepository.findByCategoryIgnoreCase(category);
-//            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
-//        }
+        if (category !=null) {
+            List<BoardGame> returnedGames =
+                    boardGameRepository.findByBoardGameCategoriesCategoryTypeNameIgnoreCase(category);
+            return new ResponseEntity<>(returnedGames, HttpStatus.OK);
+        }
         if (playTime != null) {
             List<BoardGame> returnedGames = boardGameRepository.findByPlayTimeLessThanEqual(playTime);
             return new ResponseEntity<>(returnedGames, HttpStatus.OK);
