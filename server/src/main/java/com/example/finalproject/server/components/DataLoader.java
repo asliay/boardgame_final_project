@@ -209,17 +209,21 @@ public class DataLoader implements ApplicationRunner {
         philPullman.addGameToWishList(explodingKittens);
         userRepository.save(philPullman);
 
-    }
-
 
         // Following is client loading data from BGA API.
 
+        // Populating categories with a[pi data.
+        List<Category> allCategories = client.getAllCatergories();
+        for(Category category : allCategories){
+            categoryRepository.save(category);
+        }
 
-
+        // Populate boardgames table with a given amount of games.
         List<BoardGame> topTenFromBGA = client.getGamesByPopularity(10);
         for(BoardGame bg : topTenFromBGA){
             boardGameRepository.save(bg);
         }
+
     }
 
 }
