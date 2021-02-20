@@ -13,6 +13,22 @@ function App() {
   const [query, setQuery] = useState("")
   const [recsString, setRecsString] = useState("Recommendations")
   const [selectedFilter, setSelectedFilter] = useState("")
+  const [boardGames, setBoardGames] = useState([])
+
+  const getBoardGames = () => {
+      console.log("getting data from backend");
+      fetch(`http://localhost:8080/board-games/${query}`)
+          .then(res => res.json())
+          .then(data => setBoardGames(data))
+  }
+
+  useEffect(()=>{
+      getBoardGames()
+  }, [query]);
+
+  const handleSort = (sortedGames) => {
+      setBoardGames(sortedGames);
+    }
 
   const handleQueryChange = (query) => {
     setQuery(query)
@@ -42,13 +58,14 @@ function App() {
           <Switch>
             <Route exact path="/"
                    render={()=><RecommendationsContainer 
-                              query={query}
+                              handleSort={handleSort}
                               recsString={recsString}
                               selectedFilter={selectedFilter}
                               handleQueryChange={handleQueryChange}
                               handleResetForm={handleResetForm}
                               handleRecsStringChange={handleRecsStringChange}
                               handleFilter={handleFilter}
+                              boardGames={boardGames}
                                />}
                             />
             <Route path="/single-game" component={SingleGameView} />

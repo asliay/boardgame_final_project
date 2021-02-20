@@ -5,47 +5,35 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handle
 
     const [sortedGames, setSortedGames] = useState([])
 
-    const sortGamesAscending = (type) => {
+    const sortGames = (selectedFilter) => {
+        let sorted = []
         const types = {
             minPlayersAsc : 'minPlayers',
             maxPlayersAsc : 'maxPlayers',
             playTimeAsc : 'playTime',
-            categoryAsc : 'gameCategoryJoins[0].category.name'
-        }
-        const sortProperty = types[type];
-        const sorted = [...boardGames].sort((a, b) => a[sortProperty] - b[sortProperty]);
-        console.log(sorted);
-        setSortedGames(sorted);
-    }
-
-    const sortGamesDescending = (type) => {
-        const types = {
+            categoryAsc : 'gameCategoryJoins[0].category.name',
             minPlayersDesc : 'minPlayers', 
             maxPlayersDesc : 'maxPlayers',
             playTimeDesc : 'playTime'
         }
-        const sortProperty = types[type];
-        const sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
-        console.log(sorted);
+        if(selectedFilter === 'minPlayersAsc'|| selectedFilter === 'maxPlayersAsc' || selectedFilter === 'playTimeAsc' || selectedFilter === 'categoryAsc') {
+            const sortProperty = types[selectedFilter];
+            sorted = [...boardGames].sort((a, b) => a[sortProperty] - b[sortProperty]);
+        } else if (selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' || selectedFilter === 'playTimeDesc') {
+            const sortProperty = types[selectedFilter];
+            sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
+        }
         setSortedGames(sorted);
     }
 
+
     useEffect(()=> {
-        if(selectedFilter === 'minPlayersAsc'|| selectedFilter === 'maxPlayersAsc' || selectedFilter === 'playTimeAsc' || selectedFilter === 'categoryAsc') {
-            // setSortDirection("ascending")
-            sortGamesAscending(selectedFilter);
-            
-        } else if(selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' || selectedFilter === 'playTimeDesc') { 
-            // setSortDirection("descending")
-            sortGamesDescending(selectedFilter);
-        } else if(selectedFilter === "") {
-            sortGamesAscending('categoryAsc')
-        }
+        sortGames(selectedFilter)
     }, [selectedFilter])
 
     useEffect(()=>{
         handleSort(sortedGames)
-    }, [sortedGames])
+    }, [sortedGames, selectedFilter, boardGames])
 
     const filterOptions = [
         {
