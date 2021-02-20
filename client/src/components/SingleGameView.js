@@ -3,17 +3,11 @@ import {Container, Segment, Grid, Divider, Image} from "semantic-ui-react";
 
 const SingleGameView = (props) => {
 
-    if (!props) {
-        return null;
-    }
-
     const gameCategories = props.location.game.gameCategoryJoins.map((join) => {
         return (
-            <p key={join.category.id}>{join.category.name}</p>
+            <p key={join.category.id}> {join.category.name}</p>
         )
     })
-
-
     return (
         <div className="single-game-view">
             
