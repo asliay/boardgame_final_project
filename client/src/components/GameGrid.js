@@ -2,11 +2,12 @@ import GameItem from "./GameItem";
 import { Grid, Container, Image } from 'semantic-ui-react'
 
 const GameGrid = ({games}) => {
+
     const gameNodes = games.map((game) =>{
         return(
             <Grid.Column key={game.id}>
             {/* <li id = "game-item" key = {game.id}> */}
-                <GameItem game={game} />
+                <GameItem game={game}/>
             </Grid.Column>
             // </li>
         )

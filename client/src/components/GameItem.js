@@ -2,6 +2,12 @@ import {Link} from "react-router-dom";
 
 const GameItem = ({game}) => {
 
+    const gameCategories = game.gameCategoryJoins.map((join) => {
+        return (
+            <p>{join.category.name}</p>
+        )
+    })
+
     return (
 
         <div><h3>
@@ -14,7 +20,7 @@ const GameItem = ({game}) => {
             <img src={game.boxImageURL} width="40%" height="40%" alt="board game box" />
             <p>{game.minPlayers} - {game.maxPlayers} Players</p>
             <p>Play Time: {game.playTime} minutes</p>
-            <p>Category: {game.category}</p>
+            <p>Categories: {gameCategories}</p>
             
         </div>
     )
