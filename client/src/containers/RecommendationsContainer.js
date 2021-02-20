@@ -1,12 +1,13 @@
 import { useState, useEffect} from "react";
 import 'semantic-ui-css/semantic.min.css';
-import {Container, Divider} from "semantic-ui-react";
+import {Container, Divider, Form} from "semantic-ui-react";
 import GameGrid from "../components/GameGrid";
 import RecommendationsForm from "../components/RecommendationsForm";
 
 const RecommendationsContainer = ({query, recsString, handleQueryChange, handleResetForm, handleRecsStringChange}) => {
 
     const [boardGames, setBoardGames] = useState([])
+
     
 
     const handleFormSubmit = (event) => {
@@ -57,6 +58,8 @@ const RecommendationsContainer = ({query, recsString, handleQueryChange, handleR
     }, [query]);
 
 
+
+
     return(
         <div>
             <Container >
@@ -68,6 +71,7 @@ const RecommendationsContainer = ({query, recsString, handleQueryChange, handleR
                 <br/>
                 <Divider horizontal>{recsString}</Divider>
                 <Container textAlign='center'>
+                    
                 <GameGrid games={boardGames}/>
                 </Container>
             
