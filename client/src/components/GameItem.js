@@ -4,7 +4,7 @@ const GameItem = ({game}) => {
 
     const gameCategories = game.gameCategoryJoins.map((join) => {
         return (
-            <p>{join.category.name}</p>
+            <p key={join.category.id}>{join.category.name}</p>
         )
     })
 

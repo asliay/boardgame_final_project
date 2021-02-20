@@ -34,7 +34,7 @@ const RecommendationsForm = ({handleFormSubmit, handleResetForm, boardGames}) =>
 
     const categoryOptions = categories.map((category)  => {
         return (
-            <option value={category.name}>{category.name}</option>
+            <option key={category.id} value={category.name}>{category.name}</option>
         )
     })
 
