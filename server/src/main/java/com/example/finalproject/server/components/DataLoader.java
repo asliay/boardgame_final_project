@@ -1,6 +1,7 @@
 
 package com.example.finalproject.server.components;
 
+import com.example.finalproject.server.client.Client;
 import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.BoardGameCategory;
 import com.example.finalproject.server.models.CategoryType;
@@ -11,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.List;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -24,10 +28,13 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     BoardGameCategoryRepository boardGameCategoryRepository;
 
+    @Autowired
+    Client client;
+
     public DataLoader() {
     }
 
-    public void run(ApplicationArguments args) {
+    public void run(ApplicationArguments args) throws IOException {
 
         CategoryType family = new CategoryType("7rV11PKqME", "Family");
         categoryTypeRepository.save(family);
@@ -183,13 +190,13 @@ public class DataLoader implements ApplicationRunner {
                 "https://cf.geekdo-images.com/9nGoBZ0MRbi6rdH47sj2Qg__thumb/img/ezXcyEsHhS9iRxmuGe8SmiLLXlM=/fit-in/200x150/filters:strip_icc()/pic5786795.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/81qy%2BMXuxDL._AC_SL1392_.jpg");
         boardGameRepository.save(monopoly);
+
+
+        // Following is client loading data from BGA API.
+        List<BoardGame> topTenFromBGA = client.getTopTenGames();
+        for(BoardGame bg : topTenFromBGA){
+            boardGameRepository.save(bg);
+        }
     }
-
-
-
-
-
-
-
 
 }
