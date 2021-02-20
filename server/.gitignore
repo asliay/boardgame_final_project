@@ -34,3 +34,5 @@ build/
 .vscode/
 
 db
+
+src/main/java/com/example/finalproject/server/secrets

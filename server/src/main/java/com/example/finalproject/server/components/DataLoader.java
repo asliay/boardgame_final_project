@@ -1,6 +1,7 @@
 
 package com.example.finalproject.server.components;
 
+import com.example.finalproject.server.client.Client;
 import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.User;
 import com.example.finalproject.server.repositories.BoardGameRepository;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.List;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -29,10 +33,13 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    Client client;
+
     public DataLoader() {
     }
 
-    public void run(ApplicationArguments args) {
+    public void run(ApplicationArguments args) throws IOException {
 
         Category family = new Category("7rV11PKqME", "Family");
         categoryRepository.save(family);
@@ -205,10 +212,14 @@ public class DataLoader implements ApplicationRunner {
     }
 
 
+        // Following is client loading data from BGA API.
 
 
 
-
-
+        List<BoardGame> topTenFromBGA = client.getGamesByPopularity(10);
+        for(BoardGame bg : topTenFromBGA){
+            boardGameRepository.save(bg);
+        }
+    }
 
 }
