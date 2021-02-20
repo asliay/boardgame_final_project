@@ -33,8 +33,8 @@ function App() {
     <Router>
       <Container textAlign='center'>
       <Link to="/"><Button floated='left' size='large' circular icon='home'/></Link>
-        <h1>Board Game Recommendations... for YOU! </h1>
-        {/* <HeaderContainer /> */}
+        {/* <h1>Board Game Recommendations... for YOU! </h1> */}
+        <HeaderContainer />
           <Switch>
             <Route exact path="/"
                    render={()=><RecommendationsContainer 

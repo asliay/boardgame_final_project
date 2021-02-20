@@ -7,8 +7,10 @@ import RecommendationsForm from "../components/RecommendationsForm";
 const RecommendationsContainer = ({query, recsString, handleQueryChange, handleResetForm, handleRecsStringChange}) => {
 
     const [boardGames, setBoardGames] = useState([])
-
     
+    const handleParentSort = (sortedGames) => {
+        setBoardGames(sortedGames);
+    }
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -72,7 +74,7 @@ const RecommendationsContainer = ({query, recsString, handleQueryChange, handleR
                 <Divider horizontal>{recsString}</Divider>
                 <Container textAlign='center'>
                     
-                <GameGrid games={boardGames}/>
+                <GameGrid games={boardGames} handleParentSort={handleParentSort}/>
                 </Container>
             
         </div>
