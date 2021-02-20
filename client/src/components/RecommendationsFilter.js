@@ -33,7 +33,7 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handle
 
     useEffect(()=>{
         handleSort(sortedGames)
-    }, [sortedGames, selectedFilter, boardGames])
+    }, [sortedGames, selectedFilter])
 
     const filterOptions = [
         {
