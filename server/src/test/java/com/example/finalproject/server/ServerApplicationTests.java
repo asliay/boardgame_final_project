@@ -1,14 +1,19 @@
 package com.example.finalproject.server;
 
 import com.example.finalproject.server.models.BoardGame;
+
+import com.example.finalproject.server.models.User;
+import com.example.finalproject.server.repositories.BoardGameRepository;
+import com.example.finalproject.server.repositories.UserRepository;
 import com.example.finalproject.server.models.GameCategoryJoin;
 import com.example.finalproject.server.models.Category;
 import com.example.finalproject.server.repositories.GameCategoryJoinRepository;
-import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class ServerApplicationTests {
@@ -21,6 +26,9 @@ class ServerApplicationTests {
 
 	@Autowired
 	GameCategoryJoinRepository gameCategoryJoinRepository;
+
+	@Autowired
+	UserRepository userRepository;
 
 	@Test
 	void contextLoads() {
@@ -46,6 +54,16 @@ class ServerApplicationTests {
 
 		GameCategoryJoin bgc1 = new GameCategoryJoin(catan, family);
 		gameCategoryJoinRepository.save(bgc1);
+	}
+
+	@Test
+	void canCreateAndSaveNewUser(){
+		long originalCount = userRepository.count();
+		User bobAdams = new User( "Bob", "Adams", 27, "bob.adams@gmail.com");
+		userRepository.save(bobAdams);
+		long newCount = userRepository.count();
+		assertEquals(0, originalCount);
+		assertEquals(1, newCount);
 	}
 
 }

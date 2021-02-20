@@ -2,10 +2,12 @@
 package com.example.finalproject.server.components;
 
 import com.example.finalproject.server.models.BoardGame;
+import com.example.finalproject.server.models.User;
+import com.example.finalproject.server.repositories.BoardGameRepository;
+import com.example.finalproject.server.repositories.UserRepository;
 import com.example.finalproject.server.models.GameCategoryJoin;
 import com.example.finalproject.server.models.Category;
 import com.example.finalproject.server.repositories.GameCategoryJoinRepository;
-import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -23,6 +25,9 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     GameCategoryJoinRepository gameCategoryJoinRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public DataLoader() {
     }
@@ -183,6 +188,20 @@ public class DataLoader implements ApplicationRunner {
                 "https://cf.geekdo-images.com/9nGoBZ0MRbi6rdH47sj2Qg__thumb/img/ezXcyEsHhS9iRxmuGe8SmiLLXlM=/fit-in/200x150/filters:strip_icc()/pic5786795.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/81qy%2BMXuxDL._AC_SL1392_.jpg");
         boardGameRepository.save(monopoly);
+
+        User bobAdams = new User( "Bob", "Adams", 27, "bob.adams@gmail.com");
+        bobAdams.addGameToOwnedList(monopoly);
+        bobAdams.addGameToWishList(catan);
+        userRepository.save(bobAdams);
+        bobAdams.addGameToWishList(gloomhaven);
+        bobAdams.addGameToOwnedList(secretHitler);
+        userRepository.save(bobAdams);
+
+        User philPullman = new User( "Philip", "Pullman", 50, "p.pullman@yahoo.com");
+        philPullman.addGameToOwnedList(werewolf);
+        philPullman.addGameToWishList(explodingKittens);
+        userRepository.save(philPullman);
+
     }
 
 

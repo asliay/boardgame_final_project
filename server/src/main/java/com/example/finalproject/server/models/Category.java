@@ -57,6 +57,7 @@ public class Category {
         this.name = name;
     }
 
+
     public List<GameCategoryJoin> getGameCategoryJoins() {
         return gameCategoryJoins;
     }
