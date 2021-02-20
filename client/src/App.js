@@ -11,6 +11,7 @@ function App() {
 
   const [query, setQuery] = useState("")
   const [recsString, setRecsString] = useState("Recommendations")
+  const [selectedFilter, setSelectedFilter] = useState("")
 
   const handleQueryChange = (query) => {
     setQuery(query)
@@ -18,11 +19,13 @@ function App() {
 
   const handleRecsStringChange = (recs) => setRecsString(recs)
 
+  const handleFilter = (event) => setSelectedFilter(event.target.value)
+
   const handleResetForm = (event) => {
     event.preventDefault();
     setQuery("");
     setRecsString("All results")
-    
+    setSelectedFilter("")
 }
 
 
@@ -40,9 +43,11 @@ function App() {
                    render={()=><RecommendationsContainer 
                               query={query}
                               recsString={recsString}
+                              selectedFilter={selectedFilter}
                               handleQueryChange={handleQueryChange}
                               handleResetForm={handleResetForm}
                               handleRecsStringChange={handleRecsStringChange}
+                              handleFilter={handleFilter}
                                />}
                             />
             <Route path="/single-game" component={SingleGameView} />
