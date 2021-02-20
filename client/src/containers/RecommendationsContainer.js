@@ -1,12 +1,13 @@
 import { useState, useEffect} from "react";
+import 'semantic-ui-css/semantic.min.css';
+import {Container, Divider} from "semantic-ui-react";
 import GameGrid from "../components/GameGrid";
 import RecommendationsForm from "../components/RecommendationsForm";
 
-const RecommendationsContainer = () => {
+const RecommendationsContainer = ({query, recsString, handleQueryChange, handleResetForm, handleRecsStringChange}) => {
 
     const [boardGames, setBoardGames] = useState([])
-    const [query, setQuery]           = useState("")
-
+    
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -14,25 +15,34 @@ const RecommendationsContainer = () => {
         let numPlayers = event.target.plr_num.value;
         let maxPlayTime = event.target.play_time.value;
         let category = event.target.category.value;
+        let newRecsString = `All results`
 
         if (numPlayers && maxPlayTime && category) {
             newQuery = `?numPlayers=${numPlayers}&maxPlayTime=${maxPlayTime}&category=${category}`
+            newRecsString = `Search Results for ${category} Games less than ${maxPlayTime} Minutes for ${numPlayers} Players`
         } else if (numPlayers && maxPlayTime && !category) {
             newQuery = `?numPlayers=${numPlayers}&maxPlayTime=${maxPlayTime}`
+            newRecsString = `Search Results for Games less than ${maxPlayTime} Minutes for ${numPlayers} Players`
         } else if (numPlayers && category && !maxPlayTime) {
             newQuery = `?numPlayers=${numPlayers}&category=${category}`
+            newRecsString = `Search Results for ${category} Games for ${numPlayers} Players`
         } else if (maxPlayTime && category && !numPlayers) {
             newQuery = `?maxPlayTime=${maxPlayTime}&category=${category}`
+            newRecsString = `Search Results for ${category} Games less than ${maxPlayTime} Minutes for ${numPlayers} Players`
         } else if (numPlayers){
             newQuery = `?numPlayers=${numPlayers}`
+            newRecsString = `Search Results for Games for ${numPlayers} Players`
         } else if (maxPlayTime){
             newQuery = `?maxPlayTime=${maxPlayTime}`
+            newRecsString = `Search Results for Games less than ${maxPlayTime} Minutes`
         } else if (category){
             newQuery = `?category=${category}`
+            newRecsString = `Search Results for ${category} Games`
         } 
     
-        setQuery(newQuery);
-        event.target.reset();
+        handleQueryChange(newQuery);
+        handleRecsStringChange(newRecsString);
+        
     }
 
     const getBoardGames = () => {
@@ -42,16 +52,25 @@ const RecommendationsContainer = () => {
             .then(data => setBoardGames(data))
     }
 
-    useEffect(() =>{
+    useEffect(()=>{
         getBoardGames()
     }, [query]);
 
+
     return(
         <div>
+            <Container >
+                <RecommendationsForm handleFormSubmit={handleFormSubmit} 
+                                     handleResetForm={handleResetForm} 
+                                     boardGames={boardGames}
+                                    />
+                </Container>
+                <br/>
+                <Divider horizontal>{recsString}</Divider>
+                <Container textAlign='center'>
+                <GameGrid games={boardGames}/>
+                </Container>
             
-            <RecommendationsForm handleFormSubmit={handleFormSubmit}/>
-            <GameGrid games={boardGames}/>
-
         </div>
     )
 }
