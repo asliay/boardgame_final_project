@@ -1,6 +1,6 @@
 import {Grid, Segment, Container, Button, Form, Icon} from "semantic-ui-react";
 
-const RecommendationsForm = ({handleFormSubmit}) => {
+const RecommendationsForm = ({handleFormSubmit, handleResetForm}) => {
 
     // const resetForm = () => {
     //     document.getElementById("search_form").resetForm();      
@@ -46,6 +46,12 @@ const RecommendationsForm = ({handleFormSubmit}) => {
                     <Button.Content visible>Find Games</Button.Content>
                     <Button.Content hidden>
                         <Icon name='check' />
+                    </Button.Content>
+                </Button>
+                <Button animated onClick={handleResetForm} onMouseDown={e => e.preventDefault()}>
+                    <Button.Content visible>Reset Form</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='undo' />
                     </Button.Content>
                 </Button>
                 </Segment>

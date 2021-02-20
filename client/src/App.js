@@ -9,6 +9,20 @@ import SingleGameView from './components/SingleGameView';
 
 function App() {
 
+  const [query, setQuery] = useState("")
+
+  const handleQueryChange = (query) => {
+    setQuery(query)
+  }
+
+  const handleResetForm = (event) => {
+    event.preventDefault();
+    setQuery("");
+}
+
+
+
+  
   return (
     <>
     <Router>
@@ -17,7 +31,13 @@ function App() {
         <h1>Board Game Recommendations... for YOU! </h1>
         {/* <HeaderContainer /> */}
           <Switch>
-            <Route exact path="/" component={RecommendationsContainer} />
+            <Route exact path="/"
+                   render={()=><RecommendationsContainer 
+                              query={query}
+                              handleQueryChange={handleQueryChange}
+                              handleResetForm={handleResetForm}
+                               />}
+                            />
             <Route path="/single-game" component={SingleGameView} />
           </Switch>
       </Container>
