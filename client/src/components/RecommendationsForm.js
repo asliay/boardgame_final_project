@@ -64,7 +64,7 @@ const RecommendationsForm = ({handleFormSubmit, handleResetForm, boardGames}) =>
                                     autoFocus/>
                     </Form.Field>
                     <Form.Field>
-                        <label forhtml="play_time">Max playing time: </label>
+                        <label forhtml="play_time">Max playing time (minutes): </label>
                                 <input type="number"
                                     id="play_time"
                                     name="play_time"
