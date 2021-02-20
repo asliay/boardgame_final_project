@@ -3,12 +3,14 @@
 
 App that takes user info and recommends board games to play/purchase.
 
+## MVP 
+
 User can select:
 
 * Number of players
 * Preferred length of playing time 
 * Categories they enjoy
-* App returns 1/ selection of board game suggestions to buy that fit request  
+* App returns  selection of board game suggestions to play that fit request  
 
 ## Extensions
 
@@ -16,6 +18,5 @@ User can select:
   * User can mark games they already own and app won't suggest those
   * User can list games they liked, recommendations can use this information
 * Affiliate links showing stock in different places
-* Or implement a shop interface selling these board games (chance to use ecommerce library!)
-* Using Board Game Geek API:
-  * API has board game info and rankings/ ratings from users
+* Using Board Game Atlas API:
+  * API has board game info and rankings
