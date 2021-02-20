@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 class ServerApplicationTests {
 
@@ -55,8 +57,12 @@ class ServerApplicationTests {
 
 	@Test
 	void canCreateAndSaveNewUser(){
+		long originalCount = userRepository.count();
 		User bobAdams = new User( "Bob", "Adams", 27, "bob.adams@gmail.com");
 		userRepository.save(bobAdams);
+		long newCount = userRepository.count();
+		assertEquals(0, originalCount);
+		assertEquals(1, newCount);
 	}
 
 }
