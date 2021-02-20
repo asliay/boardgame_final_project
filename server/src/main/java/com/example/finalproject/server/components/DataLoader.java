@@ -193,7 +193,10 @@ public class DataLoader implements ApplicationRunner {
 
 
         // Following is client loading data from BGA API.
-        List<BoardGame> topTenFromBGA = client.getTopTenGames();
+
+
+
+        List<BoardGame> topTenFromBGA = client.getGamesByPopularity(10);
         for(BoardGame bg : topTenFromBGA){
             boardGameRepository.save(bg);
         }
