@@ -143,7 +143,15 @@ public class User {
         this.ownedGames.add(boardGame);
     }
 
+    public void removeGameFromOwnedList(BoardGame boardGame){
+        this.ownedGames.remove(boardGame);
+    }
+
     public void addGameToWishList(BoardGame boardGame){
         this.wishList.add(boardGame);
+    }
+
+    public void removeGameFromWishList(BoardGame boardGame){
+        this.wishList.remove(boardGame);
     }
 }
