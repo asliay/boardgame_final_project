@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {Container, Button} from "semantic-ui-react";
 import HeaderContainer from "./containers/HeaderContainer";
 import RecommendationsContainer from './containers/RecommendationsContainer';
+import UserContainer from './containers/UserContainer'
 import SingleGameView from './components/SingleGameView';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
                                />}
                             />
             <Route path="/single-game" component={SingleGameView} />
+            <UserContainer />
           </Switch>
       </Container>
       </Router>
