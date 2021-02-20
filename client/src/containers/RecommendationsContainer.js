@@ -20,6 +20,10 @@ const RecommendationsContainer = ({query, recsString, selectedFilter, handleQuer
         getBoardGames()
     }, [query]);
 
+    const handleSort = (sortedGames) => {
+        setBoardGames(sortedGames);
+    }
+
     const handleFormSubmit = (event) => {
         event.preventDefault();
         let newQuery = ""
@@ -74,7 +78,7 @@ const RecommendationsContainer = ({query, recsString, selectedFilter, handleQuer
                     selectedFilter={selectedFilter}
                     handleFilter={handleFilter}
                     boardGames={boardGames}
-                    setBoardGames={setBoardGames}
+                    handleSort={handleSort}
                 />
                 <GameGrid games={boardGames}/>
             </Container>

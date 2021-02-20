@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react"
-import {Form} from "semantic-ui-react"
+import {Form, Dropdown, Header, Icon, Menu, Container} from "semantic-ui-react"
 
-const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, setBoardGames}) => {
+const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handleSort}) => {
 
-    const [sortedGame, setSortedGames] = useState([])
+    const [sortedGames, setSortedGames] = useState([])
 
     const sortGamesAscending = (type) => {
         const types = {
@@ -15,7 +15,7 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, setBoa
         const sortProperty = types[type];
         const sorted = [...boardGames].sort((a, b) => a[sortProperty] - b[sortProperty]);
         console.log(sorted);
-        setBoardGames(sorted);
+        setSortedGames(sorted);
     }
 
     const sortGamesDescending = (type) => {
@@ -27,7 +27,7 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, setBoa
         const sortProperty = types[type];
         const sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
         console.log(sorted);
-        setBoardGames(sorted);
+        setSortedGames(sorted);
     }
 
     useEffect(()=> {
@@ -38,12 +38,57 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, setBoa
         } else if(selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' || selectedFilter === 'playTimeDesc') { 
             // setSortDirection("descending")
             sortGamesDescending(selectedFilter);
+        } else if(selectedFilter === "") {
+            sortGamesAscending('categoryAsc')
         }
     }, [selectedFilter])
 
+    useEffect(()=>{
+        handleSort(sortedGames)
+    }, [sortedGames])
 
+    const filterOptions = [
+        {
+            key : "0", 
+            value : '', 
+            text : "all", 
+            content: "All"
+        },
+        {
+            key : 1, 
+            value : "minPlayersAsc", 
+            text: "Minimum Players (Low to High) ",
+        }, 
+        {
+            key : 2,
+            value : "minPlayersDesc", 
+            text : "Minimum Players (High to Low)"
+        },
+        {
+            key : 3, 
+            value : "maxPlayersAsc", 
+            text: "Maximum Players (Low to High)",
+        }, 
+        {
+            key : 4,
+            value : "maxPlayersDesc", 
+            text : "Maximum Players (High to Low)"
+        },
+        {
+            key : 5, 
+            value : "playTimeAsc", 
+            text: "Maximum Play Time (Low to High)",
+        }, 
+        {
+            key : 6,
+            value : "playTimeDesc", 
+            text : "Maximum Play Time (High to Low)"
+        },
+    ]
+    
     return (
-        <Form>
+       <>
+        {/* <Form> 
             <Form.Field>
                 <select onChange={handleFilter} value={selectedFilter}>
                     <option defaultValue='selected' value="">All Results</option>
@@ -55,8 +100,22 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, setBoa
                     <option value='playTimeDesc'>Sort by Playing Time Descending</option>
                     <option value='categoryAsc'>Sort by Category</option>
                 </select>
-            </Form.Field>
-        </Form>    
+             </Form.Field> */}
+            <Header as='h4'>
+            <Icon name='filter' />
+            <Header.Content>
+            Sort by{' '}
+            <Dropdown
+                header='Adjust filter'
+                options={filterOptions}
+                defaultValue={filterOptions[0].value}
+                onChange={handleFilter}
+                value={selectedFilter}
+            />
+            </Header.Content>
+        </Header>
+        {/* </Form>     */}
+        </>
     )
 }
 

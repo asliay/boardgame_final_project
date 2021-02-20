@@ -19,7 +19,7 @@ function App() {
 
   const handleRecsStringChange = (recs) => setRecsString(recs)
 
-  const handleFilter = (event) => setSelectedFilter(event.target.value)
+  const handleFilter = (event, data) => setSelectedFilter(data.value)
 
   const handleResetForm = (event) => {
     event.preventDefault();
