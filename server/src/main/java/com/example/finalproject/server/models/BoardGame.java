@@ -1,6 +1,7 @@
 package com.example.finalproject.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,9 +26,6 @@ public class BoardGame {
     @Column(name = "play_time")
     private int playTime;
 
-    @OneToMany(mappedBy="boardGame")
-    @JsonIgnoreProperties({"boardGame"})
-    private List<BoardGameCategory> boardGameCategories;
 
     @Column
     private String thumbnailURL;
@@ -39,6 +37,54 @@ public class BoardGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy="boardGame")
+    @JsonIgnoreProperties({"boardGame"})
+    private List<GameCategoryJoin> gameCategoryJoins;
+
+    @ManyToMany
+    @JsonIgnoreProperties({"ownedGames"})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinTable(
+            name = "users_boardgames_owned",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "game_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "user_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
+    private List<User> ownedBy;
+
+    @ManyToMany
+    @JsonIgnoreProperties({"wishList"})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinTable(
+            name = "users_boardgames_wish",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "game_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "user_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
+    private List<User> wantedBy;
+
     public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int playTime,
                      String thumbnailURL,
                      String boxImageURL) {
@@ -49,7 +95,9 @@ public class BoardGame {
         this.playTime = playTime;
         this.thumbnailURL = thumbnailURL;
         this.boxImageURL = boxImageURL;
-        this.boardGameCategories = new ArrayList<>();
+        this.gameCategoryJoins = new ArrayList<>();
+        this.ownedBy = new ArrayList<>();
+        this.wantedBy = new ArrayList<>();
     }
 
     public BoardGame() {
@@ -95,12 +143,13 @@ public class BoardGame {
         this.playTime = playTime;
     }
 
-    public List<BoardGameCategory> getBoardGameCategories() {
-        return boardGameCategories;
+
+    public List<GameCategoryJoin> getGameCategoryJoins() {
+        return gameCategoryJoins;
     }
 
-    public void setBoardGameCategories(List<BoardGameCategory> boardGameCategories) {
-        this.boardGameCategories = boardGameCategories;
+    public void setGameCategoryJoins(List<GameCategoryJoin> gameCategoryJoins) {
+        this.gameCategoryJoins = gameCategoryJoins;
     }
 
     public String getThumbnailURL() {
@@ -127,6 +176,20 @@ public class BoardGame {
         this.id = id;
     }
 
+    public List<User> getOwnedBy() {
+        return ownedBy;
+    }
 
+    public void setOwnedBy(List<User> ownedBy) {
+        this.ownedBy = ownedBy;
+    }
+
+    public List<User> getWantedBy() {
+        return wantedBy;
+    }
+
+    public void setWantedBy(List<User> wantedBy) {
+        this.wantedBy = wantedBy;
+    }
 }
 

@@ -3,11 +3,13 @@ package com.example.finalproject.server.components;
 
 import com.example.finalproject.server.client.Client;
 import com.example.finalproject.server.models.BoardGame;
-import com.example.finalproject.server.models.BoardGameCategory;
-import com.example.finalproject.server.models.CategoryType;
-import com.example.finalproject.server.repositories.BoardGameCategoryRepository;
+import com.example.finalproject.server.models.User;
 import com.example.finalproject.server.repositories.BoardGameRepository;
-import com.example.finalproject.server.repositories.CategoryTypeRepository;
+import com.example.finalproject.server.repositories.UserRepository;
+import com.example.finalproject.server.models.GameCategoryJoin;
+import com.example.finalproject.server.models.Category;
+import com.example.finalproject.server.repositories.GameCategoryJoinRepository;
+import com.example.finalproject.server.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -23,10 +25,13 @@ public class DataLoader implements ApplicationRunner {
     BoardGameRepository boardGameRepository;
 
     @Autowired
-    CategoryTypeRepository categoryTypeRepository;
+    CategoryRepository categoryRepository;
 
     @Autowired
-    BoardGameCategoryRepository boardGameCategoryRepository;
+    GameCategoryJoinRepository gameCategoryJoinRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     Client client;
@@ -36,29 +41,29 @@ public class DataLoader implements ApplicationRunner {
 
     public void run(ApplicationArguments args) throws IOException {
 
-        CategoryType family = new CategoryType("7rV11PKqME", "Family");
-        categoryTypeRepository.save(family);
+        Category family = new Category("7rV11PKqME", "Family");
+        categoryRepository.save(family);
 
-        CategoryType economic = new CategoryType("N0TkEGfEsF", "Economic");
-        categoryTypeRepository.save(economic);
+        Category economic = new Category("N0TkEGfEsF", "Economic");
+        categoryRepository.save(economic);
 
         BoardGame catan          = new BoardGame("Settlers of Catan", 1995, 3, 4, 120,
                 "https://cf.geekdo-images.com/W3Bsga_uLP9kO91gZ7H8yw__thumb/img/8a9HeqFydO7Uun_le9bXWPnidcA=/fit-in/200x150/filters:strip_icc()/pic2419375.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/81eKRDSc-PL._AC_SL1500_.jpg");
         boardGameRepository.save(catan);
 
-        BoardGameCategory bgc1 = new BoardGameCategory(catan, family);
-        boardGameCategoryRepository.save(bgc1);
-        BoardGameCategory bgc2 = new BoardGameCategory(catan, economic);
-        boardGameCategoryRepository.save(bgc2);
+        GameCategoryJoin bgc1 = new GameCategoryJoin(catan, family);
+        gameCategoryJoinRepository.save(bgc1);
+        GameCategoryJoin bgc2 = new GameCategoryJoin(catan, economic);
+        gameCategoryJoinRepository.save(bgc2);
 
         BoardGame coup           = new BoardGame("Coup", 2012, 2, 6, 15,
                 "https://cf.geekdo-images.com/MWhSY_GOe2-bmlQ2rntSVg__thumb/img/vuR_0PCX1w2EkjO_LbchOHZPOwU=/fit-in/200x150/filters:strip_icc()/pic2016054.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/51cnlYAh-6L._AC_.jpg");
         boardGameRepository.save(coup);
 
-        BoardGameCategory bgc3 = new BoardGameCategory(coup, family);
-        boardGameCategoryRepository.save(bgc3);
+        GameCategoryJoin bgc3 = new GameCategoryJoin(coup, family);
+        gameCategoryJoinRepository.save(bgc3);
 
         BoardGame gloomhaven     = new BoardGame("Gloomhaven", 2017, 1, 4, 120,
                 "https://cf.geekdo-images.com/sZYp_3BTDGjh2unaZfZmuA__thumb/img/veqFeP4d_3zNhFc3GNBkV95rBEQ=/fit-in/200x150/filters:strip_icc()/pic2437871.jpg",
@@ -190,6 +195,21 @@ public class DataLoader implements ApplicationRunner {
                 "https://cf.geekdo-images.com/9nGoBZ0MRbi6rdH47sj2Qg__thumb/img/ezXcyEsHhS9iRxmuGe8SmiLLXlM=/fit-in/200x150/filters:strip_icc()/pic5786795.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/81qy%2BMXuxDL._AC_SL1392_.jpg");
         boardGameRepository.save(monopoly);
+
+        User bobAdams = new User( "Bob", "Adams", 27, "bob.adams@gmail.com");
+        bobAdams.addGameToOwnedList(monopoly);
+        bobAdams.addGameToWishList(catan);
+        userRepository.save(bobAdams);
+        bobAdams.addGameToWishList(gloomhaven);
+        bobAdams.addGameToOwnedList(secretHitler);
+        userRepository.save(bobAdams);
+
+        User philPullman = new User( "Philip", "Pullman", 50, "p.pullman@yahoo.com");
+        philPullman.addGameToOwnedList(werewolf);
+        philPullman.addGameToWishList(explodingKittens);
+        userRepository.save(philPullman);
+
+    }
 
 
         // Following is client loading data from BGA API.

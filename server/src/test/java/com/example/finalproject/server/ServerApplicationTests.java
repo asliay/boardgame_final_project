@@ -1,14 +1,19 @@
 package com.example.finalproject.server;
 
 import com.example.finalproject.server.models.BoardGame;
-import com.example.finalproject.server.models.BoardGameCategory;
-import com.example.finalproject.server.models.CategoryType;
-import com.example.finalproject.server.repositories.BoardGameCategoryRepository;
+
+import com.example.finalproject.server.models.User;
 import com.example.finalproject.server.repositories.BoardGameRepository;
-import com.example.finalproject.server.repositories.CategoryTypeRepository;
+import com.example.finalproject.server.repositories.UserRepository;
+import com.example.finalproject.server.models.GameCategoryJoin;
+import com.example.finalproject.server.models.Category;
+import com.example.finalproject.server.repositories.GameCategoryJoinRepository;
+import com.example.finalproject.server.repositories.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class ServerApplicationTests {
@@ -17,10 +22,13 @@ class ServerApplicationTests {
 	BoardGameRepository boardGameRepository;
 
 	@Autowired
-	CategoryTypeRepository categoryTypeRepository;
+	CategoryRepository categoryRepository;
 
 	@Autowired
-	BoardGameCategoryRepository boardGameCategoryRepository;
+	GameCategoryJoinRepository gameCategoryJoinRepository;
+
+	@Autowired
+	UserRepository userRepository;
 
 	@Test
 	void contextLoads() {
@@ -41,11 +49,21 @@ class ServerApplicationTests {
 				"https://images-na.ssl-images-amazon.com/images/I/81eKRDSc-PL._AC_SL1500_.jpg");
 		boardGameRepository.save(catan);
 
-		CategoryType family = new CategoryType("7rV11PKqME", "Family");
-		categoryTypeRepository.save(family);
+		Category family = new Category("7rV11PKqME", "Family");
+		categoryRepository.save(family);
 
-		BoardGameCategory bgc1 = new BoardGameCategory(catan, family);
-		boardGameCategoryRepository.save(bgc1);
+		GameCategoryJoin bgc1 = new GameCategoryJoin(catan, family);
+		gameCategoryJoinRepository.save(bgc1);
+	}
+
+	@Test
+	void canCreateAndSaveNewUser(){
+		long originalCount = userRepository.count();
+		User bobAdams = new User( "Bob", "Adams", 27, "bob.adams@gmail.com");
+		userRepository.save(bobAdams);
+		long newCount = userRepository.count();
+		assertEquals(0, originalCount);
+		assertEquals(1, newCount);
 	}
 
 }
