@@ -11,14 +11,19 @@ import SingleGameView from './components/SingleGameView';
 function App() {
 
   const [query, setQuery] = useState("")
+  const [recsString, setRecsString] = useState("Recommendations")
 
   const handleQueryChange = (query) => {
     setQuery(query)
   }
 
+  const handleRecsStringChange = (recs) => setRecsString(recs)
+
   const handleResetForm = (event) => {
     event.preventDefault();
     setQuery("");
+    setRecsString("All results")
+    
 }
 
 
@@ -35,8 +40,10 @@ function App() {
             <Route exact path="/"
                    render={()=><RecommendationsContainer 
                               query={query}
+                              recsString={recsString}
                               handleQueryChange={handleQueryChange}
                               handleResetForm={handleResetForm}
+                              handleRecsStringChange={handleRecsStringChange}
                                />}
                             />
             <Route path="/single-game" component={SingleGameView} />
