@@ -1,13 +1,28 @@
 import { useState, useEffect} from "react";
 import 'semantic-ui-css/semantic.min.css';
-import {Container, Divider} from "semantic-ui-react";
+import {Container, Divider, Form} from "semantic-ui-react";
 import GameGrid from "../components/GameGrid";
 import RecommendationsForm from "../components/RecommendationsForm";
+import RecommendationsFilter from "../components/RecommendationsFilter";
 
-const RecommendationsContainer = ({query, recsString, handleQueryChange, handleResetForm, handleRecsStringChange}) => {
+const RecommendationsContainer = ({query, recsString, selectedFilter, handleQueryChange, handleResetForm, handleRecsStringChange, handleFilter}) => {
 
     const [boardGames, setBoardGames] = useState([])
-    
+
+    const getBoardGames = () => {
+        console.log("getting data from backend");
+        fetch(`http://localhost:8080/board-games/${query}`)
+            .then(res => res.json())
+            .then(data => setBoardGames(data))
+    }
+
+    useEffect(()=>{
+        getBoardGames()
+    }, [query]);
+
+    const handleSort = (sortedGames) => {
+        setBoardGames(sortedGames);
+    }
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -45,31 +60,28 @@ const RecommendationsContainer = ({query, recsString, handleQueryChange, handleR
         
     }
 
-    const getBoardGames = () => {
-        console.log("getting data from backend");
-        fetch(`http://localhost:8080/board-games/${query}`)
-            .then(res => res.json())
-            .then(data => setBoardGames(data))
-    }
-
-    useEffect(()=>{
-        getBoardGames()
-    }, [query]);
-
+    
 
     return(
         <div>
             <Container >
-                <RecommendationsForm handleFormSubmit={handleFormSubmit} 
-                                     handleResetForm={handleResetForm} 
-                                     boardGames={boardGames}
-                                    />
-                </Container>
-                <br/>
-                <Divider horizontal>{recsString}</Divider>
-                <Container textAlign='center'>
+                <RecommendationsForm 
+                    handleFormSubmit={handleFormSubmit} 
+                    handleResetForm={handleResetForm} 
+                    boardGames={boardGames}
+                />
+            </Container>
+            <br/>
+            <Divider horizontal>{recsString}</Divider>
+            <Container textAlign='center'>
+                <RecommendationsFilter 
+                    selectedFilter={selectedFilter}
+                    handleFilter={handleFilter}
+                    boardGames={boardGames}
+                    handleSort={handleSort}
+                />
                 <GameGrid games={boardGames}/>
-                </Container>
+            </Container>
             
         </div>
     )
