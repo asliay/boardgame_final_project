@@ -185,6 +185,15 @@ public class DataLoader implements ApplicationRunner {
         bobAdams.addGameToOwnedList(monopoly);
         bobAdams.addGameToWishList(catan);
         userRepository.save(bobAdams);
+        bobAdams.addGameToWishList(gloomhaven);
+        bobAdams.addGameToOwnedList(secretHitler);
+        userRepository.save(bobAdams);
+
+        User philPullman = new User( "Philip", "Pullman", 50, "p.pullman@yahoo.com");
+        philPullman.addGameToOwnedList(werewolf);
+        philPullman.addGameToWishList(explodingKittens);
+        userRepository.save(philPullman);
+
     }
 
 
