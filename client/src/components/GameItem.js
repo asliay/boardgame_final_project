@@ -25,7 +25,7 @@ const GameItem = ({game}) => {
                 </Link>
             <p>{game.minPlayers} - {game.maxPlayers} Players</p>
             <p>Play Time: {game.playTime} minutes</p>
-            <p>Categories:</p> {gameCategories}
+            <p>Categories:</p>{gameCategories}
             
         </div>
     )

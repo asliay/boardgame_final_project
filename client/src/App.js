@@ -1,7 +1,6 @@
 import './App.css';
 import { useState, useEffect} from "react";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {Link} from "react-router-dom";
 import {Container, Button} from "semantic-ui-react";
 import HeaderContainer from "./containers/HeaderContainer";
 import RecommendationsContainer from './containers/RecommendationsContainer';
@@ -45,16 +44,13 @@ function App() {
     setSelectedFilter("")
 }
 
-
-
   
   return (
     <>
-    <Router>
+    <Router >
       <Container textAlign='center'>
-      <Link to="/"><Button floated='left' size='large' circular icon='home'/></Link>
-        {/* <h1>Board Game Recommendations... for YOU! </h1> */}
-        <HeaderContainer />
+      <HeaderContainer />
+      <br/>
           <Switch>
             <Route exact path="/"
                    render={()=><RecommendationsContainer 
@@ -71,7 +67,7 @@ function App() {
                                />}
                             />
             <Route path="/single-game" component={SingleGameView} />
-            <UserContainer />
+            <Route path="/user" component={UserContainer} />
           </Switch>
       </Container>
       </Router>
