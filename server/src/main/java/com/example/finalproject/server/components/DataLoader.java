@@ -8,13 +8,18 @@ import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.UserRepository;
 import com.example.finalproject.server.models.Category;
 import com.example.finalproject.server.repositories.CategoryRepository;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Consumer;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -203,17 +208,40 @@ public class DataLoader implements ApplicationRunner {
 
         // Following is client loading data from BGA API.
 
-        // Populating categories with a[pi data.
-        List<Category> allCategories = client.getAllCatergories();
-        for(Category category : allCategories){
-            categoryRepository.save(category);
+        // Variable for how many games to return.
+        int numOfGames = 50;
+
+        // Populate the categories table.
+        ArrayList<Category> categoriesFromBGA = client.getAllCatergories();
+        for(Category cat : categoriesFromBGA){
+            categoryRepository.save(cat);
         }
 
-        // Populate boardgames table with a given amount of games.
-        List<BoardGame> topTenFromBGA = client.getGamesByPopularity(10);
-        for(BoardGame bg : topTenFromBGA){
+        Map<BoardGame, List<String>> bgWithCategories = client.getBoardGamesFromBGA(numOfGames);
+
+        Set<BoardGame> keys = bgWithCategories.keySet();
+
+        List<Category> dbCategories = categoryRepository.findAll();
+        System.out.println(dbCategories.size());
+
+        for(BoardGame bg : keys){
+            for(Category cat : dbCategories){
+                for(String str : bgWithCategories.get(bg)){
+                    // substring is removing "" that appear in the string from bgWithCategories cat list.
+                    if(str.substring(1, str.length() -1).equals(cat.getBgaId())){
+                        bg.addCategoryToGame(cat);
+                    }
+                }
+            }
             boardGameRepository.save(bg);
         }
+
+
+
+
+
+
+
 
     }
 
