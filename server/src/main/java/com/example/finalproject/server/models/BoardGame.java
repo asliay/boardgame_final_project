@@ -26,7 +26,6 @@ public class BoardGame {
     @Column(name = "play_time")
     private int playTime;
 
-
     @Column
     private String thumbnailURL;
 
@@ -57,7 +56,7 @@ public class BoardGame {
                     )
             }
     )
-    private List<Category> gameCategories;
+    private List<Category> gameCategory;
 
     @ManyToMany
     @JsonIgnoreProperties({"ownedGames"})
@@ -113,7 +112,7 @@ public class BoardGame {
         this.playTime = playTime;
         this.thumbnailURL = thumbnailURL;
         this.boxImageURL = boxImageURL;
-        this.gameCategories = new ArrayList<>();
+        this.gameCategory = new ArrayList<>();
         this.ownedBy = new ArrayList<>();
         this.wantedBy = new ArrayList<>();
     }
@@ -161,13 +160,12 @@ public class BoardGame {
         this.playTime = playTime;
     }
 
-
-    public List<Category> getGameCategories() {
-        return gameCategories;
+    public List<Category> getGameCategory() {
+        return gameCategory;
     }
 
     public void setGameCategory(List<Category> gameCategory) {
-        this.gameCategories = gameCategory;
+        this.gameCategory = gameCategory;
     }
 
     public String getThumbnailURL() {
@@ -210,12 +208,8 @@ public class BoardGame {
         this.wantedBy = wantedBy;
     }
 
-    public void setGameCategories(List<Category> gameCategories) {
-        this.gameCategories = gameCategories;
-    }
-
     public void addCategoryToGame(Category category){
-        this.gameCategories.add(category);
+        this.gameCategory.add(category);
     }
 }
 
