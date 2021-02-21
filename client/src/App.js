@@ -38,7 +38,7 @@ function App() {
     event.preventDefault();
     setQuery("");
     setRecsString("All results")
-    setSelectedFilter(boardGames)
+    setSelectedFilter("")
 }
 
 const sortGames = (selectedFilter) => {
