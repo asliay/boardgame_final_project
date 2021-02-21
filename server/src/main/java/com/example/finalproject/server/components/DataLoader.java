@@ -196,7 +196,7 @@ public class DataLoader implements ApplicationRunner {
                 "https://images-na.ssl-images-amazon.com/images/I/81qy%2BMXuxDL._AC_SL1392_.jpg");
         boardGameRepository.save(monopoly);
 
-        User bobAdams = new User( "Bob", "Adams", 27, "bob.adams@gmail.com");
+        User bobAdams = new User( "Bob", "Adams", "1990-10-25", "bob.adams@gmail.com");
         bobAdams.addGameToOwnedList(monopoly);
         bobAdams.addGameToWishList(catan);
         userRepository.save(bobAdams);
@@ -204,7 +204,7 @@ public class DataLoader implements ApplicationRunner {
         bobAdams.addGameToOwnedList(secretHitler);
         userRepository.save(bobAdams);
 
-        User philPullman = new User( "Philip", "Pullman", 50, "p.pullman@yahoo.com");
+        User philPullman = new User( "Philip", "Pullman", "1960-03-05", "p.pullman@yahoo.com");
         philPullman.addGameToOwnedList(werewolf);
         philPullman.addGameToWishList(explodingKittens);
         userRepository.save(philPullman);

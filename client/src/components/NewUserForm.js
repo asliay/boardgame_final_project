@@ -1,13 +1,13 @@
 import {Grid, Segment, Button, Form, Icon, Divider} from "semantic-ui-react";
 import {useState, useEffect} from "react";
-import postNewUser from "../helpers/BackEndServices";
+import { postNewUser } from "../helpers/BackEndServices";
 
 const NewUserForm = () => {
 
     const [newUser, setNewUser] = useState({
         firstName: "",
         lastName: "",
-        age: "",
+        dob: "",
         email: ""
     })
 
@@ -17,28 +17,32 @@ const NewUserForm = () => {
     }
 
     const onSubmit = (event) => {
-        console.log("form data=:", newUser);
+        // console.log("form data=:", newUser);
         event.preventDefault();
-        postNewUser(newUser).then(() =>{
-            adduser(newUser);
-        })
+        postNewUser(newUser)
     }
 
     return (
 
         <Form onSubmit={onSubmit} id="new-booking-form">
+            <Form.Group widths='equal'>
                 <Form.Field>
                         <label forhtml="firstName">First name': </label>
-                        <input id="firstName" onChange={onChange} placeholder="First name" />
+                        <input id="firstName" onChange={onChange} placeholder="First name" required />
                 </Form.Field>
                 <Form.Field>
                         <label forhtml="lastName">Last name': </label>
-                        <input id="lastName" onChange={onChange} placeholder="Last name" />
+                        <input id="lastName" onChange={onChange} placeholder="Last name" required/>
+                </Form.Field>
+                <Form.Field>
+                        <label forhtml="dob">D.o.b.': </label>
+                        <input type="date" id="dob" onChange={onChange} required />
                 </Form.Field>
                 <Form.Field>
                         <label forhtml="email">Email address': </label>
-                        <input id="email" onChange={onChange} placeholder="Email address" />
+                        <input  type="email" id="email" onChange={onChange} placeholder="Email address" required/>
                 </Form.Field>
+            </Form.Group>
                 <Button animated type='submit' onMouseDown={e => e.preventDefault()}>
                     <Button.Content visible>Submit</Button.Content>
                     <Button.Content hidden>
