@@ -1,16 +1,18 @@
 import {Link} from "react-router-dom";
+import {Segment, Divider, Container} from "semantic-ui-react";
 
 const GameItem = ({game}) => {
 
-    const gameCategories = game.gameCategoryJoins.map((join) => {
-        return (
-            <p key={join.category.id}>{join.category.name}</p>
-        )
-    })
+  
+
+    const gameCategories = game.gameCategoryJoins.map((game =>(game.category.name))).join(", ")
+
 
     return (
 
-        <div><h3>
+        <div>
+            <Segment>
+            <h3>
             <Link to={{
                 pathname : "/single-game",
                 game    : game
@@ -21,12 +23,17 @@ const GameItem = ({game}) => {
                 pathname : "/single-game",
                 game    : game
             }}>
-                <img src={game.boxImageURL} width="40%" height="40%" alt="board game box" />
+                <div id="box-image-container-small">
+                    <img src={game.boxImageURL} height="100%" width="auto" alt="board game box" />
+                </div>
                 </Link>
-            <p>{game.minPlayers} - {game.maxPlayers} Players</p>
-            <p>Play Time: {game.playTime} minutes</p>
-            <p>Categories:</p>{gameCategories}
-            
+            <Divider></Divider>
+            <Container textAlign="left">
+                <p>Players: {game.minPlayers} - {game.maxPlayers} </p>
+                <p>Play Time: {game.playTime} mins</p>
+                <p>Categories: {gameCategories} </p>
+                </Container>
+            </Segment>
         </div>
     )
 }

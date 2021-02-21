@@ -115,5 +115,3 @@ public class Client {
     }
 
 }
-
-//https://api.boardgameatlas.com/api/game/categories?client_id=qp7DCC49jo

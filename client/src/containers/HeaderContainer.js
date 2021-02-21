@@ -7,7 +7,7 @@ const HeaderContainer = () => {
 
   return (
 
-    <Menu icon='labeled'>
+    <Menu stackable icon='labeled'>
         <Link to="/">
           <Menu.Item name='home'>
           <Icon name='home' />
@@ -20,8 +20,9 @@ const HeaderContainer = () => {
             User
           </Menu.Item>
         </Link>
-          <Header as='h1' textAlign='center'>Insert Board Game Recommender App Name Here</Header>
-        
+          <div id="custom-header-contain">
+            <Header as='h1' textAlign='center'>Insert Board Game Recommender App Name Here</Header>
+          </div>
     </Menu>
   )
 }
