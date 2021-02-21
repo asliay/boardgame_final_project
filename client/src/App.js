@@ -65,7 +65,9 @@ function App() {
                               handleResetForm={handleResetForm}
                               handleRecsStringChange={handleRecsStringChange}
                               handleFilter={handleFilter}
+                              setSelectedFilter={setSelectedFilter}
                               boardGames={boardGames}
+                              
                                />}
                             />
             <Route path="/single-game" component={SingleGameView} />
