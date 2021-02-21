@@ -3,9 +3,8 @@ import {Segment, Divider, Container} from "semantic-ui-react";
 
 const GameItem = ({game}) => {
 
-  
 
-    const gameCategories = game.gameCategoryJoins.map((game =>(game.category.name))).join(", ")
+    const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
 
 
     return (

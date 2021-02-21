@@ -46,6 +46,7 @@ public class DataLoader implements ApplicationRunner {
                 "https://cf.geekdo-images.com/W3Bsga_uLP9kO91gZ7H8yw__thumb/img/8a9HeqFydO7Uun_le9bXWPnidcA=/fit-in/200x150/filters:strip_icc()/pic2419375.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/81eKRDSc-PL._AC_SL1500_.jpg");
         catan.addCategoryToGame(economic);
+        catan.addCategoryToGame(family);
         boardGameRepository.save(catan);
 
 

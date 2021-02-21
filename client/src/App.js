@@ -13,6 +13,7 @@ function App() {
   const [recsString, setRecsString] = useState("Recommendations")
   const [selectedFilter, setSelectedFilter] = useState("")
   const [boardGames, setBoardGames] = useState([])
+  const [sortedGames, setSortedGames] = useState([])
 
   const getBoardGames = () => {
       console.log("getting data from backend");
@@ -25,17 +26,13 @@ function App() {
       getBoardGames()
   }, [query]);
 
-  const handleSort = (sortedGames) => {
-      setBoardGames(sortedGames);
-    }
+  const handleSort = (sortedGames) => setBoardGames(sortedGames);
 
-  const handleQueryChange = (query) => {
-    setQuery(query)
-  }
+  const handleQueryChange = (query) => setQuery(query);
 
-  const handleRecsStringChange = (recs) => setRecsString(recs)
+  const handleRecsStringChange = (recs) => setRecsString(recs);
 
-  const handleFilter = (event, data) => setSelectedFilter(data.value)
+  const handleFilter = (event, data) => setSelectedFilter(data.value);
 
   const handleResetForm = (event) => {
     event.preventDefault();
@@ -43,6 +40,37 @@ function App() {
     setRecsString("All results")
     setSelectedFilter("")
 }
+
+const sortGames = (selectedFilter) => {
+  let sorted = []
+  const types = {
+      minPlayersAsc : 'minPlayers',
+      maxPlayersAsc : 'maxPlayers',
+      playTimeAsc : 'playTime',
+      categoryAsc : 'gameCategoryJoins[0].category.name',
+      minPlayersDesc : 'minPlayers', 
+      maxPlayersDesc : 'maxPlayers',
+      playTimeDesc : 'playTime'
+  }
+  if(selectedFilter === 'minPlayersAsc'|| selectedFilter === 'maxPlayersAsc' || selectedFilter === 'playTimeAsc' || selectedFilter === 'categoryAsc') {
+      const sortProperty = types[selectedFilter];
+      sorted = [...boardGames].sort((a, b) => a[sortProperty] - b[sortProperty]);
+  } else if (selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' || selectedFilter === 'playTimeDesc') {
+      const sortProperty = types[selectedFilter];
+      sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
+  }
+  setSortedGames(sorted);
+}
+
+useEffect(()=> {
+  sortGames(selectedFilter)
+}, [selectedFilter])
+
+useEffect(()=>{
+  handleSort(sortedGames)
+}, [sortedGames, selectedFilter])
+   
+
 
   
   return (
@@ -54,6 +82,7 @@ function App() {
           <Switch>
             <Route exact path="/"
                    render={()=><RecommendationsContainer 
+                              sortedGames={sortedGames}
                               handleSort={handleSort}
                               recsString={recsString}
                               selectedFilter={selectedFilter}
