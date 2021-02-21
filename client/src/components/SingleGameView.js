@@ -3,11 +3,14 @@ import {Container, Segment, Grid, Divider, Image} from "semantic-ui-react";
 
 const SingleGameView = (props) => {
 
-    const gameCategories = props.location.game.gameCategoryJoins.map((join) => {
-        return (
-            <p key={join.category.id}> {join.category.name}</p>
-        )
-    })
+    // const gameCategories = props.location.game.gameCategoryJoins.map((join) => {
+    //     return (
+    //         <p key={join.category.id}> {join.category.name}</p>
+    //     )
+    // })
+
+    const gameCategories = props.location.game.gameCategoryJoins.map((game =>(game.category.name))).join(", ")
+
     return (
         <div className="single-game-view">
             
@@ -23,7 +26,7 @@ const SingleGameView = (props) => {
                         <h2> {props.location.game.name} ({props.location.game.releaseYear})</h2>
                         <p>For {props.location.game.minPlayers}-{props.location.game.maxPlayers} Players</p>
                         <p>Play Time: {props.location.game.playTime} minutes</p>
-                        <p>Categories:</p><p>{gameCategories}</p>
+                        <p>Categories: {gameCategories}</p>
                         <p>This is a sample description, this is a sample paragraph about a board game to see how this section looks. Board games are great, aren't they? So much fun. This is a sample description, this is a sample paragraph about a board game to see how this section looks. Board games are great, aren't they? So much fun.This is a sample description, this is a sample paragraph about a board game to see how this section looks. Board games are great, aren't they? So much fun.This is a sample description, this is a sample paragraph about a board game to see how this section looks. Board games are great, aren't they? So much fun.This is a sample description, this is a sample paragraph about a board game to see how this section looks. Board games are great, aren't they? So much fun.This is a sample description, this is a sample paragraph about a board game to see how this section looks. Board games are great, aren't they? So much fun. </p>
                 </Grid.Column>
             </Grid>
