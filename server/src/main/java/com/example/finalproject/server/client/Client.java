@@ -1,5 +1,6 @@
 package com.example.finalproject.server.client;
 import com.example.finalproject.server.models.BoardGame;
+import com.example.finalproject.server.models.Category;
 import com.example.finalproject.server.secrets.Secrets;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -17,10 +18,14 @@ public class Client {
 
     // Url and and Client_id for BGA API GET queries.
     Secrets secrets = new Secrets();
-    String baseURL = "https://api.boardgameatlas.com/api/search?" ;
+    String baseSearchURL   = "https://api.boardgameatlas.com/api/search?";
+    String baseCategoryURL = "https://api.boardgameatlas.com/api/game/categories?";
 
     // Inin of object mapper to turn json string to JsonNode structure.
     private static ObjectMapper objectMapper = getDefaultObjectMapper();
+
+    // Rest template for fetching from BGA API.
+    private RestTemplate restTemplate = new RestTemplate();
 
     // Custom configuration for object mapper, ignores unknown properties in json.
     // Java time module in case we want to parse java times later.
@@ -70,9 +75,7 @@ public class Client {
     // Gets a give number of board games from BGA by popularity.
     public ArrayList<BoardGame> getGamesByPopularity(int numberOfGames) {
 
-        RestTemplate restTemplate = new RestTemplate();
-
-        String responseString =  restTemplate.getForObject(baseURL +
+        String responseString =  restTemplate.getForObject(baseSearchURL +
                                  "limit="+numberOfGames+"&order_by=popularity&fields=name," +
                                  "year_published,min_players,max_players,max_playtime," +
                                  "thumb_url,image_url&client_id=" + secrets.getClient_id(), String.class);
@@ -81,4 +84,35 @@ public class Client {
 
     }
 
+    private ArrayList<Category> generateCategories(String responseString){
+
+        ArrayList<Category> categoriesOutput = new ArrayList<>();
+
+        try {
+            JsonNode node = parse(responseString);
+            List<JsonNode> ids   = node.findValues("id");
+            List<JsonNode> names = node.findValues("name");
+
+            for(int i = 0; i < ids.size(); i++){
+                Category category = new Category(ids.get(i).asText(), names.get(i).asText());
+                categoriesOutput.add(category);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return categoriesOutput;
+    }
+
+    public ArrayList<Category> getAllCatergories(){
+
+        String responseString =  restTemplate.getForObject(baseCategoryURL +
+                                 "client_id=" + secrets.getClient_id(), String.class);
+
+        return generateCategories(responseString);
+    }
+
 }
+
+//https://api.boardgameatlas.com/api/game/categories?client_id=qp7DCC49jo
