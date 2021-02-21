@@ -25,12 +25,14 @@ public class CategoryController {
     @GetMapping(value = "/categories")
     public ResponseEntity<List<Category>> getAllCategories(
             @RequestParam(name = "category", required = false) String categoryName
-    ) { // find categories by board game name
-        if (categoryName != null) {
-            List<Category> returnedCategories =
-                    categoryRepository.findByGameCategoryJoinsBoardGameNameIgnoreCase(categoryName);
-            return new ResponseEntity<>(returnedCategories, HttpStatus.OK);
-        } // find all categories
+    ) {
+        // find categories by board game name
+//        if (categoryName != null) {
+//            List<Category> returnedCategories =
+//                    categoryRepository.findByGameCategoryJoinsBoardGameNameIgnoreCase(categoryName);
+//            return new ResponseEntity<>(returnedCategories, HttpStatus.OK);
+//        }
+        // find all categories
         List<Category> allCategories = categoryRepository.findAll();
         return new ResponseEntity<>(allCategories, HttpStatus.OK);
     }

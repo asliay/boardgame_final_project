@@ -28,9 +28,6 @@ public class DataLoader implements ApplicationRunner {
     CategoryRepository categoryRepository;
 
     @Autowired
-    GameCategoryJoinRepository gameCategoryJoinRepository;
-
-    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -50,12 +47,9 @@ public class DataLoader implements ApplicationRunner {
         BoardGame catan          = new BoardGame("Settlers of Catan", 1995, 3, 4, 120,
                 "https://cf.geekdo-images.com/W3Bsga_uLP9kO91gZ7H8yw__thumb/img/8a9HeqFydO7Uun_le9bXWPnidcA=/fit-in/200x150/filters:strip_icc()/pic2419375.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/81eKRDSc-PL._AC_SL1500_.jpg");
+        catan.addCategoryToGame(economic);
         boardGameRepository.save(catan);
 
-        GameCategoryJoin bgc1 = new GameCategoryJoin(catan, family);
-        gameCategoryJoinRepository.save(bgc1);
-        GameCategoryJoin bgc2 = new GameCategoryJoin(catan, economic);
-        gameCategoryJoinRepository.save(bgc2);
 
         BoardGame coup           = new BoardGame("Coup", 2012, 2, 6, 15,
                 "https://cf.geekdo-images.com/MWhSY_GOe2-bmlQ2rntSVg__thumb/img/vuR_0PCX1w2EkjO_LbchOHZPOwU=/fit-in/200x150/filters:strip_icc()/pic2016054.jpg",
@@ -63,7 +57,7 @@ public class DataLoader implements ApplicationRunner {
         boardGameRepository.save(coup);
 
         GameCategoryJoin bgc3 = new GameCategoryJoin(coup, family);
-        gameCategoryJoinRepository.save(bgc3);
+//        gameCategoryJoinRepository.save(bgc3);
 
         BoardGame gloomhaven     = new BoardGame("Gloomhaven", 2017, 1, 4, 120,
                 "https://cf.geekdo-images.com/sZYp_3BTDGjh2unaZfZmuA__thumb/img/veqFeP4d_3zNhFc3GNBkV95rBEQ=/fit-in/200x150/filters:strip_icc()/pic2437871.jpg",
