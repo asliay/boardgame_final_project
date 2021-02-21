@@ -14,5 +14,12 @@
   color: darkorchid;
 }
 
+#custom-header-contain{
+  width: 100%;
+  margin: auto;
+  justify-content: center;
+}
+
+
 
 
