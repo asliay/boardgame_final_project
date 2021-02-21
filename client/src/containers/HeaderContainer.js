@@ -7,7 +7,7 @@ const HeaderContainer = () => {
 
   return (
 
-    <Menu icon='labeled'>
+    <Menu stackable icon='labeled'>
         <Link to="/">
           <Menu.Item name='home'>
           <Icon name='home' />

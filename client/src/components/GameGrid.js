@@ -21,7 +21,7 @@ const GameGrid = ({games, handleParentSort, handleFilter}) => {
         <div>
         <Container>
             
-            <Grid container columns={3}>
+            <Grid container columns={3} stackable>
                 {gameNodes}
             </Grid>
             </Container>
