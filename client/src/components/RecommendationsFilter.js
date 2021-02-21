@@ -8,12 +8,12 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handle
     
 
     const filterOptions = [
-        {
-            key : "0", 
-            value : '', 
-            text : "all", 
-            content: "All"
-        },
+        // {
+        //     key : "0", 
+        //     value : '', 
+        //     text : "all", 
+        //     content: "All"
+        // },
         {
             key : 1, 
             value : "minPlayersAsc", 
