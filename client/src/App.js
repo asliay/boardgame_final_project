@@ -36,7 +36,7 @@ function App() {
 
   const handleResetForm = (event) => {
     event.preventDefault();
-    setQuery("");
+    setQuery("?");
     setRecsString("All results")
     setSelectedFilter("")
 }
