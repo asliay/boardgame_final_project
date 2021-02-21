@@ -2,11 +2,10 @@ import {Link} from "react-router-dom";
 
 const GameItem = ({game}) => {
 
-    const gameCategories = game.gameCategoryJoins.map((join) => {
-        return (
-            <p key={join.category.id}>{join.category.name}</p>
-        )
-    })
+  
+
+    const gameCategories = game.gameCategoryJoins.map((game =>(game.category.name))).join(", ")
+
 
     return (
 
@@ -25,7 +24,7 @@ const GameItem = ({game}) => {
                 </Link>
             <p>{game.minPlayers} - {game.maxPlayers} Players</p>
             <p>Play Time: {game.playTime} minutes</p>
-            <p>Categories:</p>{gameCategories}
+            <p>Categories: {gameCategories} </p>
             
         </div>
     )
