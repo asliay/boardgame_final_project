@@ -21,7 +21,9 @@ const GameItem = ({game}) => {
                 pathname : "/single-game",
                 game    : game
             }}>
-                <img src={game.boxImageURL} width="40%" height="40%" alt="board game box" />
+                <div id="box-image-container-small">
+                    <img src={game.boxImageURL} height="100%" width="auto" alt="board game box" />
+                </div>
                 </Link>
             <p>{game.minPlayers} - {game.maxPlayers} Players</p>
             <p>Play Time: {game.playTime} minutes</p>
