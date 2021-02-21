@@ -3,7 +3,7 @@ import { useState, useEffect} from "react";
 import { Container } from "semantic-ui-react";
 import NewUserForm from "../components/NewUserForm";
 
-const UserContainer = () => {
+const UserContainer = ({boardGames}) => {
 
     const [user, setUser] = useState({})
 
@@ -20,7 +20,7 @@ const UserContainer = () => {
     return(
         <Container>
             <NewUserForm />
-            <User user={user} userGames={user.ownedGames}/>
+            <User user={user} userGames={user.ownedGames} boardGames={boardGames}/>
         </Container>
     )
 }

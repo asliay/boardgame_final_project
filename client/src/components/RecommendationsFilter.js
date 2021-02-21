@@ -18,49 +18,42 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handle
             key : 1, 
             value : "minPlayersAsc", 
             text: "Minimum Players (Low to High) ",
+            icon: 'users'
         }, 
         {
             key : 2,
             value : "minPlayersDesc", 
-            text : "Minimum Players (High to Low)"
+            text : "Minimum Players (High to Low)",
+            icon: 'users'
         },
         {
             key : 3, 
             value : "maxPlayersAsc", 
             text: "Maximum Players (Low to High)",
+            icon: 'users'
         }, 
         {
             key : 4,
             value : "maxPlayersDesc", 
-            text : "Maximum Players (High to Low)"
+            text : "Maximum Players (High to Low)",
+            icon: 'users'
         },
         {
             key : 5, 
             value : "playTimeAsc", 
             text: "Maximum Play Time (Low to High)",
+            icon: 'clock'
         }, 
         {
             key : 6,
             value : "playTimeDesc", 
-            text : "Maximum Play Time (High to Low)"
+            text : "Maximum Play Time (High to Low)",
+            icon: 'clock'
         },
     ]
     
     return (
        <>
-        {/* <Form> 
-            <Form.Field>
-                <select onChange={handleFilter} value={selectedFilter}>
-                    <option defaultValue='selected' value="">All Results</option>
-                    <option value='minPlayersAsc'>Sort by # Minimum Players Ascending</option>
-                    <option value='minPlayersDesc'>Sort by # Minimum Players Descending</option>
-                    <option value='maxPlayersAsc'>Sort by # Max Players Ascending</option>
-                    <option value='maxPlayersDesc'>Sort by # Max Players Descending</option>
-                    <option value='playTimeAsc'>Sort by Playing Time Ascending</option>
-                    <option value='playTimeDesc'>Sort by Playing Time Descending</option>
-                    <option value='categoryAsc'>Sort by Category</option>
-                </select>
-             </Form.Field> */}
             <Header as='h4'>
             <Icon name='filter' />
             <Header.Content>
@@ -74,7 +67,7 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handle
             />
             </Header.Content>
         </Header>
-        {/* </Form>     */}
+    
         </>
     )
 }
