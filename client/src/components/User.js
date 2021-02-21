@@ -1,34 +1,32 @@
 import GameGrid from "./GameGrid";
+import {useEffect, useState} from 'react';
 import {Container, Divider, Grid, Segment, Form, Dropdown, Button} from "semantic-ui-react";
 
 
-const User = ({user, userGames, boardGames}) => {
+const User = ({user, userGames}) => {
+    const [allGames, setAllGames] = useState([]);
+
+    const getAllGames = () => {
+        console.log("getting data from backend");
+        fetch(`http://localhost:8080/board-games`)
+            .then(res => res.json())
+            .then(data => setAllGames(data))
+    }
+
+    useEffect(()=>{
+        getAllGames()
+    }, []);
+
 
     if( !user.ownedGames || !user.wishList){
        return null;
     }
 
-    //     const ownedGameNodes = user.ownedGames.map((game, key) =>{
-    //         return(
     
-    //             <li id = "game-item" key = {game.id}> 
-    //                 <GameItem game={game}/></li>
-    //         )
-    //     });
-
-
-    // const wishGameNodes = user.wishList.map((game, key) =>{
-    //     return(
- 
-    //         <li id = "game-item" key = {game.id}> 
-    //             <GameItem game={game} />
-    //         </li>
-    //     )
-    // });
-
-    let gameOptions = boardGames.map((game => ({key: game.id, value: game.id, text: game.name})))
-
-    const sortedOptions = gameOptions.sort((a, b) => (a.text > b.text) ? 1 : -1)
+    // game value options for the Dropdown element
+    let dropdownOptions = allGames.map((game => ({key: game.id, value: game.id, text: game.name})))
+    // sorting games alphabetically for Dropbown
+    const sortedOptions = dropdownOptions.sort((a, b) => (a.text > b.text) ? 1 : -1)
 
 
     return (
