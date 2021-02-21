@@ -26,7 +26,6 @@ public class BoardGame {
     @Column(name = "play_time")
     private int playTime;
 
-
     @Column
     private String thumbnailURL;
 
@@ -37,9 +36,27 @@ public class BoardGame {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy="boardGame")
-    @JsonIgnoreProperties({"boardGame"})
-    private List<GameCategoryJoin> gameCategoryJoins;
+    @ManyToMany
+    @JsonIgnoreProperties({"boardGames"})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinTable(
+            name = "boardgames_categories_join",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "game_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "category_bga_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
+    private List<Category> gameCategory;
 
     @ManyToMany
     @JsonIgnoreProperties({"ownedGames"})
@@ -95,7 +112,7 @@ public class BoardGame {
         this.playTime = playTime;
         this.thumbnailURL = thumbnailURL;
         this.boxImageURL = boxImageURL;
-        this.gameCategoryJoins = new ArrayList<>();
+        this.gameCategory = new ArrayList<>();
         this.ownedBy = new ArrayList<>();
         this.wantedBy = new ArrayList<>();
     }
@@ -143,13 +160,12 @@ public class BoardGame {
         this.playTime = playTime;
     }
 
-
-    public List<GameCategoryJoin> getGameCategoryJoins() {
-        return gameCategoryJoins;
+    public List<Category> getGameCategory() {
+        return gameCategory;
     }
 
-    public void setGameCategoryJoins(List<GameCategoryJoin> gameCategoryJoins) {
-        this.gameCategoryJoins = gameCategoryJoins;
+    public void setGameCategory(List<Category> gameCategory) {
+        this.gameCategory = gameCategory;
     }
 
     public String getThumbnailURL() {
@@ -190,6 +206,10 @@ public class BoardGame {
 
     public void setWantedBy(List<User> wantedBy) {
         this.wantedBy = wantedBy;
+    }
+
+    public void addCategoryToGame(Category category){
+        this.gameCategory.add(category);
     }
 }
 

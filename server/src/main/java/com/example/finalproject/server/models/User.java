@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,8 +22,11 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column
-    private int age;
+//    @Column
+//    private int age;
+
+    @Column(name="d.o.b.")
+    private String dob;
 
     @Column
     private String email;
@@ -71,10 +75,10 @@ public class User {
     )
     private List<BoardGame> wishList;
 
-    public User(String firstName, String lastName, int age, String email) {
+    public User(String firstName, String lastName, String dob, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.dob = dob;
         this.email = email;
         this.ownedGames = new ArrayList();
         this.wishList = new ArrayList();
@@ -107,12 +111,20 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getAge() {
-        return age;
+//    public int getAge() {
+//        return age;
+//    }
+//
+//    public void setAge(int age) {
+//        this.age = age;
+//    }
+
+    public String getDob() {
+        return dob;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public String getEmail() {

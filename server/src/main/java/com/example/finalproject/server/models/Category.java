@@ -1,6 +1,7 @@
 package com.example.finalproject.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,20 +15,38 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Column(name="bga_id")
     private String bgaId;
 
     @Column
     private String name;
 
-    @OneToMany(mappedBy="category")
-    @JsonIgnoreProperties({"category"})
-    private List<GameCategoryJoin> gameCategoryJoins;
+    @ManyToMany
+    @JsonIgnoreProperties({"gameCategories", "ownedBy", "wantedBy"})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinTable(
+            name = "boardgames_categories_join",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "category_bga_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "game_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
+    private List<BoardGame> boardGames;
 
     public Category(String bgaId, String name) {
         this.bgaId = bgaId;
         this.name = name;
-        this.gameCategoryJoins = new ArrayList<>();
     }
 
     public Category() {
@@ -57,12 +76,11 @@ public class Category {
         this.name = name;
     }
 
-
-    public List<GameCategoryJoin> getGameCategoryJoins() {
-        return gameCategoryJoins;
+    public List<BoardGame> getBoardGames() {
+        return boardGames;
     }
 
-    public void setGameCategoryJoins(List<GameCategoryJoin> gameCategoryJoins) {
-        this.gameCategoryJoins = gameCategoryJoins;
+    public void setBoardGames(List<BoardGame> boardGames) {
+        this.boardGames = boardGames;
     }
 }

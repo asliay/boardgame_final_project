@@ -6,9 +6,7 @@ import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.User;
 import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.UserRepository;
-import com.example.finalproject.server.models.GameCategoryJoin;
 import com.example.finalproject.server.models.Category;
-import com.example.finalproject.server.repositories.GameCategoryJoinRepository;
 import com.example.finalproject.server.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -26,9 +24,6 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     CategoryRepository categoryRepository;
-
-    @Autowired
-    GameCategoryJoinRepository gameCategoryJoinRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -50,20 +45,16 @@ public class DataLoader implements ApplicationRunner {
         BoardGame catan          = new BoardGame("Settlers of Catan", 1995, 3, 4, 120,
                 "https://cf.geekdo-images.com/W3Bsga_uLP9kO91gZ7H8yw__thumb/img/8a9HeqFydO7Uun_le9bXWPnidcA=/fit-in/200x150/filters:strip_icc()/pic2419375.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/81eKRDSc-PL._AC_SL1500_.jpg");
+        catan.addCategoryToGame(economic);
+        catan.addCategoryToGame(family);
         boardGameRepository.save(catan);
 
-        GameCategoryJoin bgc1 = new GameCategoryJoin(catan, family);
-        gameCategoryJoinRepository.save(bgc1);
-        GameCategoryJoin bgc2 = new GameCategoryJoin(catan, economic);
-        gameCategoryJoinRepository.save(bgc2);
 
         BoardGame coup           = new BoardGame("Coup", 2012, 2, 6, 15,
                 "https://cf.geekdo-images.com/MWhSY_GOe2-bmlQ2rntSVg__thumb/img/vuR_0PCX1w2EkjO_LbchOHZPOwU=/fit-in/200x150/filters:strip_icc()/pic2016054.jpg",
                 "https://images-na.ssl-images-amazon.com/images/I/51cnlYAh-6L._AC_.jpg");
         boardGameRepository.save(coup);
 
-        GameCategoryJoin bgc3 = new GameCategoryJoin(coup, family);
-        gameCategoryJoinRepository.save(bgc3);
 
         BoardGame gloomhaven     = new BoardGame("Gloomhaven", 2017, 1, 4, 120,
                 "https://cf.geekdo-images.com/sZYp_3BTDGjh2unaZfZmuA__thumb/img/veqFeP4d_3zNhFc3GNBkV95rBEQ=/fit-in/200x150/filters:strip_icc()/pic2437871.jpg",
@@ -196,7 +187,7 @@ public class DataLoader implements ApplicationRunner {
                 "https://images-na.ssl-images-amazon.com/images/I/81qy%2BMXuxDL._AC_SL1392_.jpg");
         boardGameRepository.save(monopoly);
 
-        User bobAdams = new User( "Bob", "Adams", 27, "bob.adams@gmail.com");
+        User bobAdams = new User( "Bob", "Adams", "1990-10-25", "bob.adams@gmail.com");
         bobAdams.addGameToOwnedList(monopoly);
         bobAdams.addGameToWishList(catan);
         userRepository.save(bobAdams);
@@ -204,7 +195,7 @@ public class DataLoader implements ApplicationRunner {
         bobAdams.addGameToOwnedList(secretHitler);
         userRepository.save(bobAdams);
 
-        User philPullman = new User( "Philip", "Pullman", 50, "p.pullman@yahoo.com");
+        User philPullman = new User( "Philip", "Pullman", "1960-03-05", "p.pullman@yahoo.com");
         philPullman.addGameToOwnedList(werewolf);
         philPullman.addGameToWishList(explodingKittens);
         userRepository.save(philPullman);
