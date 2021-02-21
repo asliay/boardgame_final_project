@@ -5,9 +5,7 @@ import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.User;
 import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.UserRepository;
-import com.example.finalproject.server.models.GameCategoryJoin;
 import com.example.finalproject.server.models.Category;
-import com.example.finalproject.server.repositories.GameCategoryJoinRepository;
 import com.example.finalproject.server.repositories.CategoryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +21,6 @@ class ServerApplicationTests {
 
 	@Autowired
 	CategoryRepository categoryRepository;
-
-	@Autowired
-	GameCategoryJoinRepository gameCategoryJoinRepository;
 
 	@Autowired
 	UserRepository userRepository;
@@ -52,8 +47,7 @@ class ServerApplicationTests {
 		Category family = new Category("7rV11PKqME", "Family");
 		categoryRepository.save(family);
 
-		GameCategoryJoin bgc1 = new GameCategoryJoin(catan, family);
-		gameCategoryJoinRepository.save(bgc1);
+
 	}
 
 	@Test

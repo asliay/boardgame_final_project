@@ -6,9 +6,7 @@ import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.User;
 import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.UserRepository;
-import com.example.finalproject.server.models.GameCategoryJoin;
 import com.example.finalproject.server.models.Category;
-import com.example.finalproject.server.repositories.GameCategoryJoinRepository;
 import com.example.finalproject.server.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -56,8 +54,6 @@ public class DataLoader implements ApplicationRunner {
                 "https://images-na.ssl-images-amazon.com/images/I/51cnlYAh-6L._AC_.jpg");
         boardGameRepository.save(coup);
 
-        GameCategoryJoin bgc3 = new GameCategoryJoin(coup, family);
-//        gameCategoryJoinRepository.save(bgc3);
 
         BoardGame gloomhaven     = new BoardGame("Gloomhaven", 2017, 1, 4, 120,
                 "https://cf.geekdo-images.com/sZYp_3BTDGjh2unaZfZmuA__thumb/img/veqFeP4d_3zNhFc3GNBkV95rBEQ=/fit-in/200x150/filters:strip_icc()/pic2437871.jpg",
