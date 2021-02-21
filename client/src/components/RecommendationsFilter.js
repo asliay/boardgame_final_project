@@ -3,45 +3,17 @@ import {Form, Dropdown, Header, Icon, Menu, Container} from "semantic-ui-react"
 
 const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handleSort}) => {
 
-    const [sortedGames, setSortedGames] = useState([])
+  
 
-    const sortGames = (selectedFilter) => {
-        let sorted = []
-        const types = {
-            minPlayersAsc : 'minPlayers',
-            maxPlayersAsc : 'maxPlayers',
-            playTimeAsc : 'playTime',
-            categoryAsc : 'gameCategoryJoins[0].category.name',
-            minPlayersDesc : 'minPlayers', 
-            maxPlayersDesc : 'maxPlayers',
-            playTimeDesc : 'playTime'
-        }
-        if(selectedFilter === 'minPlayersAsc'|| selectedFilter === 'maxPlayersAsc' || selectedFilter === 'playTimeAsc' || selectedFilter === 'categoryAsc') {
-            const sortProperty = types[selectedFilter];
-            sorted = [...boardGames].sort((a, b) => a[sortProperty] - b[sortProperty]);
-        } else if (selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' || selectedFilter === 'playTimeDesc') {
-            const sortProperty = types[selectedFilter];
-            sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
-        }
-        setSortedGames(sorted);
-    }
-
-
-    useEffect(()=> {
-        sortGames(selectedFilter)
-    }, [selectedFilter])
-
-    useEffect(()=>{
-        handleSort(sortedGames)
-    }, [sortedGames, selectedFilter])
+    
 
     const filterOptions = [
-        {
-            key : "0", 
-            value : '', 
-            text : "all", 
-            content: "All"
-        },
+        // {
+        //     key : "0", 
+        //     value : '', 
+        //     text : "all", 
+        //     content: "All"
+        // },
         {
             key : 1, 
             value : "minPlayersAsc", 
