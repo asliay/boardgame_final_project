@@ -55,7 +55,7 @@ function App() {
     event.preventDefault();
     setQuery("");
     setRecsString("Recommendations")
-    // setSelectedFilter("")
+    setSelectedFilter("")
     setBoardGames(baseBoardGames)
 }
 
@@ -88,12 +88,12 @@ useEffect(()=> {
 }, [selectedFilter])
 
 useEffect(()=>{
-  handleSort(sortedGames)
+  if(selectedFilter != ""){
+    handleSort(sortedGames)
+  }
 }, [sortedGames, selectedFilter])
    
 
-
-  
   return (
     <>
     <Router >
