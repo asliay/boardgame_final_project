@@ -1,7 +1,9 @@
-import {useState, useEffect} from "react"
+
 import {Container, Segment, Grid, Divider, Image, Button, Icon} from "semantic-ui-react";
 
 const SingleGameView = (props) => {
+
+    
 
 
     const gameCategories = props.location.game.gameCategory.map((category =>(category.name))).join(", ")

@@ -56,7 +56,7 @@ function App() {
     event.preventDefault();
     setQuery("");
     setRecsString("Recommendations")
-    // setSelectedFilter("")
+    setSelectedFilter("")
     setBoardGames(baseBoardGames)
 }
 
@@ -89,12 +89,12 @@ useEffect(()=> {
 }, [selectedFilter])
 
 useEffect(()=>{
-  handleSort(sortedGames)
+  if(selectedFilter != ""){
+    handleSort(sortedGames)
+  }
 }, [sortedGames, selectedFilter])
    
 
-
-  
   return (
     <>
     <Router >
@@ -117,7 +117,8 @@ useEffect(()=>{
                               
                                />}
                             />
-            <Route path="/single-game" component={SingleGameView} />
+            <Route path="/single-game" 
+                   component={SingleGameView} />
             <Route path="/user" 
                    render={()=> <UserContainer
                                boardGames={boardGames} 
