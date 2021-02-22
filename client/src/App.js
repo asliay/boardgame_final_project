@@ -7,6 +7,7 @@ import RecommendationsContainer from './containers/RecommendationsContainer';
 import UserContainer from './containers/UserContainer'
 import SingleGameView from './components/SingleGameView';
 import UserLoginForm from './components/UserLogInForm';
+import NewUserForm from './components/NewUserForm';
 
 function App() {
 
@@ -55,7 +56,7 @@ function App() {
     event.preventDefault();
     setQuery("");
     setRecsString("Recommendations")
-    // setSelectedFilter("")
+    setSelectedFilter("")
     setBoardGames(baseBoardGames)
 }
 
@@ -88,12 +89,12 @@ useEffect(()=> {
 }, [selectedFilter])
 
 useEffect(()=>{
-  handleSort(sortedGames)
+  if(selectedFilter != ""){
+    handleSort(sortedGames)
+  }
 }, [sortedGames, selectedFilter])
    
 
-
-  
   return (
     <>
     <Router >
@@ -124,6 +125,8 @@ useEffect(()=>{
                                 />} />
             <Route path="/login"
                   render ={()=><UserLoginForm />} />
+            <Route path="/newuser"
+                  render={()=> <NewUserForm />} />
           </Switch>
       </Container>
       </Router>

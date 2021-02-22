@@ -1,5 +1,6 @@
 import {Button, Form, Icon} from "semantic-ui-react";
 import {useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 
 const UserLoginForm = () => {
 
@@ -37,7 +38,8 @@ const UserLoginForm = () => {
                     <Icon name='check' />
                 </Button.Content>
             </Button>
-            <p>Not yet a registered user? Sign up here...</p>
+
+            <p>Not yet a registered user? Sign up <Link to="/newuser">here...</Link></p>
         </Form>
     )
 }

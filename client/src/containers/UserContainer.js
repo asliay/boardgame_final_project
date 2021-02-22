@@ -23,7 +23,6 @@ const UserContainer = ({boardGames}) => {
         <Container>
             {/* Line below is the conditional render of either User component or New User Form */}
             {/* {(isLoggedIn && <User user={user} userGames={user.ownedGames}/>) || <NewUserForm />} */}
-            <NewUserForm />
             <User user={user} userGames={user.ownedGames}/>
         </Container>
     )
