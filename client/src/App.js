@@ -116,7 +116,8 @@ useEffect(()=>{
                               
                                />}
                             />
-            <Route path="/single-game" component={SingleGameView} />
+            <Route path="/single-game" 
+                   component={SingleGameView} />
             <Route path="/user" 
                    render={()=> <UserContainer
                                boardGames={boardGames} 

@@ -56,13 +56,11 @@ public class Client {
                      "year_published,min_players,max_players,max_playtime," +
                      "thumb_url,image_url,rank,description,categories&client_id=" +
                       secrets.getClient_id(), String.class);
-        System.out.println(responseString);
 
         // We then parse the data into a JsonNode tree and construct a BoardGame from the node fields.
         try {
             JsonNode node  = parse(responseString);
             JsonNode games = node.get("games");
-            System.out.println(games.findValues("rank"));
             for (JsonNode j : games) {
                 BoardGame bg = new BoardGame(j.get("name").asText(), j.get("year_published").asInt(),
                         j.get("min_players").asInt(), j.get("max_players").asInt(),
