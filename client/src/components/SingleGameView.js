@@ -6,36 +6,28 @@ const SingleGameView = (props) => {
 
     const gameCategories = props.location.game.gameCategory.map((category =>(category.name))).join(", ")
 
-    const description = `<p>This is html</p>`
 
-    const createDescription = () => {
-        return {__html: {description}};
-      }
-      
-      function gameDescription() {
-        return <div dangerouslySetInnerHTML={{__html: "<p>Hello</p>"}} />;
-      }
-      
+
     return (
         <div className="single-game-view">
             
             <Container>
                 <Segment>
-            <Divider horizontal>Single Game View</Divider>
+            <Divider horizontal>{props.location.game.name} ({props.location.game.releaseYear})</Divider>
             <br/>
             <Grid divided columns={2} relaxed='very'>
                 <Grid.Column>
                     <Image src={props.location.game.boxImageURL} />
                 </Grid.Column>
                 <Grid.Column textAlign="left">
-                        <h2> {props.location.game.name} ({props.location.game.releaseYear})</h2>
+                        {/* <h2> {props.location.game.name} ({props.location.game.releaseYear})</h2> */}
                         <p>For {props.location.game.minPlayers}-{props.location.game.maxPlayers} Players</p>
                         <p>Play Time: {props.location.game.playTime} minutes</p>
                         <p>Categories: {gameCategories}</p>
                         <div>
-                            {parse({description})}
+                        {parse(props.location.game.description)}
                         </div>
-                        {/* {gameDescription} */}
+                        <Divider/>
                         <Container >
                         <Button icon labelPosition='left' floated="left">
                             <Icon name='heart' />
