@@ -15,7 +15,7 @@ function App() {
   const [selectedFilter, setSelectedFilter] = useState("")
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
-  const [loggedIn, setloggedIn] = useState(true);
+  const [loggedIn, setloggedIn] = useState(false);
 
 
   const getBoardGames = () => {

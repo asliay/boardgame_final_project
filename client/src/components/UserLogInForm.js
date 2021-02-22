@@ -37,6 +37,7 @@ const UserLoginForm = () => {
                     <Icon name='check' />
                 </Button.Content>
             </Button>
+            <p>Not yet a registered user? Sign up here...</p>
         </Form>
     )
 }
