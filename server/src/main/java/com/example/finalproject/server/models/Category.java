@@ -83,4 +83,6 @@ public class Category {
     public void setBoardGames(List<BoardGame> boardGames) {
         this.boardGames = boardGames;
     }
+
+    public void addBoardGameToCategory(BoardGame bg){ this.boardGames.add(bg); }
 }

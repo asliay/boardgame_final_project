@@ -14,7 +14,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -203,15 +203,34 @@ public class DataLoader implements ApplicationRunner {
 
         // Following is client loading data from BGA API.
 
-        // Populating categories with a[pi data.
-        List<Category> allCategories = client.getAllCatergories();
-        for(Category category : allCategories){
-            categoryRepository.save(category);
+        // MAX = 100 - Variable for how many games to return.
+        int numOfGames = 100;
+
+        // Populate the categories table.
+        ArrayList<Category> categoriesFromBGA = client.getAllCatergories();
+        for(Category cat : categoriesFromBGA){
+            categoryRepository.save(cat);
         }
 
-        // Populate boardgames table with a given amount of games.
-        List<BoardGame> topTenFromBGA = client.getGamesByPopularity(10);
-        for(BoardGame bg : topTenFromBGA){
+        // Getting map of BoardGames with a value list of their BGA category IDs.
+        HashMap<BoardGame, List<String>> bgWithCategories = client.getBoardGamesFromBGA(numOfGames);
+
+        // Creates a set of boardgame objects from the above.
+        Set<BoardGame> keys = bgWithCategories.keySet();
+
+        // Get our saved  categories as objects from the db.
+        List<Category> dbCategories = categoryRepository.findAll();
+
+        // Adding relative categories to boardgames, then saves to db.
+        for(BoardGame bg : keys){
+            for(Category cat : dbCategories){
+                for(String str : bgWithCategories.get(bg)){
+                    // substring is removing "" that appear in the string from bgWithCategories cat list.
+                    if(str.substring(1, str.length() -1).equals(cat.getBgaId())){
+                        bg.addCategoryToGame(cat);
+                    }
+                }
+            }
             boardGameRepository.save(bg);
         }
 
