@@ -1,11 +1,23 @@
 import {Link} from "react-router-dom";
-import {Segment, Divider, Container, Button, Icon} from "semantic-ui-react";
+import {useState, useEffect} from "react";
+import {Segment, Divider, Container, Button, Icon, Form} from "semantic-ui-react";
+import {postAddGameToUserList} from "../helpers/BackEndServices";
 
 const GameItem = ({game}) => {
 
-
     const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
+    
+    let usersList = "";
 
+    const setUsersList = (event) => {
+        usersList = event.target.id
+    }
+    const onSubmit = (event) => {
+        const user_id = 1;
+        const targetList = usersList;
+        event.preventDefault();
+        postAddGameToUserList(game, user_id, targetList)
+    }
 
     return (
 
@@ -31,18 +43,19 @@ const GameItem = ({game}) => {
                     <p>Players: {game.minPlayers} - {game.maxPlayers} </p>
                     <p>Play Time: {game.playTime} mins</p>
                     <p>Categories: {gameCategories} </p>
-                <Container  textAlign="center">
-                <Button size="medium" icon labelPosition='left' >
+                    <Container  textAlign="center">
+                    <Form onSubmit={onSubmit} id="add-game-to-user-form">
+                        <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
                             <Icon name='check' />
                             I Own This
                         </Button>
-                        <Button size="medium" icon labelPosition='left' >
+                        <Button size="medium" id="wish" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
                             <Icon name='heart' />
                             I Want This
-                        </Button> 
+                        </Button>
+                    </Form>
+                    </Container>
                 </Container>
-                </Container>
-                
             </Segment>
         </div>
     )

@@ -7,7 +7,6 @@ const UserContainer = ({boardGames}) => {
 
     const [isLoggedIn] = useState(false); // state to hard code whether user is logged in or not and test conditional rendering!
 
-
     const [user, setUser] = useState({})
 
     const getUser = () => {

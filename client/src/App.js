@@ -6,6 +6,7 @@ import HeaderContainer from "./containers/HeaderContainer";
 import RecommendationsContainer from './containers/RecommendationsContainer';
 import UserContainer from './containers/UserContainer'
 import SingleGameView from './components/SingleGameView';
+import UserLoginForm from './components/UserLogInForm';
 
 function App() {
 
@@ -14,6 +15,8 @@ function App() {
   const [selectedFilter, setSelectedFilter] = useState("")
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
+  const [loggedIn, setloggedIn] = useState(true);
+
 
   const getBoardGames = () => {
       console.log("getting data from backend");
@@ -77,7 +80,7 @@ useEffect(()=>{
     <>
     <Router >
       <Container textAlign='center'>
-      <HeaderContainer />
+      <HeaderContainer loggedIn={loggedIn}/>
       <br/>
           <Switch>
             <Route exact path="/"
@@ -100,6 +103,8 @@ useEffect(()=>{
                    render={()=> <UserContainer
                                boardGames={boardGames} 
                                 />} />
+            <Route path="/login"
+                  render ={()=><UserLoginForm />} />
           </Switch>
       </Container>
       </Router>

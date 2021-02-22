@@ -2,8 +2,27 @@ import {Header,Segment, Menu, Icon} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 
 
-const HeaderContainer = () => {
+const HeaderContainer = ({loggedIn}) => {
   
+  let link;
+    if(!loggedIn){
+      link = 
+        <Link to="/login">
+        <Menu.Item name='user'>
+          <Icon name='user' />
+          User
+        </Menu.Item>
+      </Link>
+  
+    } else {
+      link =
+      <Link to="/user">
+      <Menu.Item name='user'>
+        <Icon name='user' />
+        User
+      </Menu.Item>
+    </Link>
+  }
 
   return (
 
@@ -14,12 +33,13 @@ const HeaderContainer = () => {
             Home
           </Menu.Item>
         </Link>
-        <Link to="/user">
+        {link}
+        {/* <Link to="/user">
           <Menu.Item name='user'>
             <Icon name='user' />
             User
           </Menu.Item>
-        </Link>
+        </Link> */}
           <div id="custom-header-contain">
             <Header as='h1' textAlign='center'>Insert Board Game Recommender App Name Here</Header>
           </div>
