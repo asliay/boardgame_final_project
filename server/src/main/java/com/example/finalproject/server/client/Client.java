@@ -65,13 +65,16 @@ public class Client {
                 for (JsonNode i : catNodes) {
                         catStrings.add(String.valueOf(i));
                 }
+
                 outputMap.put(bg, catStrings);
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+
         return outputMap;
+
     }
 
     // Generates categories list when given JSON string.
@@ -88,12 +91,12 @@ public class Client {
                 Category category = new Category(ids.get(i).asText(), names.get(i).asText());
                 categoriesOutput.add(category);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return categoriesOutput;
+
     }
 
     // Gets all categories from BGA API.
@@ -103,6 +106,7 @@ public class Client {
                                  "client_id=" + secrets.getClient_id(), String.class);
 
         return generateCategories(responseString);
+
     }
 
 }

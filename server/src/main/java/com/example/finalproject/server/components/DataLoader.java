@@ -208,8 +208,8 @@ public class DataLoader implements ApplicationRunner {
 
         // Following is client loading data from BGA API.
 
-        // Variable for how many games to return.
-        int numOfGames = 50;
+        // MAX = 100 - Variable for how many games to return.
+        int numOfGames = 100;
 
         // Populate the categories table.
         ArrayList<Category> categoriesFromBGA = client.getAllCatergories();
@@ -222,7 +222,6 @@ public class DataLoader implements ApplicationRunner {
         Set<BoardGame> keys = bgWithCategories.keySet();
 
         List<Category> dbCategories = categoryRepository.findAll();
-        System.out.println(dbCategories.size());
 
         for(BoardGame bg : keys){
             for(Category cat : dbCategories){
