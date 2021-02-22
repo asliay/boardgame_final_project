@@ -57,7 +57,7 @@ const RecommendationsContainer = ({handleSort, recsString, selectedFilter, handl
     
         handleQueryChange(newQuery);
         handleRecsStringChange(newRecsString);
-        setSelectedFilter("")
+        // setSelectedFilter("")
         
     }
 
@@ -80,6 +80,7 @@ const RecommendationsContainer = ({handleSort, recsString, selectedFilter, handl
                     handleFilter={handleFilter}
                     boardGames={boardGames}
                     handleSort={handleSort}
+                    setSelectedFilter={setSelectedFilter}
                 />
                 <GameGrid games={boardGames}/>
             </Container>
