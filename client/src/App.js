@@ -12,19 +12,33 @@ function App() {
   const [query, setQuery] = useState("")
   const [recsString, setRecsString] = useState("Recommendations")
   const [selectedFilter, setSelectedFilter] = useState("")
+  const [baseBoardGames, setBaseBoardGames] = useState([])
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
 
+
   const getBoardGames = () => {
       console.log("getting data from backend");
-      fetch(`http://localhost:8080/board-games/${query}`)
+      fetch(`http://localhost:8080/board-games/`)
           .then(res => res.json())
-          .then(data => setBoardGames(data))
+          .then(data => setBaseBoardGames(data))
   }
+
+  const getQueryBoardGames = () => {
+    console.log("getting data from backend");
+    fetch(`http://localhost:8080/board-games/${query}`)
+        .then(res => res.json())
+        .then(data => setBoardGames(data))
+}
+
+  useEffect(()=> {
+    getQueryBoardGames()
+  }, [query]);
 
   useEffect(()=>{
       getBoardGames()
-  }, [query]);
+  }, []);
+
 
   const handleSort = (sortedGames) => setBoardGames(sortedGames);
 
@@ -37,9 +51,11 @@ function App() {
   const handleResetForm = (event) => {
     event.preventDefault();
     setQuery("");
-    setRecsString("All results")
-    setSelectedFilter("")
+    setRecsString("Recommendations")
+    // setSelectedFilter("")
+    setBoardGames(baseBoardGames)
 }
+
 
 const sortGames = (selectedFilter) => {
   let sorted = []
@@ -58,6 +74,8 @@ const sortGames = (selectedFilter) => {
   } else if (selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' || selectedFilter === 'playTimeDesc') {
       const sortProperty = types[selectedFilter];
       sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
+  } else if (!selectedFilter) {
+    return
   }
   setSortedGames(sorted);
 }

@@ -3,6 +3,8 @@ import {Segment, Divider, Container, Button, Icon} from "semantic-ui-react";
 
 const GameItem = ({game}) => {
 
+    if (!game || !game.gameCategory) return null;
+
 
     const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
 
