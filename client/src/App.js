@@ -16,20 +16,29 @@ function App() {
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
 
-  const getBaseBoardGames = () => {
+
+  const getBoardGames = () => {
       console.log("getting data from backend");
-      fetch(`http://localhost:8080/board-games/${query}`)
+      fetch(`http://localhost:8080/board-games/`)
           .then(res => res.json())
           .then(data => setBaseBoardGames(data))
   }
 
-  useEffect(()=>{
-      getBaseBoardGames()
+  const getQueryBoardGames = () => {
+    console.log("getting data from backend");
+    fetch(`http://localhost:8080/board-games/${query}`)
+        .then(res => res.json())
+        .then(data => setBoardGames(data))
+}
+
+  useEffect(()=> {
+    getQueryBoardGames()
   }, [query]);
 
   useEffect(()=>{
-    setBoardGames(baseBoardGames)
-  }, [baseBoardGames])
+      getBoardGames()
+  }, []);
+
 
   const handleSort = (sortedGames) => setBoardGames(sortedGames);
 
@@ -43,9 +52,10 @@ function App() {
     event.preventDefault();
     setQuery("");
     setRecsString("Recommendations")
-    setSelectedFilter("")
+    // setSelectedFilter("")
     setBoardGames(baseBoardGames)
 }
+
 
 const sortGames = (selectedFilter) => {
   let sorted = []
