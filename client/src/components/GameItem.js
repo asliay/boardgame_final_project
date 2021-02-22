@@ -5,6 +5,9 @@ import {postAddGameToUserList} from "../helpers/BackEndServices";
 
 const GameItem = ({game}) => {
 
+    if (!game || !game.gameCategory) return null;
+
+
     const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
     
     let usersList = "";

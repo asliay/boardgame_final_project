@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class Client {
@@ -42,76 +41,84 @@ public class Client {
          return objectMapper.readTree(src);
     }
 
-    // Generates a board games list when given a JSON string.
-    private ArrayList<BoardGame> generateBoardGames(String responseString){
+    /*
+        This method constructs BoardGame objects from the BGA JSON response.
+        It saves these boardgames as a key in a hashmap with a value of a list containing
+        the BGA category ids for that boardgame.
+     */
+    public HashMap<BoardGame, List<String>> getBoardGamesFromBGA(int numberOfGames) {
 
-        ArrayList<BoardGame> boardGamesOuput = new ArrayList<>();
+        HashMap<BoardGame, List<String>> outputMap = new HashMap<>();
 
+        // The query fetch from BGA.
+        String responseString =  restTemplate.getForObject(baseSearchURL +
+                     "limit="+numberOfGames+"&order_by=popularity&fields=name," +
+                     "year_published,min_players,max_players,max_playtime," +
+                     "thumb_url,image_url,rank,description,categories&client_id=" +
+                      secrets.getClient_id(), String.class);
+        System.out.println(responseString);
+
+        // We then parse the data into a JsonNode tree and construct a BoardGame from the node fields.
         try {
-            JsonNode node = parse(responseString);
-            List<JsonNode> names         = node.findValues("name");
-            List<JsonNode> releaseYears  = node.findValues("year_published");
-            List<JsonNode> minPlayers    = node.findValues("min_players");
-            List<JsonNode> maxPlayers    = node.findValues("max_players");
-            List<JsonNode> playTimes     = node.findValues("max_playtime");
-            List<JsonNode> thumbnailUrls = node.findValues("thumb_url");
-            List<JsonNode> boxImageUrls  = node.findValues("image_url");
+            JsonNode node  = parse(responseString);
+            JsonNode games = node.get("games");
+            System.out.println(games.findValues("rank"));
+            for (JsonNode j : games) {
+                BoardGame bg = new BoardGame(j.get("name").asText(), j.get("year_published").asInt(),
+                        j.get("min_players").asInt(), j.get("max_players").asInt(),
+                        j.get("max_playtime").asInt(), j.get("thumb_url").asText(),
+                        j.get("image_url").asText(), j.get("rank").asInt(),
+                        j.get("description").asText());
 
-            for(int i = 0; i < names.size(); i++){
-                BoardGame bg = new BoardGame(names.get(i).asText(), releaseYears.get(i).asInt(),
-                               minPlayers.get(i).asInt(), maxPlayers.get(i).asInt(),
-                               playTimes.get(i).asInt(), thumbnailUrls.get(i).asText(),
-                               boxImageUrls.get(i).asText());
-                boardGamesOuput.add(bg);
+                // We then populate a list with the BGA category ids.
+                List<JsonNode> catNodes = j.get("categories").findValues("id");
+                ArrayList<String> catStrings = new ArrayList<>();
+                for (JsonNode i : catNodes) {
+                        catStrings.add(String.valueOf(i));
+                }
+                outputMap.put(bg, catStrings);
             }
-
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
 
-        return boardGamesOuput;
+        return outputMap;
 
     }
 
-    // Gets a give number of board games from BGA by popularity.
-    public ArrayList<BoardGame> getGamesByPopularity(int numberOfGames) {
-
-        String responseString =  restTemplate.getForObject(baseSearchURL +
-                                 "limit="+numberOfGames+"&order_by=popularity&fields=name," +
-                                 "year_published,min_players,max_players,max_playtime," +
-                                 "thumb_url,image_url&client_id=" + secrets.getClient_id(), String.class);
-
-        return generateBoardGames(responseString);
-
-    }
-
+    // Generates categories list when given JSON string.
     private ArrayList<Category> generateCategories(String responseString){
 
         ArrayList<Category> categoriesOutput = new ArrayList<>();
 
+        // Parsing the response Json into lists of node values for id and name.
         try {
             JsonNode node = parse(responseString);
             List<JsonNode> ids   = node.findValues("id");
             List<JsonNode> names = node.findValues("name");
 
+            // Create new Category objects.
             for(int i = 0; i < ids.size(); i++){
                 Category category = new Category(ids.get(i).asText(), names.get(i).asText());
                 categoriesOutput.add(category);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return categoriesOutput;
+
     }
 
+    // Gets all categories from BGA API.
     public ArrayList<Category> getAllCatergories(){
 
         String responseString =  restTemplate.getForObject(baseCategoryURL +
                                  "client_id=" + secrets.getClient_id(), String.class);
 
         return generateCategories(responseString);
+
     }
 
 }
