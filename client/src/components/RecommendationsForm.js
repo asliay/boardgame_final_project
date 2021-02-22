@@ -87,7 +87,7 @@ const RecommendationsForm = ({handleFormSubmit, handleResetForm, boardGames}) =>
                 <Button animated type='submit' onMouseDown={e => e.preventDefault()}>
                     <Button.Content visible>Find Games</Button.Content>
                     <Button.Content hidden>
-                        <Icon name='check' />
+                        <Icon name='right arrow' />
                     </Button.Content>
                 </Button>
                 <Button animated onClick={resetAndClearForm} onMouseDown={e => e.preventDefault()}>

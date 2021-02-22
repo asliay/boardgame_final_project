@@ -27,19 +27,19 @@ const NewUserForm = () => {
         <Form onSubmit={onSubmit} id="new-booking-form">
             <Form.Group widths='equal'>
                 <Form.Field>
-                        <label forhtml="firstName">First name': </label>
+                        <label forhtml="firstName">First name: </label>
                         <input id="firstName" onChange={onChange} placeholder="First name" required />
                 </Form.Field>
                 <Form.Field>
-                        <label forhtml="lastName">Last name': </label>
+                        <label forhtml="lastName">Last name: </label>
                         <input id="lastName" onChange={onChange} placeholder="Last name" required/>
                 </Form.Field>
                 <Form.Field>
-                        <label forhtml="dob">D.o.b.': </label>
+                        <label forhtml="dob">Date of Birth: </label>
                         <input type="date" id="dob" onChange={onChange} required />
                 </Form.Field>
                 <Form.Field>
-                        <label forhtml="email">Email address': </label>
+                        <label forhtml="email">Email address: </label>
                         <input  type="email" id="email" onChange={onChange} placeholder="Email address" required/>
                 </Form.Field>
             </Form.Group>
