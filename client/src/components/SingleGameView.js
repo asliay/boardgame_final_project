@@ -6,7 +6,7 @@ const SingleGameView = (props) => {
 
     const gameCategories = props.location.game.gameCategory.map((category =>(category.name))).join(", ")
 
-    const description = props.location.game.description;
+    const description = `<p>This is html</p>`
 
     const createDescription = () => {
         return {__html: {description}};
@@ -35,7 +35,7 @@ const SingleGameView = (props) => {
                         <div>
                             {parse({description})}
                         </div>
-                        {gameDescription}
+                        {/* {gameDescription} */}
                         <Container >
                         <Button icon labelPosition='left' floated="left">
                             <Icon name='heart' />
