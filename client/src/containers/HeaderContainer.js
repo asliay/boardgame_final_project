@@ -8,9 +8,9 @@ const HeaderContainer = ({loggedIn}) => {
     if(!loggedIn){
       link = 
         <Link to="/login">
-        <Menu.Item name='user'>
-          <Icon name='user' />
-          User
+        <Menu.Item name='sign in'>
+          <Icon name='sign in' />
+          Log In <br /> Sign Up!
         </Menu.Item>
       </Link>
   
