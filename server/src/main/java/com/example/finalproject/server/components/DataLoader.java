@@ -8,18 +8,13 @@ import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.UserRepository;
 import com.example.finalproject.server.models.Category;
 import com.example.finalproject.server.repositories.CategoryRepository;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Consumer;
+import java.util.*;
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -217,12 +212,16 @@ public class DataLoader implements ApplicationRunner {
             categoryRepository.save(cat);
         }
 
-        Map<BoardGame, List<String>> bgWithCategories = client.getBoardGamesFromBGA(numOfGames);
+        // Getting map of BoardGames with a value list of their BGA category IDs.
+        HashMap<BoardGame, List<String>> bgWithCategories = client.getBoardGamesFromBGA(numOfGames);
 
+        // Creates a set of boardgame objects from the above.
         Set<BoardGame> keys = bgWithCategories.keySet();
 
+        // Get our saved  categories as objects from the db.
         List<Category> dbCategories = categoryRepository.findAll();
 
+        // Adding relative categories to boardgames, then saves to db.
         for(BoardGame bg : keys){
             for(Category cat : dbCategories){
                 for(String str : bgWithCategories.get(bg)){
@@ -234,13 +233,6 @@ public class DataLoader implements ApplicationRunner {
             }
             boardGameRepository.save(bg);
         }
-
-
-
-
-
-
-
 
     }
 
