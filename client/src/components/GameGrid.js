@@ -2,9 +2,7 @@ import GameItem from "./GameItem";
 import {useState, useEffect} from 'react';
 import { Grid, Container, Image, Form} from 'semantic-ui-react'
 
-const GameGrid = ({games, handleParentSort, handleFilter}) => {
-
-    const [selectedFilter, setSelectedFilter] = useState("")
+const GameGrid = ({games}) => {
 
     
 

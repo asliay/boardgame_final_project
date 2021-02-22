@@ -96,7 +96,10 @@ useEffect(()=>{
                                />}
                             />
             <Route path="/single-game" component={SingleGameView} />
-            <Route path="/user" component={UserContainer} />
+            <Route path="/user" 
+                   render={()=> <UserContainer
+                               boardGames={boardGames} 
+                                />} />
           </Switch>
       </Container>
       </Router>

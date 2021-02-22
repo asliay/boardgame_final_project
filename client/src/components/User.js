@@ -1,30 +1,33 @@
 import GameGrid from "./GameGrid";
-import {Container, Divider, Grid, Segment} from "semantic-ui-react";
+import {useEffect, useState} from 'react';
+import {Container, Divider, Grid, Segment, Form, Dropdown, Button} from "semantic-ui-react";
 
 
 const User = ({user, userGames}) => {
+    const [allGames, setAllGames] = useState([]);
+
+    const getAllGames = () => {
+        console.log("getting data from backend");
+        fetch(`http://localhost:8080/board-games`)
+            .then(res => res.json())
+            .then(data => setAllGames(data))
+    }
+
+    useEffect(()=>{
+        getAllGames()
+    }, []);
+
 
     if( !user.ownedGames || !user.wishList){
        return null;
     }
 
-    //     const ownedGameNodes = user.ownedGames.map((game, key) =>{
-    //         return(
     
-    //             <li id = "game-item" key = {game.id}> 
-    //                 <GameItem game={game}/></li>
-    //         )
-    //     });
+    // game value options for the Dropdown element
+    let dropdownOptions = allGames.map((game => ({key: game.id, value: game.id, text: game.name})))
+    // sorting games alphabetically for Dropbown
+    const sortedOptions = dropdownOptions.sort((a, b) => (a.text > b.text) ? 1 : -1)
 
-
-    // const wishGameNodes = user.wishList.map((game, key) =>{
-    //     return(
- 
-    //         <li id = "game-item" key = {game.id}> 
-    //             <GameItem game={game} />
-    //         </li>
-    //     )
-    // });
 
     return (
 
@@ -60,11 +63,35 @@ const User = ({user, userGames}) => {
                 </Grid>
             </Segment>
             <Segment>
-                <Divider horizontal>Owned Games</Divider>
+                <Divider horizontal>Owned Games (These will not be recommended to you)</Divider>
+            <Container>
+            <Form inline>
+                <Dropdown 
+                    placeholder='SEARCH FOR GAMES'
+                    fluid
+                    multiple
+                    search
+                    selection
+                    options={sortedOptions}
+                />
+                <Button float="right">Add to Owned</Button>
+            </Form>
+            </Container>
                 {<GameGrid games ={user.ownedGames} />}
             </Segment>
             <Segment>
                 <Divider horizontal>Wish List</Divider>
+            <Form>
+                <Dropdown
+                    placeholder='SEARCH FOR GAMES'
+                    fluid
+                    multiple
+                    search
+                    selection
+                    options={sortedOptions}
+                />
+                <Button>Add to Wishlist</Button>
+            </Form>
                 {<GameGrid games ={user.wishList} />}
             </Segment>
         </Container>
