@@ -32,6 +32,12 @@ public class BoardGame {
     @Column
     private String boxImageURL;
 
+    @Column(name = "rank")
+    private int rank;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String description;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -103,18 +109,19 @@ public class BoardGame {
     private List<User> wantedBy;
 
     public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int playTime,
-                     String thumbnailURL,
-                     String boxImageURL) {
-        this.name = name;
-        this.releaseYear = releaseYear;
-        this.minPlayers = minPlayers;
-        this.maxPlayers = maxPlayers;
-        this.playTime = playTime;
-        this.thumbnailURL = thumbnailURL;
-        this.boxImageURL = boxImageURL;
-        this.gameCategory = new ArrayList<>();
-        this.ownedBy = new ArrayList<>();
-        this.wantedBy = new ArrayList<>();
+                     String thumbnailURL, String boxImageURL, int rank, String description) {
+        this.name           =  name;
+        this.releaseYear    =  releaseYear;
+        this.minPlayers     =  minPlayers;
+        this.maxPlayers     =  maxPlayers;
+        this.playTime       =  playTime;
+        this.thumbnailURL   =  thumbnailURL;
+        this.boxImageURL    =  boxImageURL;
+        this.rank           =  rank;
+        this.description    =  description;
+        this.gameCategory   =  new ArrayList<>();
+        this.ownedBy        =  new ArrayList<>();
+        this.wantedBy       =  new ArrayList<>();
     }
 
     public BoardGame() {
@@ -183,6 +190,18 @@ public class BoardGame {
     public void setBoxImageURL(String boxImageURL) {
         this.boxImageURL = boxImageURL;
     }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
 
     public Long getId() {
         return id;
