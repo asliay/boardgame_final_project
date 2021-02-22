@@ -57,7 +57,7 @@ const RecommendationsContainer = ({handleSort, recsString, selectedFilter, handl
     
         handleQueryChange(newQuery);
         handleRecsStringChange(newRecsString);
-        // setSelectedFilter("")
+        setSelectedFilter("")
         
     }
 
