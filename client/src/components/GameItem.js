@@ -1,12 +1,10 @@
 import {Link} from "react-router-dom";
-import {useState, useEffect} from "react";
 import {Segment, Divider, Container, Button, Icon, Form} from "semantic-ui-react";
 import {postAddGameToUserList} from "../helpers/BackEndServices";
 
 const GameItem = ({game}) => {
 
     if (!game || !game.gameCategory) return null;
-
 
     const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
     
