@@ -18,7 +18,7 @@ function App() {
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
   const [loggedIn, setloggedIn] = useState(true);
-  const [currentUser, setCurrentUser] =useState({});
+  const [user, setUser] = useState({});
 
   const getBoardGames = () => {
       console.log("getting data from backend");
@@ -34,6 +34,12 @@ function App() {
         .then(data => setBoardGames(data))
 }
 
+const getUser = () => {
+  fetch(`http://localhost:8080/users/1`)
+      .then(res => res.json())
+      .then(data => setUser(data))
+}
+
   useEffect(()=> {
     getQueryBoardGames()
   }, [query]);
@@ -42,6 +48,9 @@ function App() {
       getBoardGames()
   }, []);
 
+    useEffect(()=>{
+        getUser()
+    }, []);
 
   const handleSort = (sortedGames) => setBoardGames(sortedGames);
 
@@ -58,7 +67,6 @@ function App() {
     setSelectedFilter("")
     setBoardGames(baseBoardGames)
 }
-
 
 const sortGames = (selectedFilter) => {
   let sorted = []
@@ -113,14 +121,15 @@ useEffect(()=>{
                               handleFilter={handleFilter}
                               setSelectedFilter={setSelectedFilter}
                               boardGames={boardGames}
-                              currentUser={currentUser}
+                              currentUser={user}
                                />}
                             />
             <Route path="/single-game" 
                    component={SingleGameView} />
             <Route path="/user" 
                    render={()=> <UserContainer
-                               boardGames={boardGames} 
+                               boardGames={boardGames}
+                               currentUser={user}
                                 />} />
             <Route path="/login"
                   render ={()=><UserLoginForm />} />

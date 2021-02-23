@@ -5,8 +5,7 @@ import {postAddGameToUserList} from "../helpers/BackEndServices";
 
 const GameItem = ({game, currentUser}) => {
 
-    if (!game || !game.gameCategory) return null;
-
+    if (!game || !game.gameCategory || !currentUser) return null;
 
     const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
     
@@ -15,11 +14,34 @@ const GameItem = ({game, currentUser}) => {
     const setUsersList = (event) => {
         usersList = event.target.id
     }
+
     const onSubmit = (event) => {
         const user_id = 1;
         const targetList = usersList;
         event.preventDefault();
         postAddGameToUserList(game, user_id, targetList)
+    }
+ 
+    let buttons;
+
+    if(currentUser.ownedGames.includes(game)){
+        buttons =
+            <Button size="medium" id="own" icon labelPosition='left' disabled >
+            <Icon name='check' />I Own This</Button>
+
+    } else if (currentUser.wishList.includes(game)){
+        buttons =
+            <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
+            <Icon name='check' />I Own This</Button>
+    } else {
+        buttons =
+        <div>
+            <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
+                <Icon name='check' />I Own This
+            </Button>
+            <Button size="medium" id="wish" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
+                <Icon name='heart' />I Want This</Button>
+        </div>
     }
 
     return (
@@ -48,14 +70,7 @@ const GameItem = ({game, currentUser}) => {
                     <p>Categories: {gameCategories} </p>
                     <Container  textAlign="center">
                     <Form onSubmit={onSubmit} id="add-game-to-user-form">
-                        <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
-                            <Icon name='check' />
-                            I Own This
-                        </Button>
-                        <Button size="medium" id="wish" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
-                            <Icon name='heart' />
-                            I Want This
-                        </Button>
+                        {buttons}
                     </Form>
                     </Container>
                 </Container>
