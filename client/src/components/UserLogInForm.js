@@ -1,7 +1,6 @@
 import {Button, Form, Icon} from "semantic-ui-react";
 import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
-import {logInUser} from "../helpers/BackEndServices";
 
 const UserLoginForm = () => {
 
@@ -17,7 +16,7 @@ const UserLoginForm = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        logInUser(userLogin)
+        // logInUser(userLogin)
     }
 
 
