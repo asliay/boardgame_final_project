@@ -49,10 +49,21 @@ public class UserController {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
+    // Checking User Credentials and returning User
+    @GetMapping("/login")
+    public ResponseEntity<Optional<User>> getUserByCredentials(@RequestBody Credential credential) {
+         userRepository.findByCredentialEmailAndCredentialPassword(credential.getEmail(),
+                 credential.getPassword())
+
+    }
+
+
     @GetMapping("/users/{id}")
     public ResponseEntity<Optional<User>> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userRepository.findById(id), HttpStatus.OK);
     }
+
+
 
     @PostMapping("/users")
     public ResponseEntity<String> createUserWithCredential(@RequestBody String input) {

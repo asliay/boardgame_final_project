@@ -30,6 +30,17 @@ export const getUser = () => {
         .then(res => res.json())
 }
 
+// GET User by LogIn
+
+export const logInUser = (payload) => {
+    return fetch('http://localhost:8080/login', {
+        method: 'GET',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+}
+
 // POST - User
 
 export const postNewUser = (payload) => {
@@ -54,3 +65,6 @@ export const postAddGameToUserList = (payload, id, targetList) => {
     .then(res => res.json())
     
 }
+
+
+

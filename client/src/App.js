@@ -28,7 +28,7 @@ function App() {
   const [sortedGames, setSortedGames] = useState([])
 
   // User States 
-  const [loggedIn, setloggedIn] = useState(true);
+  const [loggedIn, setloggedIn] = useState(false);
   const [user, setUser] = useState({})
 
 
