@@ -3,9 +3,11 @@ import {useEffect, useState} from 'react';
 import {Container, Divider, Grid, Segment, Form, Dropdown, Button} from "semantic-ui-react";
 
 
+
 const User = ({user, baseBoardGames}) => {
 
     const [allGames, setAllGames] = useState([]);
+
 
     useEffect(()=>{
         setAllGames(baseBoardGames)
@@ -19,7 +21,6 @@ const User = ({user, baseBoardGames}) => {
     let dropdownOptions = allGames.map((game => ({key: game.id, value: game.id, text: game.name})))
     // sorting games alphabetically for Dropbown
     const sortedOptions = dropdownOptions.sort((a, b) => (a.text > b.text) ? 1 : -1)
-
 
     return (
 
@@ -69,7 +70,7 @@ const User = ({user, baseBoardGames}) => {
                 <Button float="right">Add to Owned</Button>
             </Form>
             </Container>
-                {<GameGrid games ={user.ownedGames} />}
+                {<GameGrid games ={user.ownedGames} currentUser={user} />}
             </Segment>
             <Segment>
                 <Divider horizontal>Wish List</Divider>
@@ -84,7 +85,7 @@ const User = ({user, baseBoardGames}) => {
                 />
                 <Button>Add to Wishlist</Button>
             </Form>
-                {<GameGrid games ={user.wishList} />}
+                {<GameGrid games ={user.wishList}  currentUser={user} />}
             </Segment>
         </Container>
     )

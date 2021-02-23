@@ -63,7 +63,7 @@ const RecommendationsContainer = ({handleSort, recsString, selectedFilter,handle
                     handleSort={handleSort}
                     setSelectedFilter={setSelectedFilter}
                 />
-                <GameGrid games={boardGames}/>
+                <GameGrid games={boardGames} currentUser={currentUser}/>
             </Container>
             
         </div>

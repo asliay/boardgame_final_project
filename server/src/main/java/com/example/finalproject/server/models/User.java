@@ -166,4 +166,5 @@ public class User {
     public void removeGameFromWishList(BoardGame boardGame){
         this.wishList.remove(boardGame);
     }
+
 }

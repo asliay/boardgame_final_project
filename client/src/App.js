@@ -24,7 +24,6 @@ function App() {
   const [sortedGames, setSortedGames] = useState([])
   const [loggedIn, setloggedIn] = useState(false);
 
-
   // State Handlers
 
   const handleSort = (sortedGames) => setBoardGames(sortedGames);
@@ -110,7 +109,7 @@ useEffect(() => {
                               handleFilter={handleFilter}
                               setSelectedFilter={setSelectedFilter}
                               boardGames={boardGames}
-                              
+                              currentUser={user}
                                />}
                             />
             <Route path="/single-game" 
@@ -118,6 +117,7 @@ useEffect(() => {
             <Route path="/user" 
                    render={()=> <UserContainer
                                baseBoardGames={baseBoardGames} 
+                               currentUser={user}
                                 />} />
             <Route path="/login"
                   render ={()=><UserLoginForm />} />

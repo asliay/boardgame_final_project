@@ -53,11 +53,11 @@ class ServerApplicationTests {
 	@Test
 	void canCreateAndSaveNewUser(){
 		long originalCount = userRepository.count();
-		User bobAdams = new User( "Bob", "Adams", "1985-10-20", "bob.adams@gmail.com");
+		User bobAdams = new User( "Bobby", "Adams", "1985-10-20", "bobby.adams@gmail.com");
 		userRepository.save(bobAdams);
 		long newCount = userRepository.count();
-		assertEquals(0, originalCount);
-		assertEquals(1, newCount);
+		assertEquals(2, originalCount);
+		assertEquals(3, newCount);
 	}
 
 }
