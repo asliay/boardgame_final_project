@@ -28,7 +28,7 @@ public class User {
     @Column(name="d.o.b.")
     private String dob;
 
-    @Column
+    @OneToOne(mappedBy = "email")
     private String email;
 
     @ManyToMany
