@@ -110,7 +110,6 @@ useEffect(() => {
                               handleFilter={handleFilter}
                               setSelectedFilter={setSelectedFilter}
                               boardGames={boardGames}
-                              
                                />}
                             />
             <Route path="/single-game" 
