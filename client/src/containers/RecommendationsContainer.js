@@ -5,7 +5,7 @@ import GameGrid from "../components/GameGrid";
 import RecommendationsForm from "../components/RecommendationsForm";
 import RecommendationsFilter from "../components/RecommendationsFilter";
 
-const RecommendationsContainer = ({handleSort, recsString, selectedFilter, handleQueryChange, handleResetForm, handleRecsStringChange, handleFilter, setSelectedFilter, boardGames}) => {
+const RecommendationsContainer = ({handleSort, recsString, selectedFilter, handleQueryChange, handleResetForm, handleRecsStringChange, handleFilter, setSelectedFilter, boardGames, currentUser}) => {
 
     // const [boardGames, setBoardGames] = useState([])
 
@@ -82,7 +82,7 @@ const RecommendationsContainer = ({handleSort, recsString, selectedFilter, handl
                     handleSort={handleSort}
                     setSelectedFilter={setSelectedFilter}
                 />
-                <GameGrid games={boardGames}/>
+                <GameGrid games={boardGames} currentUser={currentUser}/>
             </Container>
             
         </div>

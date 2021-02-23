@@ -17,9 +17,8 @@ function App() {
   const [baseBoardGames, setBaseBoardGames] = useState([])
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
-  const [loggedIn, setloggedIn] = useState(false);
-
-
+  const [loggedIn, setloggedIn] = useState(true);
+  const [currentUser, setCurrentUser] =useState({});
 
   const getBoardGames = () => {
       console.log("getting data from backend");
@@ -114,7 +113,7 @@ useEffect(()=>{
                               handleFilter={handleFilter}
                               setSelectedFilter={setSelectedFilter}
                               boardGames={boardGames}
-                              
+                              currentUser={currentUser}
                                />}
                             />
             <Route path="/single-game" 

@@ -77,7 +77,7 @@ const User = ({user, userGames}) => {
                 <Button float="right">Add to Owned</Button>
             </Form>
             </Container>
-                {<GameGrid games ={user.ownedGames} />}
+                {<GameGrid games ={user.ownedGames} currentUser={user} />}
             </Segment>
             <Segment>
                 <Divider horizontal>Wish List</Divider>

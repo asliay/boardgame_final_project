@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import {Segment, Divider, Container, Button, Icon, Form} from "semantic-ui-react";
 import {postAddGameToUserList} from "../helpers/BackEndServices";
 
-const GameItem = ({game}) => {
+const GameItem = ({game, currentUser}) => {
 
     if (!game || !game.gameCategory) return null;
 
