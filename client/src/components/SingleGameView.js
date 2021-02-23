@@ -3,10 +3,7 @@ import {Container, Segment, Grid, Divider, Image, Button, Icon} from "semantic-u
 
 const SingleGameView = (props) => {
 
-
     const gameCategories = props.location.game.gameCategory.map((category =>(category.name))).join(", ")
-
-
 
     return (
         <div className="single-game-view">
