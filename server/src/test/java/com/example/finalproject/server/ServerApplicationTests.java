@@ -2,8 +2,10 @@ package com.example.finalproject.server;
 
 import com.example.finalproject.server.models.BoardGame;
 
+import com.example.finalproject.server.models.Credential;
 import com.example.finalproject.server.models.User;
 import com.example.finalproject.server.repositories.BoardGameRepository;
+import com.example.finalproject.server.repositories.CredentialRepository;
 import com.example.finalproject.server.repositories.UserRepository;
 import com.example.finalproject.server.models.Category;
 import com.example.finalproject.server.repositories.CategoryRepository;
@@ -24,6 +26,9 @@ class ServerApplicationTests {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	CredentialRepository credentialRepository;
 
 	@Test
 	void contextLoads() {
@@ -53,11 +58,35 @@ class ServerApplicationTests {
 	@Test
 	void canCreateAndSaveNewUser(){
 		long originalCount = userRepository.count();
-		User bobAdams = new User( "Bob", "Adams", "1985-10-20", "bob.adams@gmail.com");
+		long originalCredential = credentialRepository.count();
+		Credential bobsLogIn = new Credential("badams@bobslawblog.com", "rabbitf4n");
+//		credentialRepository.save(bobsLogIn);
+		User bobAdams = new User( "Bob", "Adams", "1985-10-20");
+		userRepository.save(bobAdams);
+		bobAdams.setCredential(bobsLogIn);
+		bobsLogIn.setUser(bobAdams);
 		userRepository.save(bobAdams);
 		long newCount = userRepository.count();
-		assertEquals(0, originalCount);
-		assertEquals(1, newCount);
+		long newCredential = credentialRepository.count();
+		assertEquals((originalCount +1), newCount);
+		assertEquals(0, originalCredential);
+		assertEquals(1, newCredential);
+		assertEquals(bobsLogIn, bobAdams.getCredential());
+		assertEquals(bobAdams, bobsLogIn.getUser());
+
 	}
 
+//	@Test
+//	void canCreateAndSaveCredential() {
+//		long originalCount = credentialRepository.count();
+//		Credential bobsLogIn = new Credential("badams@bobslawblog.com", "rabbitf4n");
+////		User bobAdams = new User( "Bob", "Adams", "1985-10-20", bobsLogIn);
+////		userRepository.save(bobAdams);
+////		bobsLogIn.setUser(bobAdams);
+//		credentialRepository.save(bobsLogIn);
+//		long newCount = credentialRepository.count();
+//		assertEquals(0, originalCount);
+//		assertEquals(1, newCount);
+////		assertEquals(bobAdams, bobsLogIn.getUser());
+//	}
 }

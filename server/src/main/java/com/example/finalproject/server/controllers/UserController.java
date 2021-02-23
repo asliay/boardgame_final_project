@@ -1,14 +1,21 @@
 package com.example.finalproject.server.controllers;
 
 import com.example.finalproject.server.models.BoardGame;
+import com.example.finalproject.server.models.Credential;
 import com.example.finalproject.server.models.User;
+import com.example.finalproject.server.repositories.CredentialRepository;
 import com.example.finalproject.server.repositories.UserRepository;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +24,25 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CredentialRepository credentialRepository;
+
+    // Inin of object mapper to turn json string to JsonNode structure.
+    private static ObjectMapper objectMapper = getDefaultObjectMapper();
+
+    // Custom configuration for object mapper, ignores unknown properties in json.
+    // Java time module in case we want to parse java times later.
+    private static ObjectMapper getDefaultObjectMapper(){
+        ObjectMapper defaultObjectMapper = new ObjectMapper();
+        defaultObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return defaultObjectMapper;
+    };
+
+    // Parsing method for use on the returned JSON string from restTemplate.
+    private static JsonNode parse(String src) throws IOException {
+        return objectMapper.readTree(src);
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -29,9 +55,24 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        userRepository.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    public ResponseEntity<String> createUserWithCredential(@RequestBody String input) {
+
+        try {
+            JsonNode node = parse(input);
+            Credential cr = new Credential(node.get("email").asText(), node.get("password").asText());
+            User user     = new User(node.get("firstName").asText(), node.get("lastName").asText(),
+                                    node.get("dob").asText());
+            userRepository.save(user);
+            user.setCredential(cr);
+            cr.setUser(user);
+            userRepository.save(user);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return  new ResponseEntity<>(HttpStatus.CREATED);
+
     }
 
     @PutMapping("/users/{id}")
