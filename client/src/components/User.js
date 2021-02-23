@@ -3,17 +3,14 @@ import {useEffect, useState} from 'react';
 import {Container, Divider, Grid, Segment, Form, Dropdown, Button} from "semantic-ui-react";
 
 
-const User = ({user}) => {
+
+const User = ({user, baseBoardGames}) => {
+
     const [allGames, setAllGames] = useState([]);
 
-    const getAllGames = () => {
-        fetch(`http://localhost:8080/board-games`)
-            .then(res => res.json())
-            .then(data => setAllGames(data))
-    }
 
     useEffect(()=>{
-        getAllGames()
+        setAllGames(baseBoardGames)
     }, []);
 
     if( !user.ownedGames || !user.wishList){

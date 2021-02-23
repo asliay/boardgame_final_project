@@ -4,8 +4,6 @@ import { Grid, Container, Image, Form} from 'semantic-ui-react'
 
 const GameGrid = ({games, currentUser}) => {
 
-    
-
     const gameNodes = games.map((game) =>{
         return(
             <Grid.Column key={game.id}>
@@ -14,7 +12,6 @@ const GameGrid = ({games, currentUser}) => {
         )
     });
 
-    
     return(
         <div>
         <Container>
