@@ -1,4 +1,4 @@
-const usersUrl  = 'http://localhost:8080/users'
+const usersUrl  = 'http://localhost:8080/users/'
 const bgamesURL = 'http://localhost:8080/board-games/'
 
 /*
@@ -25,6 +25,11 @@ export const getQueryBoardGames = (query) => {
 
 // GET - User by ID.
 
+export const getUser = () => {
+    return fetch(`${usersUrl}1`)
+        .then(res => res.json())
+}
+
 // POST - User
 
 export const postNewUser = (payload) => {
@@ -40,7 +45,7 @@ export const postNewUser = (payload) => {
 
 export const postAddGameToUserList = (payload, id, targetList) => {
 
-    const addGametoUserURL = usersUrl+"/"+id+"?targetList="+targetList;
+    const addGametoUserURL = usersUrl+id+"?targetList="+targetList;
     return fetch(addGametoUserURL, {
         method: 'PUT',
         body: JSON.stringify(payload),

@@ -3,20 +3,14 @@ import {useEffect, useState} from 'react';
 import {Container, Divider, Grid, Segment, Form, Dropdown, Button} from "semantic-ui-react";
 
 
-const User = ({user, baseBoardGames}) => {
-
-    const [allGames, setAllGames] = useState([]);
-
-    useEffect(()=>{
-        setAllGames(baseBoardGames)
-    }, []);
+const User = ({user, userGames}) => {
 
     if( !user.ownedGames || !user.wishList){
        return null;
     }
 
     // game value options for the Dropdown element
-    let dropdownOptions = allGames.map((game => ({key: game.id, value: game.id, text: game.name})))
+    let dropdownOptions = userGames.map((game => ({key: game.id, value: game.id, text: game.name})))
     // sorting games alphabetically for Dropbown
     const sortedOptions = dropdownOptions.sort((a, b) => (a.text > b.text) ? 1 : -1)
 

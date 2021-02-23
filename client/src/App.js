@@ -3,7 +3,8 @@ import './App.css';
 import { useState, useEffect} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Container, Button} from "semantic-ui-react";
-import { getBaseBoardGames, getQueryBoardGames } from "./helpers/BackEndServices";
+import { getBaseBoardGames, getQueryBoardGames, getUser } from "./helpers/BackEndServices";
+import { sortGames } from "./helpers/FrontEndHelpers";
 
 import HeaderContainer from "./containers/HeaderContainer";
 import RecommendationsContainer from './containers/RecommendationsContainer';
@@ -22,7 +23,8 @@ function App() {
   const [baseBoardGames, setBaseBoardGames] = useState([])
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
-  const [loggedIn, setloggedIn] = useState(false);
+  const [loggedIn, setloggedIn] = useState(true);
+  const [user, setUser] = useState({})
 
 
   // State Handlers
@@ -43,53 +45,27 @@ function App() {
     setBoardGames(baseBoardGames)
   }
 
-  // Sorts the sorted games state when given a filter string from recommendations filter. 
+  // Use Effects. 
 
-  const sortGames = (selectedFilter) => {
-    let sorted = []
-    const types = {
-        minPlayersAsc : 'minPlayers',
-        maxPlayersAsc : 'maxPlayers',
-        playTimeAsc : 'playTime',
-        categoryAsc : 'gameCategoryJoins[0].category.name',
-        minPlayersDesc : 'minPlayers', 
-        maxPlayersDesc : 'maxPlayers',
-        playTimeDesc : 'playTime'
+  useEffect(() => {
+    getUser().then(data => setUser(data));
+    getBaseBoardGames().then(data => setBaseBoardGames(data)) 
+  }, []);
+
+  useEffect(() => {
+    getQueryBoardGames(query).then(data => setBoardGames(data))
+  }, [query]);
+
+  useEffect(() => {
+    sortGames(selectedFilter, boardGames, setSortedGames)
+  }, [selectedFilter])
+
+  useEffect(() => {
+    if(selectedFilter != ""){
+      handleSort(sortedGames)
     }
-    if(selectedFilter === 'minPlayersAsc'|| selectedFilter === 'maxPlayersAsc'
-      || selectedFilter === 'playTimeAsc' || selectedFilter === 'categoryAsc') {
-        const sortProperty = types[selectedFilter];
-        sorted = [...boardGames].sort((a, b) => a[sortProperty] - b[sortProperty]);
-    } else if (selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' 
-              || selectedFilter === 'playTimeDesc') {
-        const sortProperty = types[selectedFilter];
-        sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
-    } else if (!selectedFilter) {
-      return
-    }
-    setSortedGames(sorted);
-  }
-
-// Use Effects. 
-
-useEffect(() => {
-  getBaseBoardGames().then(data => setBaseBoardGames(data)) 
-}, []);
-
-useEffect(() => {
-  getQueryBoardGames(query).then(data => setBoardGames(data))
-}, [query]);
-
-useEffect(() => {
-  sortGames(selectedFilter)
-}, [selectedFilter])
-
-useEffect(() => {
-  if(selectedFilter != ""){
-    handleSort(sortedGames)
-  }
-}, [sortedGames, selectedFilter])
-   
+  }, [sortedGames, selectedFilter])
+ 
 
   return (
     <>
@@ -116,6 +92,7 @@ useEffect(() => {
                    component={SingleGameView} />
             <Route path="/user" 
                    render={()=> <UserContainer
+                                user={user}
                                baseBoardGames={baseBoardGames} 
                                 />} />
             <Route path="/login"
