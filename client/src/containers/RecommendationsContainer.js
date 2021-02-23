@@ -5,7 +5,7 @@ import GameGrid from "../components/GameGrid";
 import RecommendationsForm from "../components/RecommendationsForm";
 import RecommendationsFilter from "../components/RecommendationsFilter";
 
-const RecommendationsContainer = ({handleSort, recsString, selectedFilter,handleQueryChange, handleResetForm, handleRecsStringChange, handleFilter, setSelectedFilter, boardGames}) => {
+const RecommendationsContainer = ({handleSort, recsString, selectedFilter,handleQueryChange, handleResetForm, handleRecsStringChange, handleFilter, setSelectedFilter, boardGames, user}) => {
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -63,7 +63,8 @@ const RecommendationsContainer = ({handleSort, recsString, selectedFilter,handle
                     handleSort={handleSort}
                     setSelectedFilter={setSelectedFilter}
                 />
-                <GameGrid games={boardGames}/>
+                <GameGrid games={boardGames}
+                          user={user}/>
             </Container>
             
         </div>

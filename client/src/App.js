@@ -17,12 +17,17 @@ function App() {
 
   // Use States.
 
+  // Filters
   const [query, setQuery] = useState("")
   const [recsString, setRecsString] = useState("Recommendations")
   const [selectedFilter, setSelectedFilter] = useState("")
+  
+  // Displays 
   const [baseBoardGames, setBaseBoardGames] = useState([])
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
+
+  // User States 
   const [loggedIn, setloggedIn] = useState(true);
   const [user, setUser] = useState({})
 
@@ -86,6 +91,7 @@ function App() {
                               handleFilter={handleFilter}
                               setSelectedFilter={setSelectedFilter}
                               boardGames={boardGames}
+                              user={user}
                                />}
                             />
             <Route path="/single-game" 
@@ -93,7 +99,7 @@ function App() {
             <Route path="/user" 
                    render={()=> <UserContainer
                                 user={user}
-                               baseBoardGames={baseBoardGames} 
+                                baseBoardGames={baseBoardGames} 
                                 />} />
             <Route path="/login"
                   render ={()=><UserLoginForm />} />
