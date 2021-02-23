@@ -61,7 +61,7 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handle
             <Dropdown
                 header='Adjust filter'
                 options={filterOptions}
-                defaultValue={filterOptions[0].value}
+                // defaultValue={filterOptions[0].value}
                 onChange={handleFilter}
                 value={selectedFilter}
             />
