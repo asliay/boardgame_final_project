@@ -3,6 +3,10 @@ import {Form, Dropdown, Header, Icon, Menu, Container} from "semantic-ui-react"
 
 const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handleSort}) => {
 
+  
+
+    
+
     const filterOptions = [
         // {
         //     key : "0", 

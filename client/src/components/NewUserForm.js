@@ -1,5 +1,5 @@
-import {Button, Form, Icon} from "semantic-ui-react";
-import {useState} from "react";
+import {Grid, Segment, Button, Form, Icon, Divider} from "semantic-ui-react";
+import {useState, useEffect} from "react";
 import { postNewUser } from "../helpers/BackEndServices";
 
 const NewUserForm = () => {

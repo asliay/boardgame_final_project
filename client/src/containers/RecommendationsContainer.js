@@ -5,7 +5,24 @@ import GameGrid from "../components/GameGrid";
 import RecommendationsForm from "../components/RecommendationsForm";
 import RecommendationsFilter from "../components/RecommendationsFilter";
 
-const RecommendationsContainer = ({handleSort, recsString, selectedFilter,handleQueryChange, handleResetForm, handleRecsStringChange, handleFilter, setSelectedFilter, boardGames}) => {
+const RecommendationsContainer = ({handleSort, recsString, selectedFilter, handleQueryChange, handleResetForm, handleRecsStringChange, handleFilter, setSelectedFilter, boardGames, currentUser}) => {
+
+    // const [boardGames, setBoardGames] = useState([])
+
+    // const getBoardGames = () => {
+    //     console.log("getting data from backend");
+    //     fetch(`http://localhost:8080/board-games/${query}`)
+    //         .then(res => res.json())
+    //         .then(data => setBoardGames(data))
+    // }
+
+    // useEffect(()=>{
+    //     getBoardGames()
+    // }, [query]);
+
+    // const handleSort = (sortedGames) => {
+    //     setBoardGames(sortedGames);
+    // }
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
@@ -43,6 +60,8 @@ const RecommendationsContainer = ({handleSort, recsString, selectedFilter,handle
         setSelectedFilter("")
         
     }
+
+    
 
     return(
         <div>

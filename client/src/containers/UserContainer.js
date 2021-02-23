@@ -1,7 +1,6 @@
+import User from "../components/User";
 import { useState, useEffect} from "react";
 import { Container } from "semantic-ui-react";
-
-import User from "../components/User";
 import NewUserForm from "../components/NewUserForm";
 
 const UserContainer = ({boardGames, currentUser}) => {

@@ -1,10 +1,7 @@
 import './App.css';
-
 import { useState, useEffect} from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Container, Button} from "semantic-ui-react";
-import { getBaseBoardGames, getQueryBoardGames } from "./helpers/BackEndServices";
-
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {Container, Button} from "semantic-ui-react";
 import HeaderContainer from "./containers/HeaderContainer";
 import RecommendationsContainer from './containers/RecommendationsContainer';
 import UserContainer from './containers/UserContainer'
@@ -14,17 +11,46 @@ import NewUserForm from './components/NewUserForm';
 
 function App() {
 
-  // Use States.
-
   const [query, setQuery] = useState("")
   const [recsString, setRecsString] = useState("Recommendations")
   const [selectedFilter, setSelectedFilter] = useState("")
   const [baseBoardGames, setBaseBoardGames] = useState([])
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
-  const [loggedIn, setloggedIn] = useState(false);
+  const [loggedIn, setloggedIn] = useState(true);
+  const [user, setUser] = useState({});
 
-  // State Handlers
+  const getBoardGames = () => {
+      console.log("getting data from backend");
+      fetch(`http://localhost:8080/board-games/`)
+          .then(res => res.json())
+          .then(data => setBaseBoardGames(data))
+  }
+
+  const getQueryBoardGames = () => {
+    console.log("getting data from backend");
+    fetch(`http://localhost:8080/board-games/${query}`)
+        .then(res => res.json())
+        .then(data => setBoardGames(data))
+}
+
+const getUser = () => {
+  fetch(`http://localhost:8080/users/1`)
+      .then(res => res.json())
+      .then(data => setUser(data))
+}
+
+  useEffect(()=> {
+    getQueryBoardGames()
+  }, [query]);
+
+  useEffect(()=>{
+      getBoardGames()
+  }, []);
+
+    useEffect(()=>{
+        getUser()
+    }, []);
 
   const handleSort = (sortedGames) => setBoardGames(sortedGames);
 
@@ -40,50 +66,36 @@ function App() {
     setRecsString("Recommendations")
     setSelectedFilter("")
     setBoardGames(baseBoardGames)
+}
+
+const sortGames = (selectedFilter) => {
+  let sorted = []
+  const types = {
+      minPlayersAsc : 'minPlayers',
+      maxPlayersAsc : 'maxPlayers',
+      playTimeAsc : 'playTime',
+      categoryAsc : 'gameCategoryJoins[0].category.name',
+      minPlayersDesc : 'minPlayers', 
+      maxPlayersDesc : 'maxPlayers',
+      playTimeDesc : 'playTime'
   }
-
-  // Sorts the sorted games state when given a filter string from recommendations filter. 
-
-  const sortGames = (selectedFilter) => {
-    let sorted = []
-    const types = {
-        minPlayersAsc : 'minPlayers',
-        maxPlayersAsc : 'maxPlayers',
-        playTimeAsc : 'playTime',
-        categoryAsc : 'gameCategoryJoins[0].category.name',
-        minPlayersDesc : 'minPlayers', 
-        maxPlayersDesc : 'maxPlayers',
-        playTimeDesc : 'playTime'
-    }
-    if(selectedFilter === 'minPlayersAsc'|| selectedFilter === 'maxPlayersAsc'
-      || selectedFilter === 'playTimeAsc' || selectedFilter === 'categoryAsc') {
-        const sortProperty = types[selectedFilter];
-        sorted = [...boardGames].sort((a, b) => a[sortProperty] - b[sortProperty]);
-    } else if (selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' 
-              || selectedFilter === 'playTimeDesc') {
-        const sortProperty = types[selectedFilter];
-        sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
-    } else if (!selectedFilter) {
-      return
-    }
-    setSortedGames(sorted);
+  if(selectedFilter === 'minPlayersAsc'|| selectedFilter === 'maxPlayersAsc' || selectedFilter === 'playTimeAsc' || selectedFilter === 'categoryAsc') {
+      const sortProperty = types[selectedFilter];
+      sorted = [...boardGames].sort((a, b) => a[sortProperty] - b[sortProperty]);
+  } else if (selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' || selectedFilter === 'playTimeDesc') {
+      const sortProperty = types[selectedFilter];
+      sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
+  } else if (!selectedFilter) {
+    return
   }
+  setSortedGames(sorted);
+}
 
-// Use Effects. 
-
-useEffect(() => {
-  getBaseBoardGames().then(data => setBaseBoardGames(data)) 
-}, []);
-
-useEffect(() => {
-  getQueryBoardGames(query).then(data => setBoardGames(data))
-}, [query]);
-
-useEffect(() => {
+useEffect(()=> {
   sortGames(selectedFilter)
 }, [selectedFilter])
 
-useEffect(() => {
+useEffect(()=>{
   if(selectedFilter != ""){
     handleSort(sortedGames)
   }
@@ -116,7 +128,7 @@ useEffect(() => {
                    component={SingleGameView} />
             <Route path="/user" 
                    render={()=> <UserContainer
-                               baseBoardGames={baseBoardGames} 
+                               boardGames={boardGames}
                                currentUser={user}
                                 />} />
             <Route path="/login"
