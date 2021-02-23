@@ -1,5 +1,7 @@
 package com.example.finalproject.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,16 +12,21 @@ public class Credential {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "email", referencedColumnName = "email")
+    @Column
     private String email;
 
     @Column
     private String password;
 
+    @OneToOne(mappedBy = "credential")
+    @JsonIgnoreProperties({"credential"})
+    private User user;
+
     public Credential(String email, String password) {
         this.email = email;
         this.password = password;
+        this.user = new User();
+
     }
 
     public Credential() {
@@ -47,5 +54,13 @@ public class Credential {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

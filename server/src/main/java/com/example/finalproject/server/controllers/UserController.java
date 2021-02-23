@@ -2,6 +2,7 @@ package com.example.finalproject.server.controllers;
 
 import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.User;
+import com.example.finalproject.server.repositories.CredentialRepository;
 import com.example.finalproject.server.repositories.UserRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    CredentialRepository credentialRepository;
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
@@ -29,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUserWithCredential(@RequestBody User user) {
         userRepository.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
