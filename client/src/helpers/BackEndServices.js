@@ -7,14 +7,12 @@ const bgamesURL = 'http://localhost:8080/board-games/'
 
 // GET - All boardgames.
 export const getBaseBoardGames = () => {
-    console.log("getting data from backend");
     return fetch(bgamesURL)
         .then(res => res.json())
 }
 
 // GET - Boardgames given a query string.
 export const getQueryBoardGames = (query) => {
-    console.log("getting data from backend");
     return fetch(`${bgamesURL}${query}`)
         .then(res => res.json())
 }
@@ -26,7 +24,6 @@ export const getQueryBoardGames = (query) => {
 // GET - User by ID.
 
 export const getUser = (id) => {
-    // console.log('doing a thing')
     return fetch(`${usersUrl}${id}`)
         .then(res => res.json())
 }
@@ -60,6 +57,20 @@ export const postAddGameToUserList = (payload, id, targetList) => {
 
     const addGametoUserURL = usersUrl+id+"?targetList="+targetList;
     return fetch(addGametoUserURL, {
+        method: 'PUT',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    
+}
+
+// Put - Remove boardgame from users
+
+export const deleteGameFromUserList = (payload, id, targetList) => {
+
+    const removeGameFromUserURL = usersUrl+id+"/remove-game?targetList="+targetList;
+    return fetch(removeGameFromUserURL, {
         method: 'PUT',
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json'}

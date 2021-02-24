@@ -26,7 +26,7 @@ const SingleGameView = (props) => {
                         </div>
                         <Divider/>
                         <Container >
-                        <Button icon labelPosition='left' floated="left">
+                        {/* <Button icon labelPosition='left' floated="left">
                             <Icon name='heart' />
                             I Own This
                         </Button>
@@ -34,7 +34,7 @@ const SingleGameView = (props) => {
                         <Button icon labelPosition='left' floated="right">
                             <Icon name='heart' />
                             I Want This
-                        </Button>
+                        </Button> */}
                         </Container>
                 </Grid.Column>
             </Grid>
