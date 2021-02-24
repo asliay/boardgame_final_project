@@ -5,6 +5,7 @@ import {Container, Divider, Grid, Segment, Form, Dropdown, Button} from "semanti
 
 const User = ({user, baseBoardGames, setUser}) => {
 
+
     if( !user.ownedGames || !user.wishList){
        return null;
     }
@@ -14,7 +15,7 @@ const User = ({user, baseBoardGames, setUser}) => {
     // sorting games alphabetically for Dropbown
     const sortedOptions = dropdownOptions.sort((a, b) => (a.text > b.text) ? 1 : -1)
 
-
+  
     return (
 
         <Container textAlign='left'>
@@ -49,7 +50,7 @@ const User = ({user, baseBoardGames, setUser}) => {
                 </Grid>
             </Segment>
             <Segment>
-                <Divider horizontal>Owned Games (These will not be recommended to you)</Divider>
+                <Divider horizontal>Owned Games</Divider>
             <Container>
             <Form >
                 <Dropdown 
@@ -64,7 +65,8 @@ const User = ({user, baseBoardGames, setUser}) => {
             </Form>
             </Container>
                 {<GameGrid games = {user.ownedGames}
-                           user = {user}  />}
+                           user = {user} 
+                           setUser={setUser} />}
             </Segment>
             <Segment>
                 <Divider horizontal>Wish List</Divider>
