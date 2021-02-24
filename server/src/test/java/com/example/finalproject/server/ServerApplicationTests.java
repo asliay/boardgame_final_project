@@ -36,7 +36,7 @@ class ServerApplicationTests {
 
 	@Test
 	void canCreateAndSave() {
-		BoardGame catan = new BoardGame("Settlers of Catan", 1995, 3, 4, 120,
+		BoardGame catan = new BoardGame("Settlers of Catan", 1995, 3, 4, 60, 120,
 				"https://cf.geekdo-images.com/W3Bsga_uLP9kO91gZ7H8yw__thumb/img/8a9HeqFydO7Uun_le9bXWPnidcA=/fit-in/200x150/filters:strip_icc()/pic2419375.jpg",
 				"https://images-na.ssl-images-amazon.com/images/I/81eKRDSc-PL._AC_SL1500_.jpg", 2, "Stuff");
 		boardGameRepository.save(catan);
@@ -44,7 +44,7 @@ class ServerApplicationTests {
 
 	@Test
 	void canGetCategoryFromGame(){
-		BoardGame catan = new BoardGame("Settlers of Catan", 1995, 3, 4, 120,
+		BoardGame catan = new BoardGame("Settlers of Catan", 1995, 3, 4, 60, 120,
 				"https://cf.geekdo-images.com/W3Bsga_uLP9kO91gZ7H8yw__thumb/img/8a9HeqFydO7Uun_le9bXWPnidcA=/fit-in/200x150/filters:strip_icc()/pic2419375.jpg",
 				"https://images-na.ssl-images-amazon.com/images/I/81eKRDSc-PL._AC_SL1500_.jpg", 1, "other things");
 		boardGameRepository.save(catan);
