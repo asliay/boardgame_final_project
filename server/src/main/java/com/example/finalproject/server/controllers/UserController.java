@@ -46,13 +46,34 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
+//        System.out.println("hi!");
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
+
+    // Checking User Credentials and returning User
+    @PostMapping("/login")
+    public ResponseEntity<User> getUserByCredentials(@RequestBody String input) {
+        System.out.println(input);
+        User foundUser = new User();
+        try {
+            JsonNode node = parse(input);
+            String email = node.get("userName").asText();
+            String password = node.get("password").asText();
+            foundUser = userRepository.findByCredentialEmailAndCredentialPassword(email, password);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(foundUser, HttpStatus.OK);
+    }
+
 
     @GetMapping("/users/{id}")
     public ResponseEntity<Optional<User>> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userRepository.findById(id), HttpStatus.OK);
     }
+
+
 
     @PostMapping("/users")
     public ResponseEntity<String> createUserWithCredential(@RequestBody String input) {

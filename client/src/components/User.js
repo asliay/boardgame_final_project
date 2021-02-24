@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react';
 import {Container, Divider, Grid, Segment, Form, Dropdown, Button} from "semantic-ui-react";
 
 
-const User = ({user, baseBoardGames}) => {
+const User = ({user, baseBoardGames, setUser}) => {
 
     if( !user.ownedGames || !user.wishList){
        return null;
@@ -43,7 +43,7 @@ const User = ({user, baseBoardGames}) => {
                             <p>Email Address:</p>
                         </Grid.Column>
                         <Grid.Column width={3}>
-                            {user.email}
+                            {user.credential.email}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -51,7 +51,7 @@ const User = ({user, baseBoardGames}) => {
             <Segment>
                 <Divider horizontal>Owned Games (These will not be recommended to you)</Divider>
             <Container>
-            <Form inline>
+            <Form >
                 <Dropdown 
                     placeholder='SEARCH FOR GAMES'
                     fluid
@@ -80,7 +80,8 @@ const User = ({user, baseBoardGames}) => {
                 <Button>Add to Wishlist</Button>
             </Form>
                 {<GameGrid games ={user.wishList} 
-                           user = {user} />}
+                           user = {user} 
+                           setUser={setUser}/>}
             </Segment>
         </Container>
     )

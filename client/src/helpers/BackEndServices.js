@@ -25,9 +25,22 @@ export const getQueryBoardGames = (query) => {
 
 // GET - User by ID.
 
-export const getUser = () => {
-    return fetch(`${usersUrl}1`)
+export const getUser = (id) => {
+    // console.log('doing a thing')
+    return fetch(`${usersUrl}${id}`)
         .then(res => res.json())
+}
+
+// GET User by LogIn
+
+export const logInUser = (payload) => {
+    return fetch('http://localhost:8080/login', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    
 }
 
 // POST - User
@@ -54,3 +67,6 @@ export const postAddGameToUserList = (payload, id, targetList) => {
     .then(res => res.json())
     
 }
+
+
+

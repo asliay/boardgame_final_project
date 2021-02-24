@@ -51,7 +51,7 @@ const RecommendationsForm = ({handleFormSubmit, handleResetForm, boardGames}) =>
         <div>
             <Grid textAlign='center'>
             <Form onSubmit={handleFormSubmit} id="search_form">
-                <Form.Group width="equal" inline>
+                <Form.Group width="equal">
                     <Form.Field>
                         <label forhtml="plr_num">Number of Players: </label>
                                 <input type="number"

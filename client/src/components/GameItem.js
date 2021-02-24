@@ -1,34 +1,52 @@
 import {Link} from "react-router-dom";
 import {Segment, Divider, Container, Button, Icon, Form} from "semantic-ui-react";
-import {postAddGameToUserList} from "../helpers/BackEndServices";
+import {postAddGameToUserList, getUser} from "../helpers/BackEndServices";
 
-const GameItem = ({game, currentUser}) => {
+const GameItem = ({game, currentUser, setUser}) => {
 
-    if (!game || !game.gameCategory || !currentUser) return null;
-        const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
-        let usersList = "";
-        const setUsersList = (event) => {
-            usersList = event.target.id
-    }
+    if (!game || !game.gameCategory) return null;
 
-    const onSubmit = (event) => {
-        const user_id = 1;
-        const targetList = usersList;
-        event.preventDefault();
-        postAddGameToUserList(game, user_id, targetList)
+    const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
+
+    let usersList = "";
+
+    const setUsersList = (event) => {
+        usersList = event.target.id
     }
 
     let buttons;
 
-    if(currentUser.ownedGames.includes(game)){
+    const onSubmit = (event) => {
+        const userId = currentUser.id;
+        const targetList = usersList;
+        event.preventDefault();
+        postAddGameToUserList(game, userId, targetList)
+        const updatedUser = currentUser
+        if (usersList === "own") {
+            updatedUser.ownedGames.push(game);
+            // buttons =  <Button size="medium" id="own" icon labelPosition='left' disabled >
+            // <Icon name='check' />I Own This</Button>
+        } else if (usersList === "wish") {
+            updatedUser.wishList.push(game);
+            // buttons = <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
+            // <Icon name='check' />I Own This</Button>
+        }
+        setUser(updatedUser);
+
+    }
+
+    
+    if(currentUser === null) {
+        buttons = <div></div>
+    } else if(currentUser.ownedGames && currentUser.ownedGames.includes(game)){
         buttons =
             <Button size="medium" id="own" icon labelPosition='left' disabled >
             <Icon name='check' />I Own This</Button>
-    } else if (currentUser.wishList.includes(game)){
+    } else if (currentUser.wishList && currentUser.wishList.includes(game)){
         buttons =
             <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
             <Icon name='check' />I Own This</Button>
-    } else {
+    } else if (currentUser) {
         buttons =
         <div>
             <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
@@ -37,6 +55,8 @@ const GameItem = ({game, currentUser}) => {
             <Button size="medium" id="wish" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
                 <Icon name='heart' />I Want This</Button>
         </div> 
+    } else {
+        buttons = <div></div>
     }
 
     return (
