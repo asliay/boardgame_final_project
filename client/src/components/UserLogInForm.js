@@ -1,4 +1,4 @@
-import {Button, Form, Icon} from "semantic-ui-react";
+import {Button, Form, Icon, Message} from "semantic-ui-react";
 import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import {logInUser} from "../helpers/BackEndServices"
@@ -20,6 +20,7 @@ const UserLoginForm = ({setUser, setLoggedIn}) => {
         event.preventDefault();
         logInUser(userLogin)
             .then(data => setUser(data))
+            .catch(error => console.log(error))
         setLoggedIn(true)
     }
 
@@ -36,10 +37,16 @@ const UserLoginForm = ({setUser, setLoggedIn}) => {
                 <Form.Field>
                         <label forhtml="password">Password: </label>
                         <input id="password" onChange={onChange} placeholder="Password" required/>
+                        <Message
+      error
+      header='Action Forbidden'
+      content='You can only sign up for an account once with a given e-mail address.'
+    />
                 </Form.Field>
                 </Form.Group>
             <Button animated type='submit' onMouseDown={e => e.preventDefault()}>
                 <Button.Content visible>Submit</Button.Content>
+                
                 <Button.Content hidden>
                     <Icon name='check' />
                 </Button.Content>

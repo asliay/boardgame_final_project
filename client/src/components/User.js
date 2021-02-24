@@ -51,7 +51,7 @@ const User = ({user, baseBoardGames}) => {
             <Segment>
                 <Divider horizontal>Owned Games (These will not be recommended to you)</Divider>
             <Container>
-            <Form inline>
+            <Form >
                 <Dropdown 
                     placeholder='SEARCH FOR GAMES'
                     fluid

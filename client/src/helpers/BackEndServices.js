@@ -39,6 +39,7 @@ export const logInUser = (payload) => {
         headers: { 'Content-Type': 'application/json'}
     })
     .then(res => res.json())
+    
 }
 
 // POST - User
