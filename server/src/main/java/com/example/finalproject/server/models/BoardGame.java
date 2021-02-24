@@ -23,9 +23,11 @@ public class BoardGame {
     @Column(name = "max_players")
     private int maxPlayers;
 
-    @Column(name = "play_time")
-    private int playTime;
+    @Column(name = "min_play_time")
+    private int minPlayTime;
 
+    @Column(name = "max_play_time")
+    private int maxPlayTime;
 
     @Column
     private String thumbnailURL;
@@ -33,13 +35,37 @@ public class BoardGame {
     @Column
     private String boxImageURL;
 
+    @Column(name = "rank")
+    private int rank;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String description;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy="boardGame")
-    @JsonIgnoreProperties({"boardGame"})
-    private List<GameCategoryJoin> gameCategoryJoins;
+    @ManyToMany
+    @JsonIgnoreProperties({"boardGames"})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinTable(
+            name = "boardgames_categories_join",
+            joinColumns = {
+                    @JoinColumn(
+                            name = "game_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(
+                            name = "category_bga_id",
+                            nullable = false,
+                            updatable = false
+                    )
+            }
+    )
+    private List<Category> gameCategory;
 
     @ManyToMany
     @JsonIgnoreProperties({"ownedGames"})
@@ -85,19 +111,22 @@ public class BoardGame {
     )
     private List<User> wantedBy;
 
-    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int playTime,
-                     String thumbnailURL,
-                     String boxImageURL) {
-        this.name = name;
-        this.releaseYear = releaseYear;
-        this.minPlayers = minPlayers;
-        this.maxPlayers = maxPlayers;
-        this.playTime = playTime;
-        this.thumbnailURL = thumbnailURL;
-        this.boxImageURL = boxImageURL;
-        this.gameCategoryJoins = new ArrayList<>();
-        this.ownedBy = new ArrayList<>();
-        this.wantedBy = new ArrayList<>();
+    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int minPlayTime,
+                     int maxPlayTime, String thumbnailURL, String boxImageURL, int rank,
+                     String description) {
+        this.name           =  name;
+        this.releaseYear    =  releaseYear;
+        this.minPlayers     =  minPlayers;
+        this.maxPlayers     =  maxPlayers;
+        this.minPlayTime    =  minPlayTime;
+        this.maxPlayTime    =  maxPlayTime;
+        this.thumbnailURL   =  thumbnailURL;
+        this.boxImageURL    =  boxImageURL;
+        this.rank           =  rank;
+        this.description    =  description;
+        this.gameCategory   =  new ArrayList<>();
+        this.ownedBy        =  new ArrayList<>();
+        this.wantedBy       =  new ArrayList<>();
     }
 
     public BoardGame() {
@@ -135,21 +164,28 @@ public class BoardGame {
         this.maxPlayers = maxPlayers;
     }
 
-    public int getPlayTime() {
-        return playTime;
+    public int getMinPlayTime() {
+        return minPlayTime;
     }
 
-    public void setPlayTime(int playTime) {
-        this.playTime = playTime;
+    public void setMinPlayTime(int minPlayTime) {
+        this.minPlayTime = minPlayTime;
     }
 
-
-    public List<GameCategoryJoin> getGameCategoryJoins() {
-        return gameCategoryJoins;
+    public int getMaxPlayTime() {
+        return maxPlayTime;
     }
 
-    public void setGameCategoryJoins(List<GameCategoryJoin> gameCategoryJoins) {
-        this.gameCategoryJoins = gameCategoryJoins;
+    public void setMaxPlayTime(int maxPlayTime) {
+        this.maxPlayTime = maxPlayTime;
+    }
+
+    public List<Category> getGameCategory() {
+        return gameCategory;
+    }
+
+    public void setGameCategory(List<Category> gameCategory) {
+        this.gameCategory = gameCategory;
     }
 
     public String getThumbnailURL() {
@@ -167,6 +203,18 @@ public class BoardGame {
     public void setBoxImageURL(String boxImageURL) {
         this.boxImageURL = boxImageURL;
     }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
 
     public Long getId() {
         return id;
@@ -190,6 +238,10 @@ public class BoardGame {
 
     public void setWantedBy(List<User> wantedBy) {
         this.wantedBy = wantedBy;
+    }
+
+    public void addCategoryToGame(Category category){
+        this.gameCategory.add(category);
     }
 }
 

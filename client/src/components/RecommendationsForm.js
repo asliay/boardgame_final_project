@@ -34,7 +34,7 @@ const RecommendationsForm = ({handleFormSubmit, handleResetForm, boardGames}) =>
 
     const categoryOptions = categories.map((category)  => {
         return (
-            <option value={category.name}>{category.name}</option>
+            <option key={category.id} value={category.name}>{category.name}</option>
         )
     })
 
@@ -51,7 +51,7 @@ const RecommendationsForm = ({handleFormSubmit, handleResetForm, boardGames}) =>
         <div>
             <Grid textAlign='center'>
             <Form onSubmit={handleFormSubmit} id="search_form">
-                <Form.Group width="equal" inline>
+                <Form.Group width="equal">
                     <Form.Field>
                         <label forhtml="plr_num">Number of Players: </label>
                                 <input type="number"
@@ -64,7 +64,7 @@ const RecommendationsForm = ({handleFormSubmit, handleResetForm, boardGames}) =>
                                     autoFocus/>
                     </Form.Field>
                     <Form.Field>
-                        <label forhtml="play_time">Max playing time: </label>
+                        <label forhtml="play_time">Max playing time (mins): </label>
                                 <input type="number"
                                     id="play_time"
                                     name="play_time"
@@ -87,7 +87,7 @@ const RecommendationsForm = ({handleFormSubmit, handleResetForm, boardGames}) =>
                 <Button animated type='submit' onMouseDown={e => e.preventDefault()}>
                     <Button.Content visible>Find Games</Button.Content>
                     <Button.Content hidden>
-                        <Icon name='check' />
+                        <Icon name='right arrow' />
                     </Button.Content>
                 </Button>
                 <Button animated onClick={resetAndClearForm} onMouseDown={e => e.preventDefault()}>
@@ -97,39 +97,8 @@ const RecommendationsForm = ({handleFormSubmit, handleResetForm, boardGames}) =>
                     </Button.Content>
                 </Button>
                 </Segment>
-        </Form>
-        </Grid>
-        
-  
-            {/* <form id="search-form" onSubmit={handleFormSubmit}>
-                <label forhtml="plr_num">Number of Players: </label>
-                <input type="number" 
-                       id="plr_num" 
-                       name="plr_num"
-                       min="1"
-                       max="25"
-                       autoFocus
-                       />
-                <br/>
-                <label forhtml="play_time">Max playing time: </label>
-                <input type="number"
-                       id="play_time"
-                       name="play_time"
-                       min="0"
-                       />
-                <br/>
-                <select name="category" id="category">
-                    <option value="" defaultValue="selected">Any</option>
-                    <option value="family">Family</option>
-                    <option value="party">Party</option>
-                    <option value="strategy">Strategy</option>
-                    <option value="thematic">Thematic</option>
-                </select>
-                <button type="submit" 
-                        className="buttons"
-                        // onClick={resetForm}
-                        > Search </button>
-            </form> */}
+            </Form>
+            </Grid>
         </div>
     )
 }

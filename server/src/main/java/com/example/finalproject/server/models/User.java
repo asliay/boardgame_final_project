@@ -1,10 +1,12 @@
 package com.example.finalproject.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,11 +23,16 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column
-    private int age;
+//    @Column
+//    private int age;
 
-    @Column
-    private String email;
+    @Column(name="d.o.b.")
+    private String dob;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"user"})
+    @JoinColumn(name = "credential_id", referencedColumnName = "id")
+    private Credential credential;
 
     @ManyToMany
     @JsonIgnoreProperties({"ownedBy", "wantedBy"})
@@ -71,11 +78,11 @@ public class User {
     )
     private List<BoardGame> wishList;
 
-    public User(String firstName, String lastName, int age, String email) {
+    public User(String firstName, String lastName, String dob) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
-        this.email = email;
+        this.dob = dob;
+//        this.credential = new Credential(this);
         this.ownedGames = new ArrayList();
         this.wishList = new ArrayList();
     }
@@ -107,20 +114,28 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getAge() {
-        return age;
+//    public int getAge() {
+//        return age;
+//    }
+//
+//    public void setAge(int age) {
+//        this.age = age;
+//    }
+
+    public String getDob() {
+        return dob;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
-    public String getEmail() {
-        return email;
+    public Credential getCredential() {
+        return credential;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCredential(Credential credential) {
+        this.credential = credential;
     }
 
     public List<BoardGame> getOwnedGames() {
