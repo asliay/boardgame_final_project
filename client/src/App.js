@@ -29,7 +29,7 @@ function App() {
 
   // User States 
   const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({});
 
 
   // State Handlers
@@ -96,6 +96,7 @@ function App() {
                               setUser={setUser}
                               boardGames={boardGames}
                               user={user}
+                              
                                />}
                             />
             <Route path="/single-game" 
@@ -105,6 +106,7 @@ function App() {
                                 user={user}
                                 baseBoardGames={baseBoardGames} 
                                 setUser={setUser}
+
                                 />} />
             <Route path="/login"
                   render ={()=><UserLoginForm 

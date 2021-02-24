@@ -17,7 +17,6 @@ const NewUserForm = () => {
     }
 
     const onSubmit = (event) => {
-        // console.log("form data=:", newUser);
         event.preventDefault();
         postNewUser(newUser)
     }
