@@ -2,7 +2,7 @@ import {Header,Segment, Menu, Icon} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
 
 
-const HeaderContainer = ({loggedIn}) => {
+const HeaderContainer = ({loggedIn, user}) => {
   
   let link;
     if(!loggedIn){
@@ -19,7 +19,7 @@ const HeaderContainer = ({loggedIn}) => {
       <Link to="/user">
       <Menu.Item name='user'>
         <Icon name='user' />
-        User
+        {user.firstName}
       </Menu.Item>
     </Link>
   }

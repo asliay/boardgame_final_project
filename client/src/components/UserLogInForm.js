@@ -37,11 +37,7 @@ const UserLoginForm = ({setUser, setLoggedIn}) => {
                 <Form.Field>
                         <label forhtml="password">Password: </label>
                         <input id="password" onChange={onChange} placeholder="Password" required/>
-                        <Message
-      error
-      header='Action Forbidden'
-      content='You can only sign up for an account once with a given e-mail address.'
-    />
+                        
                 </Form.Field>
                 </Form.Group>
             <Button animated type='submit' onMouseDown={e => e.preventDefault()}>

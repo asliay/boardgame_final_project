@@ -25,8 +25,9 @@ export const getQueryBoardGames = (query) => {
 
 // GET - User by ID.
 
-export const getUser = () => {
-    return fetch(`${usersUrl}1`)
+export const getUser = (id) => {
+    // console.log('doing a thing')
+    return fetch(`${usersUrl}${id}`)
         .then(res => res.json())
 }
 
