@@ -28,7 +28,7 @@ function App() {
   const [sortedGames, setSortedGames] = useState([])
 
   // User States 
-  const [loggedIn, setloggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState({})
 
 
@@ -102,7 +102,9 @@ function App() {
                                 baseBoardGames={baseBoardGames} 
                                 />} />
             <Route path="/login"
-                  render ={()=><UserLoginForm />} />
+                  render ={()=><UserLoginForm 
+                                setUser={setUser}
+                                setLoggedIn={setLoggedIn}/>} />
             <Route path="/newuser"
                   render={()=> <NewUserForm />} />
           </Switch>

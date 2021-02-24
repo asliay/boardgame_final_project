@@ -51,12 +51,13 @@ public class UserController {
     }
 
     // Checking User Credentials and returning User
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<User> getUserByCredentials(@RequestBody String input) {
+        System.out.println(input);
         User foundUser = new User();
         try {
             JsonNode node = parse(input);
-            String email = node.get("email").asText();
+            String email = node.get("userName").asText();
             String password = node.get("password").asText();
             foundUser = userRepository.findByCredentialEmailAndCredentialPassword(email, password);
 

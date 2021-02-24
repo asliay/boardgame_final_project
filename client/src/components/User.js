@@ -43,7 +43,7 @@ const User = ({user, baseBoardGames}) => {
                             <p>Email Address:</p>
                         </Grid.Column>
                         <Grid.Column width={3}>
-                            {user.email}
+                            {user.credential.email}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>

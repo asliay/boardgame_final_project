@@ -34,7 +34,7 @@ export const getUser = () => {
 
 export const logInUser = (payload) => {
     return fetch('http://localhost:8080/login', {
-        method: 'GET',
+        method: 'POST',
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json'}
     })
