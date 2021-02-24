@@ -57,7 +57,7 @@ const HeaderContainer = ({loggedIn, user, setUser, setLoggedIn}) => {
           </Menu.Item>
         </Link> */}
           <div id="custom-header-contain">
-            <Header as='h1' textAlign='center'>Insert Board Game Recommender App Name Here</Header>
+            <Header as='h1' textAlign='center'>I'm Board! I need a sommeli-play!</Header>
           </div>
     </Menu>
   )
