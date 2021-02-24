@@ -76,7 +76,7 @@ const GameItem = ({game, currentUser, setUser}) => {
 
     return (
         <div>
-            <Segment raised style={{height:430}}>
+            <Segment raised>
                 <h3>
                 <Link to={{
                     pathname : "/single-game",

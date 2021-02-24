@@ -49,7 +49,7 @@ const User = ({user, baseBoardGames, setUser}) => {
                     </Grid.Row>
                 </Grid>
             </Segment>
-            <Segment>
+            <Segment sytle={{height:500}}>
                 <Divider horizontal>Owned Games</Divider>
             <Container>
             <Form >
