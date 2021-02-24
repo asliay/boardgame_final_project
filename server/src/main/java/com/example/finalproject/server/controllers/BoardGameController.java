@@ -3,6 +3,7 @@ package com.example.finalproject.server.controllers;
 import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.repositories.BoardGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,47 +27,47 @@ public class BoardGameController {
     ) {
         // Find by category, play time & number of players
         if (category !=null && playTime != null && numPlayers != null) {
-            List<BoardGame> returnedGames =
-                    boardGameRepository.findByPlayTimeLessThanEqualAndGameCategoryNameIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(playTime, category, numPlayers, numPlayers);
+            List<BoardGame> returnedGames = boardGameRepository.findByMaxPlayTimeLessThanEqualAndGameCategoryNameIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqualOrderByRankAsc(playTime, category, numPlayers, numPlayers);
             return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
         // Find by category and number of players
         if (category !=null && numPlayers != null) {
             List<BoardGame> returnedGames =
-                    boardGameRepository.findByGameCategoryNameIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(category, numPlayers, numPlayers);
+                    boardGameRepository.findByGameCategoryNameIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqualOrderByRankAsc(category, numPlayers, numPlayers);
             return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
         // Find by play time and number of players
         if (playTime != null && numPlayers != null) {
             List<BoardGame> returnedGames =
-                    boardGameRepository.findByPlayTimeLessThanEqualAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(playTime, numPlayers, numPlayers);
+                    boardGameRepository.findByMaxPlayTimeLessThanEqualAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqualOrderByRankAsc(playTime, numPlayers, numPlayers);
             return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
         // Find by play time and category
         if (playTime !=null && category !=null) {
             List<BoardGame> returnedGames =
-                    boardGameRepository.findByPlayTimeLessThanEqualAndGameCategoryNameIgnoreCase(playTime, category);
+                    boardGameRepository.findByMaxPlayTimeLessThanEqualAndGameCategoryNameIgnoreCaseOrderByRankAsc(playTime,
+                            category);
             return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
         // Find by category
         if (category !=null) {
             List<BoardGame> returnedGames =
-                    boardGameRepository.findByGameCategoryNameIgnoreCase(category);
+                    boardGameRepository.findByGameCategoryNameIgnoreCaseOrderByRankAsc(category);
             return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
         // Find by category
         if (playTime != null) {
-            List<BoardGame> returnedGames = boardGameRepository.findByPlayTimeLessThanEqual(playTime);
+            List<BoardGame> returnedGames = boardGameRepository.findByMaxPlayTimeLessThanEqualOrderByRankAsc(playTime);
             return new ResponseEntity<>(returnedGames, HttpStatus.OK);
         }
         // Find by number of players
         if (numPlayers != null) {
             List<BoardGame> returnedGames =
-                    boardGameRepository.findByMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqual(numPlayers,
+                    boardGameRepository.findByMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqualOrderByRankAsc(numPlayers,
                             numPlayers);
             return new ResponseEntity<>(returnedGames,HttpStatus.OK);
         } // Find all board games
-        List<BoardGame> allGames = boardGameRepository.findAll();
+        List<BoardGame> allGames = boardGameRepository.findAll(Sort.by(Sort.Direction.ASC, "rank"));
         return new ResponseEntity<>(allGames, HttpStatus.OK);
     }
 
