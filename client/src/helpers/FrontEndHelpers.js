@@ -6,18 +6,20 @@
     const types = {
         minPlayersAsc   : 'minPlayers',
         maxPlayersAsc   : 'maxPlayers',
-        playTimeAsc     : 'playTime',
-        categoryAsc     : 'gameCategoryJoins[0].category.name',
+        maxPlayTimeAsc  : 'maxPlayTime',
+        categoryAsc     : `gameCategory[0]['name]`,
         minPlayersDesc  : 'minPlayers', 
         maxPlayersDesc  : 'maxPlayers',
-        playTimeDesc    : 'playTime'
+        maxPlayTimeDesc : 'maxPlayTime',
+        rankAsc         : 'rank'
     }
     if(selectedFilter === 'minPlayersAsc'|| selectedFilter === 'maxPlayersAsc'
-      || selectedFilter === 'playTimeAsc' || selectedFilter === 'categoryAsc') {
+      || selectedFilter === 'maxPlayTimeAsc' || selectedFilter === 'categoryAsc' || 
+      selectedFilter === 'rankAsc') {
         const sortProperty = types[selectedFilter];
         sorted = [...boardGames].sort((a, b) => a[sortProperty] - b[sortProperty]);
     } else if (selectedFilter === 'minPlayersDesc'|| selectedFilter === 'maxPlayersDesc' 
-              || selectedFilter === 'playTimeDesc') {
+              || selectedFilter === 'maxPlayTimeDesc') {
         const sortProperty = types[selectedFilter];
         sorted = [...boardGames].sort((a, b) => b[sortProperty] - a[sortProperty]);
     } else if (!selectedFilter) {
