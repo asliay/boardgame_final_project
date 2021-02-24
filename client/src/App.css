@@ -24,6 +24,50 @@
   width:auto;
   height:200px;
   margin: auto;
+  overflow: hidden;
+}
+
+#box-image-container-small img{
+  width: auto;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.pagination{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+   
+}
+
+.page-item{
+  border: 1px solid black;
+  width: 35px;
+  float: left;
+
+}
+
+.page-item:active {
+  background-color: chartreuse;
+}
+
+.page-link{
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.page-link:active {
+  color: brown;
+  background-color: chartreuse;
+}
+.page-link:target{
+  background-color: chartreuse;
 }
 
 

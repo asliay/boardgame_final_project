@@ -50,4 +50,22 @@ public class UserController {
         final User updatedUser = userRepository.save(user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
+
+
+    @PutMapping("/users/{id}/remove-game")
+    public ResponseEntity<User> removeGameFromUserList(
+            @RequestParam(name = "targetList", required = false) String targetList,
+            @PathVariable Long id,
+            @RequestBody BoardGame game
+    ) throws ResourceNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
+        targetList.trim();
+        if (targetList.equalsIgnoreCase("own")){
+            user.removeGameFromOwnedList(game);
+        } else if (targetList.equalsIgnoreCase("wish")){
+            user.removeGameFromWishList(game);
+        }
+        final User updatedUser = userRepository.save(user);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
 }

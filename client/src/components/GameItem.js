@@ -5,7 +5,8 @@ import {postAddGameToUserList} from "../helpers/BackEndServices";
 const GameItem = ({game, currentUser}) => {
 
     if (!game || !game.gameCategory || !currentUser) return null;
-        const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
+
+    const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
         let usersList = "";
         const setUsersList = (event) => {
             usersList = event.target.id
@@ -54,7 +55,7 @@ const GameItem = ({game, currentUser}) => {
                     game    : game
                     }}>
                     <div id="box-image-container-small">
-                        <img src={game.boxImageURL} height="100%" width="auto" alt="board game box" />
+                        <img src={game.boxImageURL} alt="board game box" />
                     </div>
                     </Link>
                 <Divider></Divider>
