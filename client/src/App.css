@@ -15,9 +15,9 @@
 }
 
 #custom-header-contain{
-  width: 100%;
+  width: 200px;
   margin: auto;
-  justify-content: center;
+  height: 60px;
 }
 
 #box-image-container-small{
@@ -26,6 +26,9 @@
   margin: auto;
 }
 
+#logo-img{
+  margin: auto; 
+}
 
 
 

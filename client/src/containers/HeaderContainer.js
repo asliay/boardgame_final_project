@@ -1,5 +1,6 @@
 import {Header,Segment, Menu, Icon} from 'semantic-ui-react';
 import {Link, Redirect} from "react-router-dom";
+import logo from "../logo.PNG";
 
 
 const HeaderContainer = ({loggedIn, user, setUser, setLoggedIn}) => {
@@ -57,7 +58,7 @@ const HeaderContainer = ({loggedIn, user, setUser, setLoggedIn}) => {
           </Menu.Item>
         </Link> */}
           <div id="custom-header-contain">
-            <Header as='h1' textAlign='center'>I'm Board! I need a sommeli-play!</Header>
+            <img id="logo-img" src={logo} height="100%" alt="I'm Board logo"/>
           </div>
     </Menu>
   )
