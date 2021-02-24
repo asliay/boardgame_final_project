@@ -1,17 +1,12 @@
-.App {
-  text-align: center;
 
+#root{
+  background-color: rgba(228, 228, 231, 0.226);
 }
 
 #game-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   list-style: none;
-}
-
-#game-item{
-  border: 1px solid bisque;
-  color: darkorchid;
 }
 
 #custom-header-contain{

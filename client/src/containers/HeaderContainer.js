@@ -43,7 +43,7 @@ const HeaderContainer = ({loggedIn, user, setUser, setLoggedIn}) => {
 
   return (
 
-    <Menu stackable icon='labeled'>
+    <Menu stackable icon='labeled' color="blue">
         <Link to="/">
           <Menu.Item name='home'>
           <Icon name='home' />

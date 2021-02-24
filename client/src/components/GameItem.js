@@ -76,7 +76,7 @@ const GameItem = ({game, currentUser, setUser}) => {
 
     return (
         <div>
-            <Segment>
+            <Segment raised style={{height:430}}>
                 <h3>
                 <Link to={{
                     pathname : "/single-game",
@@ -93,10 +93,10 @@ const GameItem = ({game, currentUser, setUser}) => {
                     </div>
                     </Link>
                 <Divider></Divider>
-                <Container textAlign="left">
-                    <p>Players: {game.minPlayers} - {game.maxPlayers} </p>
-                    <p>Play Time: {game.minPlayTime} - {game.maxPlayTime} mins</p>
-                    <p>Categories: {gameCategories} </p>
+                <Container textAlign="left">  
+                        <p>Players: {game.minPlayers} - {game.maxPlayers} </p>
+                        <p>Play Time: {game.minPlayTime} - {game.maxPlayTime} mins</p>
+                        <p>Categories: {gameCategories} </p>
                     <Container  textAlign="center">
                     
                         {buttons}
