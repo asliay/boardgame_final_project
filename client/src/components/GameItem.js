@@ -59,8 +59,9 @@ const GameItem = ({game, currentUser}) => {
                     </Link>
                 <Divider></Divider>
                 <Container textAlign="left">
+                    <p>RANK(TEST): {game.rank}</p>
                     <p>Players: {game.minPlayers} - {game.maxPlayers} </p>
-                    <p>Play Time: {game.playTime} mins</p>
+                    <p>Play Time: {game.minPlayTime} - {game.maxPlayTime} mins</p>
                     <p>Categories: {gameCategories} </p>
                     <Container  textAlign="center">
                     <Form onSubmit={onSubmit} id="add-game-to-user-form">
