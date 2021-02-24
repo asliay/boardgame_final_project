@@ -56,6 +56,13 @@ class ServerApplicationTests {
 	}
 
 	@Test
+	void canGetUserFromCredentialEmail(){
+		Credential credential = new Credential("badams@bobslawblog.com", "rabbitf4n");
+		User foundUser = userRepository.findByCredentialEmailAndCredentialPassword(credential.getEmail(), credential.getPassword());
+		System.out.println(foundUser.getFirstName());
+	}
+
+	@Test
 	void canCreateAndSaveNewUser(){
 		long originalCount = userRepository.count();
 		long originalCredential = credentialRepository.count();

@@ -46,15 +46,24 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
+//        System.out.println("hi!");
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
     // Checking User Credentials and returning User
     @GetMapping("/login")
-    public ResponseEntity<Optional<User>> getUserByCredentials(@RequestBody Credential credential) {
-         userRepository.findByCredentialEmailAndCredentialPassword(credential.getEmail(),
-                 credential.getPassword())
+    public ResponseEntity<User> getUserByCredentials(@RequestBody String input) {
+        User foundUser = new User();
+        try {
+            JsonNode node = parse(input);
+            String email = node.get("email").asText();
+            String password = node.get("password").asText();
+            foundUser = userRepository.findByCredentialEmailAndCredentialPassword(email, password);
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(foundUser, HttpStatus.OK);
     }
 
 
