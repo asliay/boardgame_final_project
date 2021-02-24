@@ -19,9 +19,14 @@ const UserLoginForm = ({setUser, setLoggedIn}) => {
     const onSubmit = (event) => {
         event.preventDefault();
         logInUser(userLogin)
-            .then(data => setUser(data))
-            .catch(error => console.log(error))
-        setLoggedIn(true)
+            .then((data) => {
+                setUser(data)
+                setLoggedIn(true)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        
     }
 
    
