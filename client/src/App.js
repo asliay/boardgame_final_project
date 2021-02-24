@@ -76,7 +76,10 @@ function App() {
     <>
     <Router >
       <Container textAlign='center'>
-      <HeaderContainer loggedIn={loggedIn} user={user}/>
+      <HeaderContainer loggedIn={loggedIn} 
+                       user={user}
+                       setUser={setUser}
+                       setLoggedIn={setLoggedIn}/>
       <br/>
           <Switch>
             <Route exact path="/"

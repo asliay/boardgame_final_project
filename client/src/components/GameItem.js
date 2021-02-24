@@ -23,7 +23,7 @@ const GameItem = ({game, currentUser, setUser}) => {
         postAddGameToUserList(game, userId, targetList)
         const updatedUser = currentUser
         if (usersList === "own") {
-            // updatedUser.ownedGames.push(game);
+            updatedUser.ownedGames.push(game);
             // buttons =  <Button size="medium" id="own" icon labelPosition='left' disabled >
             // <Icon name='check' />I Own This</Button>
         } else if (usersList === "wish") {

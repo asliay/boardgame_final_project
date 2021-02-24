@@ -36,7 +36,7 @@ const UserLoginForm = ({setUser, setLoggedIn}) => {
                 </Form.Field>
                 <Form.Field>
                         <label forhtml="password">Password: </label>
-                        <input id="password" onChange={onChange} placeholder="Password" required/>
+                        <input id="password" type="password"onChange={onChange} placeholder="Password" required/>
                         
                 </Form.Field>
                 </Form.Group>
