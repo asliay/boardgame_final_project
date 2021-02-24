@@ -8,11 +8,8 @@ const GameGrid = ({games, user, setUser}) => {
         return(
             <Grid.Column key={game.id}>
                 <GameItem game={game}
-            
                           currentUser={user}
                           setUser={setUser}
-                          userFirstName={user.firstName}
-                          ownedGames={user.ownedGames}
                           />
             </Grid.Column>
         )

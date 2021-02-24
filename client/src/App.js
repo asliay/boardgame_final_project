@@ -29,7 +29,7 @@ function App() {
 
   // User States 
   const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
 
 
   // State Handlers
