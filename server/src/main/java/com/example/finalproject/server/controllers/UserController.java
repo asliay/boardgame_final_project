@@ -60,12 +60,13 @@ public class UserController {
     ) throws ResourceNotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
         targetList.trim();
-        if (targetList.equalsIgnoreCase("own")){
+        if (targetList.equalsIgnoreCase("removeown")){
             user.removeGameFromOwnedList(game);
         } else if (targetList.equalsIgnoreCase("wish")){
             user.removeGameFromWishList(game);
         }
-        final User updatedUser = userRepository.save(user);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        userRepository.save(user);
+        System.out.println("Removed game!!!!");
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

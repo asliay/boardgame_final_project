@@ -156,7 +156,10 @@ public class User {
     }
 
     public void removeGameFromOwnedList(BoardGame boardGame){
+        System.out.println((this.getOwnedGames()));
+        System.out.println(("Now removing game"));
         this.ownedGames.remove(boardGame);
+        System.out.println((this.getOwnedGames()));
     }
 
     public void addGameToWishList(BoardGame boardGame){
