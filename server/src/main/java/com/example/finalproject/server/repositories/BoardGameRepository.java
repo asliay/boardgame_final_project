@@ -10,7 +10,8 @@ import java.util.List;
 public interface BoardGameRepository extends JpaRepository<BoardGame, Long> {
 
     // Playing Time Query
-    List<BoardGame> findByMaxPlayTimeLessThanEqualOrderByRankAsc(int minutes);
+    List<BoardGame> findByMinPlayTimeLessThanEqualAndMaxPlayTimeGreaterThanEqualOrderByRankAsc(int minPlayTime,
+                                                                                               int maxPlayTime);
 
     // By Category Name
      List<BoardGame> findByGameCategoryNameIgnoreCaseOrderByRankAsc(String categoryName);
@@ -23,11 +24,13 @@ public interface BoardGameRepository extends JpaRepository<BoardGame, Long> {
     // COMBINED:
     // By Play Time & Category Name
     List<BoardGame>
-    findByMaxPlayTimeLessThanEqualAndGameCategoryNameIgnoreCaseOrderByRankAsc(int minutes,
+    findByMinPlayTimeLessThanEqualAndMaxPlayTimeGreaterThanEqualAndGameCategoryNameIgnoreCaseOrderByRankAsc(int minPlayTime,
+                                                                              int maxPlayTime,
                                                                               String category);
     // By Play Time & Num Players
     List<BoardGame>
-    findByMaxPlayTimeLessThanEqualAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqualOrderByRankAsc(int minutes,
+    findByMinPlayTimeLessThanEqualAndMaxPlayTimeGreaterThanEqualAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqualOrderByRankAsc(int minPlayTime,
+                                                                                                        int maxPlayTime,
                                                                                                         int minPlayer,
                                                                                                         int maxPlayer);
 
@@ -39,7 +42,8 @@ public interface BoardGameRepository extends JpaRepository<BoardGame, Long> {
 
     // By Play Time & Category & Num Players
     List<BoardGame>
-    findByMaxPlayTimeLessThanEqualAndGameCategoryNameIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqualOrderByRankAsc(int minutes,
+    findByMinPlayTimeLessThanEqualAndMaxPlayTimeGreaterThanEqualAndGameCategoryNameIgnoreCaseAndMinPlayersLessThanEqualAndMaxPlayersGreaterThanEqualOrderByRankAsc(int minPlayTime,
+                                                                                                                       int maxPlayTime,
                                                                                                                        String category,
                                                                                                                        int minPlayer,
                                                                                                                        int maxPlayer);

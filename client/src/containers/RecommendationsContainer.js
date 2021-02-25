@@ -11,28 +11,28 @@ const RecommendationsContainer = ({handleSort, recsString, selectedFilter,handle
         event.preventDefault();
         let newQuery = ""
         let numPlayers = event.target.plr_num.value;
-        let maxPlayTime = event.target.play_time.value;
+        let playTime = event.target.play_time.value;
         let category = event.target.category.value;
         let newRecsString = `All results`
 
-        if (numPlayers && maxPlayTime && category) {
-            newQuery = `?numPlayers=${numPlayers}&maxPlayTime=${maxPlayTime}&category=${category}`
-            newRecsString = `Search Results for ${category} Games less than ${maxPlayTime} Minutes for ${numPlayers} Players`
-        } else if (numPlayers && maxPlayTime && !category) {
-            newQuery = `?numPlayers=${numPlayers}&maxPlayTime=${maxPlayTime}`
-            newRecsString = `Search Results for Games less than ${maxPlayTime} Minutes for ${numPlayers} Players`
-        } else if (numPlayers && category && !maxPlayTime) {
+        if (numPlayers && playTime && category) {
+            newQuery = `?numPlayers=${numPlayers}&playTime=${playTime}&category=${category}`
+            newRecsString = `Search Results for ${category} Games less than ${playTime} Minutes for ${numPlayers} Players`
+        } else if (numPlayers && playTime && !category) {
+            newQuery = `?numPlayers=${numPlayers}&playTime=${playTime}`
+            newRecsString = `Search Results for Games less than ${playTime} Minutes for ${numPlayers} Players`
+        } else if (numPlayers && category && !playTime) {
             newQuery = `?numPlayers=${numPlayers}&category=${category}`
             newRecsString = `Search Results for ${category} Games for ${numPlayers} Players`
-        } else if (maxPlayTime && category && !numPlayers) {
-            newQuery = `?maxPlayTime=${maxPlayTime}&category=${category}`
-            newRecsString = `Search Results for ${category} Games less than ${maxPlayTime} Minutes for ${numPlayers} Players`
+        } else if (playTime && category && !numPlayers) {
+            newQuery = `?playTime=${playTime}&category=${category}`
+            newRecsString = `Search Results for ${category} Games less than ${playTime} Minutes for ${numPlayers} Players`
         } else if (numPlayers){
             newQuery = `?numPlayers=${numPlayers}`
             newRecsString = `Search Results for Games for ${numPlayers} Players`
-        } else if (maxPlayTime){
-            newQuery = `?maxPlayTime=${maxPlayTime}`
-            newRecsString = `Search Results for Games less than ${maxPlayTime} Minutes`
+        } else if (playTime){
+            newQuery = `?playTime=${playTime}`
+            newRecsString = `Search Results for Games less than ${playTime} Minutes`
         } else if (category){
             newQuery = `?category=${category}`
             newRecsString = `Search Results for ${category} Games`
