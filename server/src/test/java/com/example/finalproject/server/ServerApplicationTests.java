@@ -76,7 +76,7 @@ class ServerApplicationTests {
 		bobAdams.addGameToOwnedList(wavelength);
 		userRepository.save(bobAdams);
 		int arraySizeAfterInsertion = bobAdams.getOwnedGames().size();
-		bobAdams.removeGameFromOwnedList(wavelength);
+		bobAdams.removeGameFromOwnedList(wavelength.getId());
 		userRepository.save(bobAdams);
 		assertEquals(2, arraySizeAfterInsertion);
 		assertEquals(1,bobAdams.getOwnedGames().size());

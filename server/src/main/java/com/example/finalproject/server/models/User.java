@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="users")
@@ -38,16 +39,12 @@ public class User {
             name = "users_boardgames_owned",
             joinColumns = {
                     @JoinColumn(
-                            name = "user_id",
-                            nullable = false,
-                            updatable = false
+                            name = "user_id"
                     )
             },
             inverseJoinColumns = {
                     @JoinColumn(
-                            name = "game_id",
-                            nullable = false,
-                            updatable = false
+                            name = "game_id"
                     )
             }
     )
@@ -60,16 +57,12 @@ public class User {
             name = "users_boardgames_wish",
             joinColumns = {
                     @JoinColumn(
-                            name = "user_id",
-                            nullable = false,
-                            updatable = false
+                            name = "user_id"
                     )
             },
             inverseJoinColumns = {
                     @JoinColumn(
-                            name = "game_id",
-                            nullable = false,
-                            updatable = false
+                            name = "game_id"
                     )
             }
     )
@@ -155,18 +148,19 @@ public class User {
         this.ownedGames.add(boardGame);
     }
 
-    public void removeGameFromOwnedList(BoardGame boardGame){
-        System.out.println((this.getOwnedGames()));
-        System.out.println(("Now removing game"));
-        this.ownedGames.remove(boardGame);
-        System.out.println((this.getOwnedGames()));
+    public void removeGameFromOwnedList(Long gameId){
+       this.ownedGames =  this.ownedGames.stream()
+                .filter((game) -> gameId != game.getId())
+                .collect(Collectors.toList());
     }
 
     public void addGameToWishList(BoardGame boardGame){
         this.wishList.add(boardGame);
     }
 
-    public void removeGameFromWishList(BoardGame boardGame){
-        this.wishList.remove(boardGame);
+    public void removeGameFromWishList(Long gameId){
+        this.wishList =  this.wishList.stream()
+                .filter((game) -> gameId != game.getId())
+                .collect(Collectors.toList());
     }
 }

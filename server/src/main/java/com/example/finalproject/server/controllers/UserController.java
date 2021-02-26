@@ -2,6 +2,7 @@ package com.example.finalproject.server.controllers;
 
 import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.User;
+import com.example.finalproject.server.repositories.BoardGameRepository;
 import com.example.finalproject.server.repositories.UserRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BoardGameRepository boardGameRepository;
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -51,22 +55,21 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-
-    @PutMapping("/users/{id}/remove-game")
+    // Remove a game (by the game's id) from a user's ownedGames list or wishList...
+    @DeleteMapping("/users/{id}/remove-game/{gameId}")
     public ResponseEntity<User> removeGameFromUserList(
             @RequestParam(name = "targetList", required = false) String targetList,
             @PathVariable Long id,
-            @RequestBody BoardGame game
+            @PathVariable Long gameId
     ) throws ResourceNotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
         targetList.trim();
         if (targetList.equalsIgnoreCase("removeown")){
-            user.removeGameFromOwnedList(game);
-        } else if (targetList.equalsIgnoreCase("wish")){
-            user.removeGameFromWishList(game);
+            user.removeGameFromOwnedList(gameId);
+        } else if (targetList.equalsIgnoreCase("wish")) {
+            user.removeGameFromWishList(gameId);
         }
         userRepository.save(user);
-        System.out.println("Removed game!!!!");
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
