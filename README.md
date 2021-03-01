@@ -1,5 +1,7 @@
 # I'm Board - Board Game Recommendation App
 
+Built using Board Game Atlas API https://www.boardgameatlas.com/api/docs
+
 ![Home View](client/public/screenshots/home_view.png)
 
 
