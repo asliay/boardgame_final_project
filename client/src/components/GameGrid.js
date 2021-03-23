@@ -38,8 +38,9 @@ const GameGrid = ({games, user, setUser}) => {
         <h3>Page {currentPage} of {Math.ceil(games.length / postsPerPage)}</h3>
             <Grid container columns={3} stackable>
                 {gameNodes}
-                <Pagination postsPerPage={postsPerPage} totalPosts={games.length} paginate={paginate} />
+
             </Grid>
+            <Pagination postsPerPage={postsPerPage} totalPosts={games.length} paginate={paginate} />
             </Container>
         </div>
     )
