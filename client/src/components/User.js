@@ -3,7 +3,8 @@ import {useEffect, useState} from 'react';
 import {Container, Divider, Grid, Segment, Form, Dropdown, Button} from "semantic-ui-react";
 
 
-const User = ({user, baseBoardGames}) => {
+const User = ({user, baseBoardGames, setUser}) => {
+
 
     if( !user.ownedGames || !user.wishList){
        return null;
@@ -13,6 +14,7 @@ const User = ({user, baseBoardGames}) => {
     let dropdownOptions = baseBoardGames.map((game => ({key: game.id, value: game.id, text: game.name})))
     // sorting games alphabetically for Dropbown
     const sortedOptions = dropdownOptions.sort((a, b) => (a.text > b.text) ? 1 : -1)
+
 
     return (
 
@@ -42,15 +44,15 @@ const User = ({user, baseBoardGames}) => {
                             <p>Email Address:</p>
                         </Grid.Column>
                         <Grid.Column width={3}>
-                            {user.email}
+                            {user.credential.email}
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
             </Segment>
-            <Segment>
-                <Divider horizontal>Owned Games (These will not be recommended to you)</Divider>
+            <Segment sytle={{height:500}}>
+                <Divider horizontal>Owned Games</Divider>
             <Container>
-            <Form inline>
+            <Form >
                 <Dropdown 
                     placeholder='SEARCH FOR GAMES'
                     fluid
@@ -63,7 +65,8 @@ const User = ({user, baseBoardGames}) => {
             </Form>
             </Container>
                 {<GameGrid games = {user.ownedGames}
-                           user = {user}  />}
+                           user = {user} 
+                           setUser={setUser} />}
             </Segment>
             <Segment>
                 <Divider horizontal>Wish List</Divider>
@@ -79,7 +82,8 @@ const User = ({user, baseBoardGames}) => {
                 <Button>Add to Wishlist</Button>
             </Form>
                 {<GameGrid games ={user.wishList} 
-                           user = {user} />}
+                           user = {user} 
+                           setUser={setUser}/>}
             </Segment>
         </Container>
     )

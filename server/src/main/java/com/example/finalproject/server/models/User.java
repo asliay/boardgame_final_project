@@ -1,5 +1,6 @@
 package com.example.finalproject.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
@@ -29,8 +30,10 @@ public class User {
     @Column(name="d.o.b.")
     private String dob;
 
-    @Column
-    private String email;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"user"})
+    @JoinColumn(name = "credential_id", referencedColumnName = "id")
+    private Credential credential;
 
     @ManyToMany
     @JsonIgnoreProperties({"ownedBy", "wantedBy"})
@@ -68,11 +71,11 @@ public class User {
     )
     private List<BoardGame> wishList;
 
-    public User(String firstName, String lastName, String dob, String email) {
+    public User(String firstName, String lastName, String dob) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
-        this.email = email;
+//        this.credential = new Credential(this);
         this.ownedGames = new ArrayList();
         this.wishList = new ArrayList();
     }
@@ -120,12 +123,12 @@ public class User {
         this.dob = dob;
     }
 
-    public String getEmail() {
-        return email;
+    public Credential getCredential() {
+        return credential;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCredential(Credential credential) {
+        this.credential = credential;
     }
 
     public List<BoardGame> getOwnedGames() {

@@ -4,7 +4,7 @@ import { Grid, Container, Image, Form} from 'semantic-ui-react'
 import Pagination from "./Pagination";
 
 
-const GameGrid = ({games, user}) => {
+const GameGrid = ({games, user, setUser}) => {
 
 
     const [currentPage, setCurrentpage] = useState(1);
@@ -24,7 +24,9 @@ const GameGrid = ({games, user}) => {
             <Grid.Column key={game.id}>
 
                 <GameItem game={game}
-                          currentUser={user}/>
+                          currentUser={user}
+                          setUser={setUser}
+                          />
             </Grid.Column>
         )
     });

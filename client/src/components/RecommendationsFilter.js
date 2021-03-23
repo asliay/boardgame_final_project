@@ -4,12 +4,13 @@ import {Form, Dropdown, Header, Icon, Menu, Container} from "semantic-ui-react"
 const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handleSort}) => {
 
     const filterOptions = [
-        // {
-        //     key : "0", 
-        //     value : '', 
-        //     text : "all", 
-        //     content: "All"
-        // },
+       
+        {
+            key : 0,
+            value : "rankAsc",
+            text : "Rank (Board Game Atlas)",
+            icon : 'trophy'
+        },
         {
             key : 1, 
             value : "minPlayersAsc", 
@@ -36,16 +37,17 @@ const RecommendationsFilter = ({selectedFilter, handleFilter, boardGames, handle
         },
         {
             key : 5, 
-            value : "playTimeAsc", 
+            value : "maxPlayTimeAsc", 
             text: "Maximum Play Time (Low to High)",
             icon: 'clock'
         }, 
         {
             key : 6,
-            value : "playTimeDesc", 
+            value : "maxPlayTimeDesc", 
             text : "Maximum Play Time (High to Low)",
             icon: 'clock'
-        },
+        }
+        
     ]
     
     return (

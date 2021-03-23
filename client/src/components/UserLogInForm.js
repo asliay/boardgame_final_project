@@ -1,12 +1,14 @@
-import {Button, Form, Icon} from "semantic-ui-react";
+import {Button, Form, Icon, Message} from "semantic-ui-react";
 import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
+import {logInUser} from "../helpers/BackEndServices"
 
-const UserLoginForm = () => {
+const UserLoginForm = ({setUser, setLoggedIn}) => {
+
 
     const [userLogin, setUserLogin] = useState({
-        username: "",
-        password: "",
+        userName: "",
+        password: ""
     })
 
     const onChange = (event) => {
@@ -16,8 +18,18 @@ const UserLoginForm = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        // logInUser(userLogin)
+        logInUser(userLogin)
+            .then((data) => {
+                setUser(data)
+                setLoggedIn(true)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+        
     }
+
+   
 
 
     return (
@@ -29,11 +41,13 @@ const UserLoginForm = () => {
                 </Form.Field>
                 <Form.Field>
                         <label forhtml="password">Password: </label>
-                        <input id="password" onChange={onChange} placeholder="Password" required/>
+                        <input id="password" type="password"onChange={onChange} placeholder="Password" required/>
+                        
                 </Form.Field>
                 </Form.Group>
             <Button animated type='submit' onMouseDown={e => e.preventDefault()}>
                 <Button.Content visible>Submit</Button.Content>
+                
                 <Button.Content hidden>
                     <Icon name='check' />
                 </Button.Content>

@@ -53,7 +53,7 @@ public class Client {
         // The query fetch from BGA.
         String responseString =  restTemplate.getForObject(baseSearchURL +
                      "limit="+numberOfGames+"&order_by=popularity&fields=name," +
-                     "year_published,min_players,max_players,max_playtime," +
+                     "year_published,min_players,max_players,min_playtime,max_playtime," +
                      "thumb_url,image_url,rank,description,categories&client_id=" +
                       secrets.getClient_id(), String.class);
 
@@ -64,9 +64,9 @@ public class Client {
             for (JsonNode j : games) {
                 BoardGame bg = new BoardGame(j.get("name").asText(), j.get("year_published").asInt(),
                         j.get("min_players").asInt(), j.get("max_players").asInt(),
-                        j.get("max_playtime").asInt(), j.get("thumb_url").asText(),
-                        j.get("image_url").asText(), j.get("rank").asInt(),
-                        j.get("description").asText());
+                        j.get("min_playtime").asInt(), j.get("max_playtime").asInt(),
+                        j.get("thumb_url").asText(), j.get("image_url").asText(),
+                        j.get("rank").asInt(), j.get("description").asText());
 
                 // We then populate a list with the BGA category ids.
                 List<JsonNode> catNodes = j.get("categories").findValues("id");

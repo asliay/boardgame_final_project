@@ -7,14 +7,12 @@ const bgamesURL = 'http://localhost:8080/board-games/'
 
 // GET - All boardgames.
 export const getBaseBoardGames = () => {
-    console.log("getting data from backend");
     return fetch(bgamesURL)
         .then(res => res.json())
 }
 
 // GET - Boardgames given a query string.
 export const getQueryBoardGames = (query) => {
-    console.log("getting data from backend");
     return fetch(`${bgamesURL}${query}`)
         .then(res => res.json())
 }
@@ -25,9 +23,21 @@ export const getQueryBoardGames = (query) => {
 
 // GET - User by ID.
 
-export const getUser = () => {
-    return fetch(`${usersUrl}1`)
+export const getUser = (id) => {
+    return fetch(`${usersUrl}${id}`)
         .then(res => res.json())
+}
+
+// GET User by LogIn
+
+export const logInUser = (payload) => {
+    return fetch('http://localhost:8080/login', {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    
 }
 
 // POST - User
@@ -54,3 +64,20 @@ export const postAddGameToUserList = (payload, id, targetList) => {
     .then(res => res.json())
     
 }
+
+// Put - Remove boardgame from users
+
+export const deleteGameFromUserList = (payload, id, targetList) => {
+
+    const removeGameFromUserURL = usersUrl+id+"/remove-game?targetList="+targetList;
+    return fetch(removeGameFromUserURL, {
+        method: 'PUT',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json'}
+    })
+    .then(res => res.json())
+    
+}
+
+
+

@@ -23,8 +23,11 @@ public class BoardGame {
     @Column(name = "max_players")
     private int maxPlayers;
 
-    @Column(name = "play_time")
-    private int playTime;
+    @Column(name = "min_play_time")
+    private int minPlayTime;
+
+    @Column(name = "max_play_time")
+    private int maxPlayTime;
 
     @Column
     private String thumbnailURL;
@@ -100,13 +103,15 @@ public class BoardGame {
     )
     private List<User> wantedBy;
 
-    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int playTime,
-                     String thumbnailURL, String boxImageURL, int rank, String description) {
+    public BoardGame(String name, int releaseYear, int minPlayers, int maxPlayers, int minPlayTime,
+                     int maxPlayTime, String thumbnailURL, String boxImageURL, int rank,
+                     String description) {
         this.name           =  name;
         this.releaseYear    =  releaseYear;
         this.minPlayers     =  minPlayers;
         this.maxPlayers     =  maxPlayers;
-        this.playTime       =  playTime;
+        this.minPlayTime    =  minPlayTime;
+        this.maxPlayTime    =  maxPlayTime;
         this.thumbnailURL   =  thumbnailURL;
         this.boxImageURL    =  boxImageURL;
         this.rank           =  rank;
@@ -151,12 +156,20 @@ public class BoardGame {
         this.maxPlayers = maxPlayers;
     }
 
-    public int getPlayTime() {
-        return playTime;
+    public int getMinPlayTime() {
+        return minPlayTime;
     }
 
-    public void setPlayTime(int playTime) {
-        this.playTime = playTime;
+    public void setMinPlayTime(int minPlayTime) {
+        this.minPlayTime = minPlayTime;
+    }
+
+    public int getMaxPlayTime() {
+        return maxPlayTime;
+    }
+
+    public void setMaxPlayTime(int maxPlayTime) {
+        this.maxPlayTime = maxPlayTime;
     }
 
     public List<Category> getGameCategory() {

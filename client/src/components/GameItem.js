@@ -1,48 +1,84 @@
 import {Link} from "react-router-dom";
+import {useState} from 'react';
 import {Segment, Divider, Container, Button, Icon, Form} from "semantic-ui-react";
-import {postAddGameToUserList} from "../helpers/BackEndServices";
+import {postAddGameToUserList, getUser, deleteGameFromUserList} from "../helpers/BackEndServices";
 
-const GameItem = ({game, currentUser}) => {
+const GameItem = ({game, currentUser, setUser}) => {
 
-    if (!game || !game.gameCategory || !currentUser) return null;
+
+    const [flag, setFlag] = useState(false)
+
+    if (!game || !game.gameCategory) return null;
 
     const gameCategories = game.gameCategory.map((category =>(category.name))).join(", ")
-        let usersList = "";
-        const setUsersList = (event) => {
-            usersList = event.target.id
-    }
 
-    const onSubmit = (event) => {
-        const user_id = 1;
-        const targetList = usersList;
-        event.preventDefault();
-        postAddGameToUserList(game, user_id, targetList)
-    }
 
     let buttons;
 
-    if(currentUser.ownedGames.includes(game)){
+    const onClickAddOwned = (event) => {
+        const userId = currentUser.id;
+        const targetList = event.target.id;
+        event.preventDefault();
+        postAddGameToUserList(game, userId, targetList)
+        const updatedUser = currentUser
+        updatedUser.ownedGames.push(game);
+        setUser(updatedUser);
+        setFlag(!flag);
+        // if in wish list, remove from wish list
+
+    }
+
+    const onClickAddWish = (event) => {
+        const userId = currentUser.id;
+        const targetList = event.target.id;
+        event.preventDefault();
+        postAddGameToUserList(game, userId, targetList)
+        const updatedUser = currentUser
+        updatedUser.wishList.push(game);
+        setUser(updatedUser);
+        setFlag(!flag);
+    }
+
+    const onClickRemoveOwned = (event) => {
+        const userId = currentUser.id;
+        const targetList = event.target.id;
+        event.preventDefault();
+        postAddGameToUserList(game, userId, targetList)
+        const updatedUser = currentUser
+        const pos = updatedUser.ownedGames.indexOf(game)
+        updatedUser.ownedGames.splice(pos, 1);
+        setUser(updatedUser);
+        setFlag(!flag);
+    }
+
+
+
+    if(currentUser === null) {
+        buttons = <div></div>
+    } else if(currentUser.ownedGames && currentUser.ownedGames.some((ownedGame) => ownedGame.name === game.name)) {
         buttons =
-            <Button size="medium" id="own" icon labelPosition='left' disabled >
-            <Icon name='check' />I Own This</Button>
-    } else if (currentUser.wishList.includes(game)){
+            <Button size="medium" id="removeOwn" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickRemoveOwned}>
+            <Icon name='minus' />Remove From Owned</Button>
+    } else if (currentUser.wishList && currentUser.wishList.some((wishList) => wishList.name === game.name)){
         buttons =
-            <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
-            <Icon name='check' />I Own This</Button>
-    } else {
+            <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickAddOwned}>
+            <Icon name='check' />Own This?</Button>
+    } else if (currentUser) {
         buttons =
         <div>
-            <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
-                <Icon name='check' />I Own This
+            <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickAddOwned}>
+                <Icon name='check' />Own This?
             </Button>
-            <Button size="medium" id="wish" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={setUsersList}>
-                <Icon name='heart' />I Want This</Button>
+            <Button size="medium" id="wish" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickAddWish}>
+                <Icon name='heart' />Want This?</Button>
         </div> 
+    } else {
+        buttons = <div></div>
     }
 
     return (
         <div>
-            <Segment>
+            <Segment raised>
                 <h3>
                 <Link to={{
                     pathname : "/single-game",
@@ -59,14 +95,14 @@ const GameItem = ({game, currentUser}) => {
                     </div>
                     </Link>
                 <Divider></Divider>
-                <Container textAlign="left">
-                    <p>Players: {game.minPlayers} - {game.maxPlayers} </p>
-                    <p>Play Time: {game.playTime} mins</p>
-                    <p>Categories: {gameCategories} </p>
+                <Container textAlign="left">  
+                        <p>Players: {game.minPlayers} - {game.maxPlayers} </p>
+                        <p>Play Time: {game.minPlayTime} - {game.maxPlayTime} mins</p>
+                        <p>Categories: {gameCategories} </p>
                     <Container  textAlign="center">
-                    <Form onSubmit={onSubmit} id="add-game-to-user-form">
+                    
                         {buttons}
-                    </Form>
+                
                     </Container>
                 </Container>
             </Segment>

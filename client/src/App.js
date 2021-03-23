@@ -28,8 +28,10 @@ function App() {
   const [sortedGames, setSortedGames] = useState([])
 
   // User States 
-  const [loggedIn, setloggedIn] = useState(false);
-  const [user, setUser] = useState({})
+
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
 
 
   // State Handlers
@@ -53,7 +55,7 @@ function App() {
   // Use Effects. 
 
   useEffect(() => {
-    getUser().then(data => setUser(data));
+    // getUser(1).then(data => setUser(data));
     getBaseBoardGames().then(data => setBaseBoardGames(data)) 
   }, []);
 
@@ -76,7 +78,10 @@ function App() {
     <>
     <Router >
       <Container textAlign='center'>
-      <HeaderContainer loggedIn={loggedIn}/>
+      <HeaderContainer loggedIn={loggedIn} 
+                       user={user}
+                       setUser={setUser}
+                       setLoggedIn={setLoggedIn}/>
       <br/>
           <Switch>
             <Route exact path="/"
@@ -90,8 +95,10 @@ function App() {
                               handleRecsStringChange={handleRecsStringChange}
                               handleFilter={handleFilter}
                               setSelectedFilter={setSelectedFilter}
+                              setUser={setUser}
                               boardGames={boardGames}
                               user={user}
+                              
                                />}
                             />
             <Route path="/single-game" 
@@ -100,9 +107,13 @@ function App() {
                    render={()=> <UserContainer
                                 user={user}
                                 baseBoardGames={baseBoardGames} 
+                                setUser={setUser}
+
                                 />} />
             <Route path="/login"
-                  render ={()=><UserLoginForm />} />
+                  render ={()=><UserLoginForm 
+                                setUser={setUser}
+                                setLoggedIn={setLoggedIn}/>} />
             <Route path="/newuser"
                   render={()=> <NewUserForm />} />
           </Switch>
