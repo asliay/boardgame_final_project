@@ -3,7 +3,11 @@ package com.example.finalproject.server.controllers;
 import com.example.finalproject.server.models.BoardGame;
 import com.example.finalproject.server.models.Credential;
 import com.example.finalproject.server.models.User;
+
 import com.example.finalproject.server.repositories.CredentialRepository;
+
+import com.example.finalproject.server.repositories.BoardGameRepository;
+
 import com.example.finalproject.server.repositories.UserRepository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -27,6 +31,9 @@ public class UserController {
 
     @Autowired
     CredentialRepository credentialRepository;
+  
+    @Autowired
+    BoardGameRepository boardGameRepository;
 
     // Inin of object mapper to turn json string to JsonNode structure.
     private static ObjectMapper objectMapper = getDefaultObjectMapper();
@@ -43,6 +50,7 @@ public class UserController {
     private static JsonNode parse(String src) throws IOException {
         return objectMapper.readTree(src);
     }
+    
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -113,20 +121,39 @@ public class UserController {
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
-    @PutMapping("/users/{id}/remove-game")
+// Old delete code (fixed below)
+//     @PutMapping("/users/{id}/remove-game")
+//     public ResponseEntity<User> removeGameFromUserList(
+//             @RequestParam(name = "targetList", required = false) String targetList,
+//             @PathVariable Long id,
+//             @RequestBody BoardGame game
+//     ) throws ResourceNotFoundException {
+//         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
+//         targetList.trim();
+//         if (targetList.equalsIgnoreCase("removeOwn")){
+//             user.removeGameFromOwnedList(game);
+//         } else if (targetList.equalsIgnoreCase("wish")){
+//             user.removeGameFromWishList(game);
+//         }
+//         final User updatedUser = userRepository.save(user);
+//         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+
+    // Remove a game (by the game's id) from a user's ownedGames list or wishList...
+    @DeleteMapping("/users/{id}/remove-game/{gameId}")
     public ResponseEntity<User> removeGameFromUserList(
             @RequestParam(name = "targetList", required = false) String targetList,
             @PathVariable Long id,
-            @RequestBody BoardGame game
+            @PathVariable Long gameId
     ) throws ResourceNotFoundException {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + id));
         targetList.trim();
-        if (targetList.equalsIgnoreCase("removeOwn")){
-            user.removeGameFromOwnedList(game);
-        } else if (targetList.equalsIgnoreCase("wish")){
-            user.removeGameFromWishList(game);
+        if (targetList.equalsIgnoreCase("removeown")){
+            user.removeGameFromOwnedList(gameId);
+        } else if (targetList.equalsIgnoreCase("wish")) {
+            user.removeGameFromWishList(gameId);
         }
-        final User updatedUser = userRepository.save(user);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+        userRepository.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+
     }
 }

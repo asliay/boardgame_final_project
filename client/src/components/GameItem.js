@@ -5,6 +5,7 @@ import {postAddGameToUserList, getUser, deleteGameFromUserList} from "../helpers
 
 const GameItem = ({game, currentUser, setUser}) => {
 
+
     const [flag, setFlag] = useState(false)
 
     if (!game || !game.gameCategory) return null;
@@ -17,13 +18,16 @@ const GameItem = ({game, currentUser, setUser}) => {
     const onClickAddOwned = (event) => {
         const userId = currentUser.id;
         const targetList = event.target.id;
+        const gameId = game.id;
         event.preventDefault();
-        postAddGameToUserList(game, userId, targetList)
+        postAddGameToUserList(game, userId, "addOwn")
+        deleteGameFromUserList(game, userId, gameId, "removeWish")
         const updatedUser = currentUser
         updatedUser.ownedGames.push(game);
         setUser(updatedUser);
         setFlag(!flag);
         // if in wish list, remove from wish list
+
     }
 
     const onClickAddWish = (event) => {
@@ -39,9 +43,10 @@ const GameItem = ({game, currentUser, setUser}) => {
 
     const onClickRemoveOwned = (event) => {
         const userId = currentUser.id;
+        const gameId = game.id;
         const targetList = event.target.id;
         event.preventDefault();
-        postAddGameToUserList(game, userId, targetList)
+        deleteGameFromUserList(game, userId, gameId, "removeOwn")
         const updatedUser = currentUser
         const pos = updatedUser.ownedGames.indexOf(game)
         updatedUser.ownedGames.splice(pos, 1);
@@ -59,15 +64,15 @@ const GameItem = ({game, currentUser, setUser}) => {
             <Icon name='minus' />Remove From Owned</Button>
     } else if (currentUser.wishList && currentUser.wishList.some((wishList) => wishList.name === game.name)){
         buttons =
-            <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickAddOwned}>
+            <Button size="medium" id="addOwn" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickAddOwned}>
             <Icon name='check' />Own This?</Button>
     } else if (currentUser) {
         buttons =
         <div>
-            <Button size="medium" id="own" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickAddOwned}>
+            <Button size="medium" id="addOwn" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickAddOwned}>
                 <Icon name='check' />Own This?
             </Button>
-            <Button size="medium" id="wish" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickAddWish}>
+            <Button size="medium" id="addWish" icon labelPosition='left' type='submit' onMouseDown={e => e.preventDefault()} onClick={onClickAddWish}>
                 <Icon name='heart' />Want This?</Button>
         </div> 
     } else {
@@ -89,7 +94,7 @@ const GameItem = ({game, currentUser, setUser}) => {
                     game    : game
                     }}>
                     <div id="box-image-container-small">
-                        <img src={game.boxImageURL} height="100%" width="auto" alt="board game box" />
+                        <img src={game.boxImageURL} alt="board game box" />
                     </div>
                     </Link>
                 <Divider></Divider>

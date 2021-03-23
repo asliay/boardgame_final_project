@@ -47,8 +47,8 @@ export const postNewUser = (payload) => {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json'}
-    })
-    .then(res => res.json())
+    }, console.log(payload))
+    .then(res => res.json()) 
 }
 
 // POST - Add boardgame to users 
@@ -67,11 +67,11 @@ export const postAddGameToUserList = (payload, id, targetList) => {
 
 // Put - Remove boardgame from users
 
-export const deleteGameFromUserList = (payload, id, targetList) => {
+export const deleteGameFromUserList = (payload, id, gameId, targetList) => {
 
-    const removeGameFromUserURL = usersUrl+id+"/remove-game?targetList="+targetList;
+    const removeGameFromUserURL = usersUrl+id+"/remove-game/"+gameId+"?targetList="+targetList;
     return fetch(removeGameFromUserURL, {
-        method: 'PUT',
+        method: 'DELETE',
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json'}
     })
