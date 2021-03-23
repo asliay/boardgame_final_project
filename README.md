@@ -1,15 +1,9 @@
-# I'm Board - Board Game Recommendation App
 
-Built using Board Game Atlas API https://www.boardgameatlas.com/api/docs
-
-![Home View](client/public/screenshots/home_view.png)
-
-
-## Project Brief
+# Board Games Recommendation App
 
 App that takes user info and recommends board games to play/purchase.
 
-### MVP 
+## MVP 
 
 User can select:
 
@@ -18,7 +12,7 @@ User can select:
 * Categories they enjoy
 * App returns  selection of board game suggestions to play that fit request  
 
-### Extensions
+## Extensions
 
 * User can log in (user authentication)
   * User can mark games they already own and app won't suggest those

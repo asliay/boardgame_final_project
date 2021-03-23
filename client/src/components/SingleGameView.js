@@ -19,7 +19,7 @@ const SingleGameView = (props) => {
                 <Grid.Column textAlign="left">
                         {/* <h2> {props.location.game.name} ({props.location.game.releaseYear})</h2> */}
                         <p>For {props.location.game.minPlayers}-{props.location.game.maxPlayers} Players</p>
-                        <p>Play Time: {props.location.game.minPlayTime} - {props.location.game.maxPlayTime} minutes</p>
+                        <p>Play Time: {props.location.game.playTime} minutes</p>
                         <p>Categories: {gameCategories}</p>
                         <div>
                         {parse(props.location.game.description)}
