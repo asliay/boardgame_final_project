@@ -85,7 +85,7 @@ class ServerApplicationTests {
 
 	@Test
 	void canRemoveGameFromUser(){
-		User bobAdams = new User( "Bob", "Adams", "1985-10-20", "bob.adams@gmail.com");
+		User bobAdams = new User( "Bob", "Adams", "1985-10-20");
 		userRepository.save(bobAdams);
 		BoardGame catan = new BoardGame("Settlers of Catan 3", 1995, 3, 4, 120,
 				"https://cf.geekdo-images.com/W3Bsga_uLP9kO91gZ7H8yw__thumb/img/8a9HeqFydO7Uun_le9bXWPnidcA=/fit-in/200x150/filters:strip_icc()/pic2419375.jpg",
