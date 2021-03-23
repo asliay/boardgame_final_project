@@ -5,6 +5,7 @@ import {postAddGameToUserList, getUser, deleteGameFromUserList} from "../helpers
 
 const GameItem = ({game, currentUser, setUser}) => {
 
+
     const [flag, setFlag] = useState(false)
 
     if (!game || !game.gameCategory) return null;
@@ -24,6 +25,7 @@ const GameItem = ({game, currentUser, setUser}) => {
         setUser(updatedUser);
         setFlag(!flag);
         // if in wish list, remove from wish list
+
     }
 
     const onClickAddWish = (event) => {
@@ -89,7 +91,7 @@ const GameItem = ({game, currentUser, setUser}) => {
                     game    : game
                     }}>
                     <div id="box-image-container-small">
-                        <img src={game.boxImageURL} height="100%" width="auto" alt="board game box" />
+                        <img src={game.boxImageURL} alt="board game box" />
                     </div>
                     </Link>
                 <Divider></Divider>

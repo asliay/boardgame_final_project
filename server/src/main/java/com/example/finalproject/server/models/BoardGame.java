@@ -74,16 +74,12 @@ public class BoardGame {
             name = "users_boardgames_owned",
             joinColumns = {
                     @JoinColumn(
-                            name = "game_id",
-                            nullable = false,
-                            updatable = false
+                            name = "game_id"
                     )
             },
             inverseJoinColumns = {
                     @JoinColumn(
-                            name = "user_id",
-                            nullable = false,
-                            updatable = false
+                            name = "user_id"
                     )
             }
     )
@@ -96,16 +92,12 @@ public class BoardGame {
             name = "users_boardgames_wish",
             joinColumns = {
                     @JoinColumn(
-                            name = "game_id",
-                            nullable = false,
-                            updatable = false
+                            name = "game_id"
                     )
             },
             inverseJoinColumns = {
                     @JoinColumn(
-                            name = "user_id",
-                            nullable = false,
-                            updatable = false
+                            name = "user_id"
                     )
             }
     )

@@ -15,7 +15,7 @@ const User = ({user, baseBoardGames, setUser}) => {
     // sorting games alphabetically for Dropbown
     const sortedOptions = dropdownOptions.sort((a, b) => (a.text > b.text) ? 1 : -1)
 
-  
+
     return (
 
         <Container textAlign='left'>

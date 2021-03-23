@@ -47,8 +47,8 @@ export const postNewUser = (payload) => {
         method: 'POST',
         body: JSON.stringify(payload),
         headers: { 'Content-Type': 'application/json'}
-    })
-    .then(res => res.json())
+    }, console.log(payload))
+    .then(res => res.json()) 
 }
 
 // POST - Add boardgame to users 
