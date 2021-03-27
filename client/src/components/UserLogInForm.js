@@ -1,10 +1,13 @@
-import {Button, Form, Icon, Message} from "semantic-ui-react";
-import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
-import {logInUser} from "../helpers/BackEndServices"
+import { Button, Form, Icon } from "semantic-ui-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { logInUser } from "../helpers/BackEndServices";
+import { useDispatch } from 'react-redux';
 
-const UserLoginForm = ({setUser, setLoggedIn}) => {
+const UserLoginForm = ({ setUser }) => {
 
+    // redux dispatch
+    const dispatch = useDispatch();
 
     const [userLogin, setUserLogin] = useState({
         userName: "",
@@ -21,16 +24,13 @@ const UserLoginForm = ({setUser, setLoggedIn}) => {
         logInUser(userLogin)
             .then((data) => {
                 setUser(data)
-                setLoggedIn(true)
+                dispatch({type: 'LOGIN'})
             })
             .catch((error) => {
                 console.log(error)
             })
         
     }
-
-   
-
 
     return (
         <Form onSubmit={onSubmit} id="user-login-form">

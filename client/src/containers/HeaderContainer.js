@@ -1,17 +1,22 @@
-import {Header,Segment, Menu, Icon} from 'semantic-ui-react';
-import {Link, Redirect} from "react-router-dom";
+import { Menu, Icon } from 'semantic-ui-react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 import logo from "../logo.PNG";
 
 
-const HeaderContainer = ({loggedIn, user, setUser, setLoggedIn}) => {
+const HeaderContainer = ({ user, setUser }) => {
+  
+  // redux selector and dispatch.
+  const loginStatus = useSelector(( state ) => state.loggedIn);
+  const dispatch    = useDispatch();
 
   const logOut = () => {
-      setLoggedIn(false)
+      dispatch({type: 'LOGOUT'})
       setUser(null)
   }
   
   let link;
-    if(!loggedIn){
+    if(!loginStatus){
       link = 
       <>
         <Link to="/login">

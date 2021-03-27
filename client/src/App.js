@@ -27,9 +27,7 @@ function App() {
   const [boardGames, setBoardGames] = useState([])
   const [sortedGames, setSortedGames] = useState([])
 
-  // User States 
-
-  const [loggedIn, setLoggedIn] = useState(false);
+  // User States (**loggedIn now in redux store**)
   const [user, setUser] = useState(null);
 
 
@@ -78,10 +76,9 @@ function App() {
     <>
     <Router >
       <Container textAlign='center'>
-      <HeaderContainer loggedIn={loggedIn} 
-                       user={user}
+      <HeaderContainer user={user}
                        setUser={setUser}
-                       setLoggedIn={setLoggedIn}/>
+                       />
       <br/>
           <Switch>
             <Route exact path="/"
@@ -112,8 +109,7 @@ function App() {
                                 />} />
             <Route path="/login"
                   render ={()=><UserLoginForm 
-                                setUser={setUser}
-                                setLoggedIn={setLoggedIn}/>} />
+                                setUser={setUser}/>} />
             <Route path="/newuser"
                   render={()=> <NewUserForm />} />
           </Switch>
